@@ -5,7 +5,7 @@ OSX flat packages
 OSX flat packages are single installer files with ``.pkg`` file extensions.
 
 They appear to have originated with OSX 10.5.  You can't install these files
-on OSX > 10.5.
+on OSX < 10.5.
 
 The previous packaging formats were *bundles* rather than single files:
 
