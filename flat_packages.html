@@ -54,7 +54,7 @@
 <h1>OSX flat packages<a class="headerlink" href="#osx-flat-packages" title="Permalink to this headline">¶</a></h1>
 <p>OSX flat packages are single installer files with <tt class="docutils literal"><span class="pre">.pkg</span></tt> file extensions.</p>
 <p>They appear to have originated with OSX 10.5.  You can&#8217;t install these files
-on OSX &gt; 10.5.</p>
+on OSX &lt; 10.5.</p>
 <p>The previous packaging formats were <em>bundles</em> rather than single files:</p>
 <dl class="docutils">
 <dt>bundle</dt>
@@ -219,16 +219,16 @@ installer: The install was successful.
 </div>
 <p>Here are the new environment variables inserted by the installer:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff /tmp/my_sudo_envs.log /tmp/my_preinstall_envs.log --old-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span> --unchanged-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span>
-<span class="nv">INSTALLER_TEMP</span><span class="o">=</span>/private/tmp/PKInstallSandbox.MAO7qs/tmp
+<span class="nv">INSTALLER_TEMP</span><span class="o">=</span>/private/tmp/PKInstallSandbox.edprRl/tmp
 <span class="nv">DSTVOLUME</span><span class="o">=</span>/
-<span class="nv">TMPDIR</span><span class="o">=</span>/private/tmp/PKInstallSandbox.MAO7qs/tmp
+<span class="nv">TMPDIR</span><span class="o">=</span>/private/tmp/PKInstallSandbox.edprRl/tmp
 <span class="nv">DSTROOT</span><span class="o">=</span>/
 <span class="nv">USER</span><span class="o">=</span>root
 <span class="nv">SCRIPT_NAME</span><span class="o">=</span>preinstall
 <span class="nv">SHARED_INSTALLER_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager-shared-tmp
-<span class="nv">INSTALLER_SECURE_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager/5803D31B-402D-4BD9-9226-81E2E6D231B9.activeSandbox/ADFE0F04-E663-4A70-AB83-7F966CDD2632
+<span class="nv">INSTALLER_SECURE_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager/298F0272-EBDD-4BE0-91E5-86DBD6061BF5.activeSandbox/441106B6-B665-4E82-B4EA-34AB140B29F6
 <span class="nv">PATH</span><span class="o">=</span>/bin:/sbin:/usr/bin:/usr/sbin:/usr/libexec
-<span class="nv">PWD</span><span class="o">=</span>/private/tmp/PKInstallSandbox.MAO7qs/Scripts/my.fake.pkg.VJmrQJ
+<span class="nv">PWD</span><span class="o">=</span>/private/tmp/PKInstallSandbox.edprRl/Scripts/my.fake.pkg.3phY1N
 <span class="nv">INSTALL_PKG_SESSION_ID</span><span class="o">=</span>my.fake.pkg
 <span class="nv">PACKAGE_PATH</span><span class="o">=</span>/Users/mb312/dev_trees/docosx/pkg_examples/my_package.pkg
 <span class="nv">SHLVL</span><span class="o">=</span>1
@@ -595,37 +595,37 @@ productbuild: Wrote product to my_archive.pkg
 installer: Package name is 
 installer: Upgrading at base path /
 installer: The upgrade was successful.
-Sep 24 12:21:01 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Debug&gt;: JS: my: choice,target,search,product,result
-Sep 24 12:21:01 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Debug&gt;: JS: system: supportedSpecVersion,bundles,openCL,defaults,search,ioregistry,env,files,hasWindowServer,users,applications,version,localizedStandardStringWithFormat,gestalt,localizedStringWithFormat,run,sysctl,propertiesOf,log,numericalCompare,runOnce,compareVersions,localizedString,localizedStandardString
-Sep 24 12:21:01 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Debug&gt;: JS: system.applications: fromIdentifier,all,fromPID
-Sep 24 12:21:02 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Debug&gt;: Product archive /Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg <span class="nv">trustLevel</span><span class="o">=</span>100
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: <span class="nv">location</span> <span class="o">=</span> file://localhost
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram.pkg
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram2.pkg
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Debug&gt;: Set authorization level to root <span class="k">for </span>session
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Debug&gt;: Will use PK session
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Info&gt;: Starting installation:
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: Configuring volume <span class="s2">&quot;Macintosh HD&quot;</span>
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Info&gt;: Preparing disk <span class="k">for </span><span class="nb">local </span>booted install.
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: Free space on <span class="s2">&quot;Macintosh HD&quot;</span>: 7.76 GB <span class="o">(</span>7755030528 bytes<span class="o">)</span>.
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: Create temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.77212dmEiON&quot;</span>
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: IFPKInstallElement <span class="o">(</span>2 packages<span class="o">)</span>
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Debug&gt;: Using authorization level of root <span class="k">for </span>IFPKInstallElement
-Sep 24 12:21:03 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: PackageKit: Enqueuing install with boosting
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: Running install actions
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: Removing temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.77212dmEiON&quot;</span>
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: Finalize disk <span class="s2">&quot;Macintosh HD&quot;</span>
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: Notifying system of updated components
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: 
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: **** Summary Information ****
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;:   Operation      Elapsed <span class="nb">time</span>
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: -----------------------------
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;:        disk      0.05 seconds
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;:      script      0.00 seconds
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;:        zero      0.01 seconds
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;:     install      1.03 seconds
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;:     -total-      1.10 seconds
-Sep 24 12:21:04 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77212<span class="o">]</span> &lt;Notice&gt;: 
+Sep 24 12:42:26 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: JS: my: choice,target,search,product,result
+Sep 24 12:42:26 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: JS: system: supportedSpecVersion,bundles,openCL,defaults,search,ioregistry,env,files,hasWindowServer,users,applications,version,localizedStandardStringWithFormat,gestalt,localizedStringWithFormat,run,sysctl,propertiesOf,log,numericalCompare,runOnce,compareVersions,localizedString,localizedStandardString
+Sep 24 12:42:26 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: JS: system.applications: fromIdentifier,all,fromPID
+Sep 24 12:42:27 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: Product archive /Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg <span class="nv">trustLevel</span><span class="o">=</span>100
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: <span class="nv">location</span> <span class="o">=</span> file://localhost
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram.pkg
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram2.pkg
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: Set authorization level to root <span class="k">for </span>session
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: Will use PK session
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Info&gt;: Starting installation:
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Configuring volume <span class="s2">&quot;Macintosh HD&quot;</span>
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Info&gt;: Preparing disk <span class="k">for </span><span class="nb">local </span>booted install.
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Free space on <span class="s2">&quot;Macintosh HD&quot;</span>: 7.75 GB <span class="o">(</span>7750266880 bytes<span class="o">)</span>.
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Create temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.77709WT8fnT&quot;</span>
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: IFPKInstallElement <span class="o">(</span>2 packages<span class="o">)</span>
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: Using authorization level of root <span class="k">for </span>IFPKInstallElement
+Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: PackageKit: Enqueuing install with boosting
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Running install actions
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Removing temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.77709WT8fnT&quot;</span>
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Finalize disk <span class="s2">&quot;Macintosh HD&quot;</span>
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Notifying system of updated components
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: 
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: **** Summary Information ****
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:   Operation      Elapsed <span class="nb">time</span>
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: -----------------------------
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:        disk      0.04 seconds
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:      script      0.00 seconds
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:        zero      0.01 seconds
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:     install      1.03 seconds
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:     -total-      1.08 seconds
+Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: 
 </pre></div>
 </div>
 </div>
@@ -777,7 +777,7 @@ available as root, so look for the difference:</p>
 <span class="nv">__CF_USER_TEXT_ENCODING</span><span class="o">=</span>0x0:0:0
 <span class="nv">USERNAME</span><span class="o">=</span>root
 <span class="nv">MAIL</span><span class="o">=</span>/var/mail/root
-<span class="nv">PWD</span><span class="o">=</span>/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/com.apple.install.zl4FyfGz
+<span class="nv">PWD</span><span class="o">=</span>/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/com.apple.install.OGPHN7j5
 <span class="nv">SHLVL</span><span class="o">=</span>1
 <span class="nv">SUDO_COMMAND</span><span class="o">=</span>/usr/sbin/installer -pkg my_archive.pkg -target /
 <span class="nv">COMMAND_LINE_INSTALL</span><span class="o">=</span>1
