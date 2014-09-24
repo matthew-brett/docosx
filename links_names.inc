@@ -51,7 +51,7 @@
     https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Install_Operations/Install_Operations.html
 .. _installer javascript reference:
     https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/InstallerJavaScriptRef.pdf
-.. _stackoverflow package building question:
+.. _stackoverflow package building answer:
     http://stackoverflow.com/questions/11487596/making-os-x-installer-packages-like-a-pro-xcode4-developer-id-mountain-lion-re/11487658#11487658
 
 
