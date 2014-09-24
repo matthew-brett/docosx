@@ -61,7 +61,7 @@ Flat packages can be of type:
   included as part of a *product archive* but can be used as an installer in
   its own right.  A component package installer cannot control the behavior of
   the installer, but can abort the install or raise a post-install error
-  message via ``preinstall`` and ``postinstall`` scripts.
+  via ``preinstall`` and ``postinstall`` scripts.
 
 *******************
 Component installer
