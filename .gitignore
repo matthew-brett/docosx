@@ -1,0 +1,5 @@
+*.swp
+*~
+*.pyc
+_build/
+pkg_examples/
