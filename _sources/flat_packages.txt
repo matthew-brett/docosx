@@ -61,7 +61,7 @@ Flat packages can be of type:
   included as part of a *product archive* but can be used as an installer in
   its own right.  A component package installer cannot control the behavior of
   the installer, but can abort the install or raise a post-install error
-  message via ``preinstall`` and ``postinstall`` scripts.
+  via ``preinstall`` and ``postinstall`` scripts.
 
 *******************
 Component installer
@@ -265,10 +265,10 @@ This install did write a package receipt:
 
 .. _explicit-component:
 
-Explicit component
-------------------
+Explicit component(s)
+---------------------
 
-We point to a bundle to install and specify the install location.
+We point to a bundle to install and (usually) specify the install location.
 
 In this case the bundle must be a properly formed bundle of some sort.
 
@@ -281,13 +281,45 @@ I'll make a debug symbols bundle by doing a tiny compilation with clang:
     tree aprogram.dSYM
 
 .. pkgrun::
+    :hide:
+
+    sudo rm -rf /tmp/aprogram.dSYM /tmp/aprogram2.dSYM
+
+Build, install the package:
+
+.. pkgrun::
 
     pkgbuild --component aprogram.dSYM --install-location /tmp my_package.pkg
 
 .. pkgrun::
-    :hide:
 
-    sudo rm -rf /tmp/aprogram.dSYM
+    sudo installer -pkg my_package.pkg -target /
+
+The installer has written the expected output files:
+
+.. pkgrun::
+
+    tree /tmp/aprogram.dSYM
+
+You can add more than one bundle to a single component installer.
+
+Here I make another bundle with a different name:
+
+.. pkgrun::
+
+    echo "int main(int argc, char** argv) { }" > aprogram2.c
+    clang -g aprogram2.c -o aprogram2
+    tree aprogram2.dSYM
+
+When you add more than one component, you need to give a package identifier,
+because ``pkgbuild`` will not know which component to get an identifier from.
+
+.. pkgrun::
+
+    pkgbuild --component aprogram.dSYM --install-location /tmp \
+        --component aprogram2.dSYM --install-location /tmp \
+        --identifier my.fake.pkg \
+        my_package.pkg
 
 .. pkgrun::
 
@@ -296,12 +328,13 @@ I'll make a debug symbols bundle by doing a tiny compilation with clang:
 .. pkgrun::
 
     tree /tmp/aprogram.dSYM
+    tree /tmp/aprogram2.dSYM
 
 ***************
 Product archive
 ***************
 
-Component packages give very basic default install.
+Component packages give a very basic default install.
 
 Product archives allow you to wrap one or more component installs with an
 install configuration that includes:
@@ -345,13 +378,6 @@ Build a product archive from one or more components by passing:
 * bundle path(s) with one or more uses of the ``--component`` flag (see
   :ref:`explicit-component`) and / or;
 * package paths(s) with one or more uses of the ``--package`` flag.
-
-First build another bundle:
-
-.. pkgrun::
-
-    echo "int main(int argc, char** argv) { }" > aprogram2.c
-    clang -g aprogram2.c -o aprogram2
 
 Build product archive with two component bundles:
 

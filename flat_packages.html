@@ -102,7 +102,7 @@ error messages. See the <tt class="docutils literal"><span class="pre">productbu
 included as part of a <em>product archive</em> but can be used as an installer in
 its own right.  A component package installer cannot control the behavior of
 the installer, but can abort the install or raise a post-install error
-message via <tt class="docutils literal"><span class="pre">preinstall</span></tt> and <tt class="docutils literal"><span class="pre">postinstall</span></tt> scripts.</li>
+via <tt class="docutils literal"><span class="pre">preinstall</span></tt> and <tt class="docutils literal"><span class="pre">postinstall</span></tt> scripts.</li>
 </ul>
 </div>
 <div class="section" id="component-installer">
@@ -219,16 +219,16 @@ installer: The install was successful.
 </div>
 <p>Here are the new environment variables inserted by the installer:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff /tmp/my_sudo_envs.log /tmp/my_preinstall_envs.log --old-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span> --unchanged-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span>
-<span class="nv">INSTALLER_TEMP</span><span class="o">=</span>/private/tmp/PKInstallSandbox.edprRl/tmp
+<span class="nv">INSTALLER_TEMP</span><span class="o">=</span>/private/tmp/PKInstallSandbox.MTQdSZ/tmp
 <span class="nv">DSTVOLUME</span><span class="o">=</span>/
-<span class="nv">TMPDIR</span><span class="o">=</span>/private/tmp/PKInstallSandbox.edprRl/tmp
+<span class="nv">TMPDIR</span><span class="o">=</span>/private/tmp/PKInstallSandbox.MTQdSZ/tmp
 <span class="nv">DSTROOT</span><span class="o">=</span>/
 <span class="nv">USER</span><span class="o">=</span>root
 <span class="nv">SCRIPT_NAME</span><span class="o">=</span>preinstall
 <span class="nv">SHARED_INSTALLER_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager-shared-tmp
-<span class="nv">INSTALLER_SECURE_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager/298F0272-EBDD-4BE0-91E5-86DBD6061BF5.activeSandbox/441106B6-B665-4E82-B4EA-34AB140B29F6
+<span class="nv">INSTALLER_SECURE_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager/968FA2D3-FCE3-4D1C-9158-09FFDC465937.activeSandbox/83EE5C90-49E6-4E76-8BBC-07B20DDD4603
 <span class="nv">PATH</span><span class="o">=</span>/bin:/sbin:/usr/bin:/usr/sbin:/usr/libexec
-<span class="nv">PWD</span><span class="o">=</span>/private/tmp/PKInstallSandbox.edprRl/Scripts/my.fake.pkg.3phY1N
+<span class="nv">PWD</span><span class="o">=</span>/private/tmp/PKInstallSandbox.MTQdSZ/Scripts/my.fake.pkg.F8ebms
 <span class="nv">INSTALL_PKG_SESSION_ID</span><span class="o">=</span>my.fake.pkg
 <span class="nv">PACKAGE_PATH</span><span class="o">=</span>/Users/mb312/dev_trees/docosx/pkg_examples/my_package.pkg
 <span class="nv">SHLVL</span><span class="o">=</span>1
@@ -303,9 +303,9 @@ my.fake.pkg
 </pre></div>
 </div>
 </div>
-<div class="section" id="explicit-component">
-<span id="id2"></span><h4>Explicit component<a class="headerlink" href="#explicit-component" title="Permalink to this headline">¶</a></h4>
-<p>We point to a bundle to install and specify the install location.</p>
+<div class="section" id="explicit-component-s">
+<span id="explicit-component"></span><h4>Explicit component(s)<a class="headerlink" href="#explicit-component-s" title="Permalink to this headline">¶</a></h4>
+<p>We point to a bundle to install and (usually) specify the install location.</p>
 <p>In this case the bundle must be a properly formed bundle of some sort.</p>
 <p>I&#8217;ll make a debug symbols bundle by doing a tiny compilation with clang:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;int main(int argc, char** argv) { }&quot;</span> &gt; aprogram.c
@@ -321,6 +321,7 @@ aprogram.dSYM
 3 directories, 2 files
 </pre></div>
 </div>
+<p>Build, install the package:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pkgbuild --component aprogram.dSYM --install-location /tmp my_package.pkg
 pkgbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram.dSYM
 pkgbuild: Wrote package to my_package.pkg
@@ -332,6 +333,7 @@ installer: Upgrading at base path /
 installer: The upgrade was successful.
 </pre></div>
 </div>
+<p>The installer has written the expected output files:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree /tmp/aprogram.dSYM
 /tmp/aprogram.dSYM
 └── Contents
@@ -343,12 +345,64 @@ installer: The upgrade was successful.
 3 directories, 2 files
 </pre></div>
 </div>
+<p>You can add more than one bundle to a single component installer.</p>
+<p>Here I make another bundle with a different name:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;int main(int argc, char** argv) { }&quot;</span> &gt; aprogram2.c
+<span class="nv">$ </span>clang -g aprogram2.c -o aprogram2
+<span class="nv">$ </span>tree aprogram2.dSYM
+aprogram2.dSYM
+└── Contents
+    ├── Info.plist
+    └── Resources
+        └── DWARF
+            └── aprogram2
+
+3 directories, 2 files
+</pre></div>
+</div>
+<p>When you add more than one component, you need to give a package identifier,
+because <tt class="docutils literal"><span class="pre">pkgbuild</span></tt> will not know which component to get an identifier from.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pkgbuild --component aprogram.dSYM --install-location /tmp <span class="se">\</span>
+<span class="nv">$ </span>    --component aprogram2.dSYM --install-location /tmp <span class="se">\</span>
+<span class="nv">$ </span>    --identifier my.fake.pkg <span class="se">\</span>
+<span class="nv">$ </span>    my_package.pkg
+pkgbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram.dSYM
+pkgbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram2.dSYM
+pkgbuild: Wrote package to my_package.pkg
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo installer -pkg my_package.pkg -target /
+installer: Package name is my_package
+installer: Upgrading at base path /
+installer: The upgrade was successful.
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree /tmp/aprogram.dSYM
+<span class="nv">$ </span>tree /tmp/aprogram2.dSYM
+/tmp/aprogram.dSYM
+└── Contents
+    ├── Info.plist
+    └── Resources
+        └── DWARF
+            └── aprogram
+
+3 directories, 2 files
+/tmp/aprogram2.dSYM
+└── Contents
+    ├── Info.plist
+    └── Resources
+        └── DWARF
+            └── aprogram2
+
+3 directories, 2 files
+</pre></div>
+</div>
 </div>
 </div>
 </div>
 <div class="section" id="product-archive">
 <h2>Product archive<a class="headerlink" href="#product-archive" title="Permalink to this headline">¶</a></h2>
-<p>Component packages give very basic default install.</p>
+<p>Component packages give a very basic default install.</p>
 <p>Product archives allow you to wrap one or more component installs with an
 install configuration that includes:</p>
 <ul class="simple">
@@ -383,14 +437,9 @@ productbuild: Wrote product to my_archive.pkg
 <p>Build a product archive from one or more components by passing:</p>
 <ul class="simple">
 <li>bundle path(s) with one or more uses of the <tt class="docutils literal"><span class="pre">--component</span></tt> flag (see
-<a class="reference internal" href="#explicit-component"><em>Explicit component</em></a>) and / or;</li>
+<a class="reference internal" href="#explicit-component"><em>Explicit component(s)</em></a>) and / or;</li>
 <li>package paths(s) with one or more uses of the <tt class="docutils literal"><span class="pre">--package</span></tt> flag.</li>
 </ul>
-<p>First build another bundle:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;int main(int argc, char** argv) { }&quot;</span> &gt; aprogram2.c
-<span class="nv">$ </span>clang -g aprogram2.c -o aprogram2
-</pre></div>
-</div>
 <p>Build product archive with two component bundles:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --component aprogram.dSYM /tmp --component aprogram2.dSYM /tmp my_archive.pkg
 productbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram.dSYM
@@ -595,37 +644,37 @@ productbuild: Wrote product to my_archive.pkg
 installer: Package name is 
 installer: Upgrading at base path /
 installer: The upgrade was successful.
-Sep 24 12:42:26 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: JS: my: choice,target,search,product,result
-Sep 24 12:42:26 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: JS: system: supportedSpecVersion,bundles,openCL,defaults,search,ioregistry,env,files,hasWindowServer,users,applications,version,localizedStandardStringWithFormat,gestalt,localizedStringWithFormat,run,sysctl,propertiesOf,log,numericalCompare,runOnce,compareVersions,localizedString,localizedStandardString
-Sep 24 12:42:26 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: JS: system.applications: fromIdentifier,all,fromPID
-Sep 24 12:42:27 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: Product archive /Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg <span class="nv">trustLevel</span><span class="o">=</span>100
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: <span class="nv">location</span> <span class="o">=</span> file://localhost
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram.pkg
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram2.pkg
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: Set authorization level to root <span class="k">for </span>session
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: Will use PK session
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Info&gt;: Starting installation:
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Configuring volume <span class="s2">&quot;Macintosh HD&quot;</span>
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Info&gt;: Preparing disk <span class="k">for </span><span class="nb">local </span>booted install.
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Free space on <span class="s2">&quot;Macintosh HD&quot;</span>: 7.75 GB <span class="o">(</span>7750266880 bytes<span class="o">)</span>.
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Create temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.77709WT8fnT&quot;</span>
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: IFPKInstallElement <span class="o">(</span>2 packages<span class="o">)</span>
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Debug&gt;: Using authorization level of root <span class="k">for </span>IFPKInstallElement
-Sep 24 12:42:28 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: PackageKit: Enqueuing install with boosting
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Running install actions
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Removing temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.77709WT8fnT&quot;</span>
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Finalize disk <span class="s2">&quot;Macintosh HD&quot;</span>
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: Notifying system of updated components
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: 
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: **** Summary Information ****
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:   Operation      Elapsed <span class="nb">time</span>
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: -----------------------------
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:        disk      0.04 seconds
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:      script      0.00 seconds
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:        zero      0.01 seconds
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:     install      1.03 seconds
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;:     -total-      1.08 seconds
-Sep 24 12:42:29 ucbvpn-209-250.vpn.berkeley.edu installer<span class="o">[</span>77709<span class="o">]</span> &lt;Notice&gt;: 
+Sep 25 09:36:19 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: JS: my: choice,target,search,product,result
+Sep 25 09:36:19 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: JS: system: supportedSpecVersion,bundles,openCL,defaults,search,ioregistry,env,files,hasWindowServer,users,applications,version,localizedStandardStringWithFormat,gestalt,localizedStringWithFormat,run,sysctl,propertiesOf,log,numericalCompare,runOnce,compareVersions,localizedString,localizedStandardString
+Sep 25 09:36:19 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: JS: system.applications: fromIdentifier,all,fromPID
+Sep 25 09:36:20 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: Product archive /Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg <span class="nv">trustLevel</span><span class="o">=</span>100
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: <span class="nv">location</span> <span class="o">=</span> file://localhost
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram.pkg
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram2.pkg
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: Set authorization level to root <span class="k">for </span>session
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: Will use PK session
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Info&gt;: Starting installation:
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Configuring volume <span class="s2">&quot;Macintosh HD&quot;</span>
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Info&gt;: Preparing disk <span class="k">for </span><span class="nb">local </span>booted install.
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Free space on <span class="s2">&quot;Macintosh HD&quot;</span>: 9.28 GB <span class="o">(</span>9275559936 bytes<span class="o">)</span>.
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Create temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.10893wRNGVl&quot;</span>
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: IFPKInstallElement <span class="o">(</span>2 packages<span class="o">)</span>
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: Using authorization level of root <span class="k">for </span>IFPKInstallElement
+Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: PackageKit: Enqueuing install with boosting
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Running install actions
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Removing temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.10893wRNGVl&quot;</span>
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Finalize disk <span class="s2">&quot;Macintosh HD&quot;</span>
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Notifying system of updated components
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: 
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: **** Summary Information ****
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:   Operation      Elapsed <span class="nb">time</span>
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: -----------------------------
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:        disk      0.05 seconds
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:      script      0.00 seconds
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:        zero      0.01 seconds
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:     install      1.02 seconds
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:     -total-      1.09 seconds
+Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: 
 </pre></div>
 </div>
 </div>
@@ -777,7 +826,7 @@ available as root, so look for the difference:</p>
 <span class="nv">__CF_USER_TEXT_ENCODING</span><span class="o">=</span>0x0:0:0
 <span class="nv">USERNAME</span><span class="o">=</span>root
 <span class="nv">MAIL</span><span class="o">=</span>/var/mail/root
-<span class="nv">PWD</span><span class="o">=</span>/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/com.apple.install.OGPHN7j5
+<span class="nv">PWD</span><span class="o">=</span>/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/com.apple.install.sKF7wI1o
 <span class="nv">SHLVL</span><span class="o">=</span>1
 <span class="nv">SUDO_COMMAND</span><span class="o">=</span>/usr/sbin/installer -pkg my_archive.pkg -target /
 <span class="nv">COMMAND_LINE_INSTALL</span><span class="o">=</span>1
@@ -890,7 +939,7 @@ post-processing of your installer with – <tt class="docutils literal"><span cl
 </li>
 <li><a class="reference internal" href="#payload">Payload</a><ul>
 <li><a class="reference internal" href="#destination-root">Destination root</a></li>
-<li><a class="reference internal" href="#explicit-component">Explicit component</a></li>
+<li><a class="reference internal" href="#explicit-component-s">Explicit component(s)</a></li>
 </ul>
 </li>
 </ul>
