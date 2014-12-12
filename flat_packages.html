@@ -219,16 +219,16 @@ installer: The install was successful.
 </div>
 <p>Here are the new environment variables inserted by the installer:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff /tmp/my_sudo_envs.log /tmp/my_preinstall_envs.log --old-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span> --unchanged-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span>
-<span class="nv">INSTALLER_TEMP</span><span class="o">=</span>/private/tmp/PKInstallSandbox.MTQdSZ/tmp
+<span class="nv">INSTALLER_TEMP</span><span class="o">=</span>/private/tmp/PKInstallSandbox.FALivT/tmp
 <span class="nv">DSTVOLUME</span><span class="o">=</span>/
-<span class="nv">TMPDIR</span><span class="o">=</span>/private/tmp/PKInstallSandbox.MTQdSZ/tmp
+<span class="nv">TMPDIR</span><span class="o">=</span>/private/tmp/PKInstallSandbox.FALivT/tmp
 <span class="nv">DSTROOT</span><span class="o">=</span>/
 <span class="nv">USER</span><span class="o">=</span>root
 <span class="nv">SCRIPT_NAME</span><span class="o">=</span>preinstall
 <span class="nv">SHARED_INSTALLER_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager-shared-tmp
-<span class="nv">INSTALLER_SECURE_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager/968FA2D3-FCE3-4D1C-9158-09FFDC465937.activeSandbox/83EE5C90-49E6-4E76-8BBC-07B20DDD4603
+<span class="nv">INSTALLER_SECURE_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager/DA1D3819-05DE-4EAA-AAA4-AA0B2EFD7658.activeSandbox/42195E02-D3C0-4EA4-BD94-6EBAC0D25139
 <span class="nv">PATH</span><span class="o">=</span>/bin:/sbin:/usr/bin:/usr/sbin:/usr/libexec
-<span class="nv">PWD</span><span class="o">=</span>/private/tmp/PKInstallSandbox.MTQdSZ/Scripts/my.fake.pkg.F8ebms
+<span class="nv">PWD</span><span class="o">=</span>/private/tmp/PKInstallSandbox.FALivT/Scripts/my.fake.pkg.uvIsoG
 <span class="nv">INSTALL_PKG_SESSION_ID</span><span class="o">=</span>my.fake.pkg
 <span class="nv">PACKAGE_PATH</span><span class="o">=</span>/Users/mb312/dev_trees/docosx/pkg_examples/my_package.pkg
 <span class="nv">SHLVL</span><span class="o">=</span>1
@@ -644,37 +644,37 @@ productbuild: Wrote product to my_archive.pkg
 installer: Package name is 
 installer: Upgrading at base path /
 installer: The upgrade was successful.
-Sep 25 09:36:19 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: JS: my: choice,target,search,product,result
-Sep 25 09:36:19 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: JS: system: supportedSpecVersion,bundles,openCL,defaults,search,ioregistry,env,files,hasWindowServer,users,applications,version,localizedStandardStringWithFormat,gestalt,localizedStringWithFormat,run,sysctl,propertiesOf,log,numericalCompare,runOnce,compareVersions,localizedString,localizedStandardString
-Sep 25 09:36:19 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: JS: system.applications: fromIdentifier,all,fromPID
-Sep 25 09:36:20 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: Product archive /Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg <span class="nv">trustLevel</span><span class="o">=</span>100
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: <span class="nv">location</span> <span class="o">=</span> file://localhost
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram.pkg
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram2.pkg
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: Set authorization level to root <span class="k">for </span>session
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: Will use PK session
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Info&gt;: Starting installation:
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Configuring volume <span class="s2">&quot;Macintosh HD&quot;</span>
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Info&gt;: Preparing disk <span class="k">for </span><span class="nb">local </span>booted install.
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Free space on <span class="s2">&quot;Macintosh HD&quot;</span>: 9.28 GB <span class="o">(</span>9275559936 bytes<span class="o">)</span>.
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Create temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.10893wRNGVl&quot;</span>
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: IFPKInstallElement <span class="o">(</span>2 packages<span class="o">)</span>
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Debug&gt;: Using authorization level of root <span class="k">for </span>IFPKInstallElement
-Sep 25 09:36:21 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: PackageKit: Enqueuing install with boosting
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Running install actions
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Removing temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.10893wRNGVl&quot;</span>
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Finalize disk <span class="s2">&quot;Macintosh HD&quot;</span>
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: Notifying system of updated components
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: 
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: **** Summary Information ****
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:   Operation      Elapsed <span class="nb">time</span>
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: -----------------------------
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:        disk      0.05 seconds
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:      script      0.00 seconds
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:        zero      0.01 seconds
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:     install      1.02 seconds
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;:     -total-      1.09 seconds
-Sep 25 09:36:22 ucbvpn-209-19.vpn.berkeley.edu installer<span class="o">[</span>10893<span class="o">]</span> &lt;Notice&gt;: 
+Dec 12 12:01:57 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Debug&gt;: JS: my: choice,target,search,product,result
+Dec 12 12:01:57 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Debug&gt;: JS: system: supportedSpecVersion,bundles,openCL,defaults,search,ioregistry,env,files,hasWindowServer,users,applications,version,localizedStandardStringWithFormat,gestalt,localizedStringWithFormat,run,sysctl,propertiesOf,log,numericalCompare,runOnce,compareVersions,localizedString,localizedStandardString
+Dec 12 12:01:57 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Debug&gt;: JS: system.applications: fromIdentifier,all,fromPID
+Dec 12 12:01:57 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Debug&gt;: Product archive /Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg <span class="nv">trustLevel</span><span class="o">=</span>100
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: <span class="nv">location</span> <span class="o">=</span> file://localhost
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram.pkg
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram2.pkg
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Debug&gt;: Set authorization level to root <span class="k">for </span>session
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Debug&gt;: Will use PK session
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Info&gt;: Starting installation:
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: Configuring volume <span class="s2">&quot;SSD&quot;</span>
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Info&gt;: Preparing disk <span class="k">for </span><span class="nb">local </span>booted install.
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: Free space on <span class="s2">&quot;SSD&quot;</span>: 24.23 GB <span class="o">(</span>24230129664 bytes<span class="o">)</span>.
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: Create temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.5740uQ2vG5&quot;</span>
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: IFPKInstallElement <span class="o">(</span>2 packages<span class="o">)</span>
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Debug&gt;: Using authorization level of root <span class="k">for </span>IFPKInstallElement
+Dec 12 12:01:58 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: PackageKit: Enqueuing install with boosting
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: Running install actions
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: Removing temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.5740uQ2vG5&quot;</span>
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: Finalize disk <span class="s2">&quot;SSD&quot;</span>
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: Notifying system of updated components
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: 
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: **** Summary Information ****
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;:   Operation      Elapsed <span class="nb">time</span>
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: -----------------------------
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;:        disk      0.02 seconds
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;:      script      0.00 seconds
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;:        zero      0.01 seconds
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;:     install      1.02 seconds
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;:     -total-      1.06 seconds
+Dec 12 12:01:59 shanghai.local installer<span class="o">[</span>5740<span class="o">]</span> &lt;Notice&gt;: 
 </pre></div>
 </div>
 </div>
@@ -826,11 +826,11 @@ available as root, so look for the difference:</p>
 <span class="nv">__CF_USER_TEXT_ENCODING</span><span class="o">=</span>0x0:0:0
 <span class="nv">USERNAME</span><span class="o">=</span>root
 <span class="nv">MAIL</span><span class="o">=</span>/var/mail/root
-<span class="nv">PWD</span><span class="o">=</span>/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/com.apple.install.sKF7wI1o
+<span class="nv">PWD</span><span class="o">=</span>/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/com.apple.install.YGdhyPAz
 <span class="nv">SHLVL</span><span class="o">=</span>1
 <span class="nv">SUDO_COMMAND</span><span class="o">=</span>/usr/sbin/installer -pkg my_archive.pkg -target /
 <span class="nv">COMMAND_LINE_INSTALL</span><span class="o">=</span>1
-<span class="nv">DISPLAY</span><span class="o">=</span>/tmp/launch-MOZEmv/org.macosforge.xquartz:0
+<span class="nv">DISPLAY</span><span class="o">=</span>/tmp/launch-Crnlz9/org.macosforge.xquartz:0
 <span class="nv">_</span><span class="o">=</span>/usr/bin/env
 Positional arguments args I passed
 </pre></div>
