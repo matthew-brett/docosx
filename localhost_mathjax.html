@@ -52,12 +52,19 @@
 <p>I have a local copy of MathJax that I use for reading and writing IPython
 notebooks.</p>
 <p>Now I want to read Sphinx pages that use MathJax markup.</p>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>The page I wanted to serve is expecting this URL:
+<tt class="docutils literal"><span class="pre">http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML</span></tt>.</p>
+<p>My task is to set up a redirect so that my own machine serves this URL.</p>
+<p>Luckily OSX comes shipped with a version of the <tt class="docutils literal"><span class="pre">apache</span></tt> web server.</p>
 <p>I worked off these two pages, both by Neil Gee:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://coolestguidesontheplanet.com/get-apache-mysql-php-phpmyadmin-working-osx-10-9-mavericks/">Installation guide for Apache etc</a>
 on OSX 10.9;</li>
 <li><a class="reference external" href="http://coolestguidesontheplanet.com/set-virtual-hosts-apache-mac-osx-10-9-mavericks-osx-10-8-mountain-lion/">Using virtualhosts on OSX</a></li>
 </ul>
+</div>
 <div class="section" id="map">
 <h2>Map<a class="headerlink" href="#map" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -72,10 +79,6 @@ on OSX 10.9;</li>
 <h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="linking-local-copy-of-mathjax">
 <h3>Linking local copy of MathJax<a class="headerlink" href="#linking-local-copy-of-mathjax" title="Permalink to this headline">¶</a></h3>
-<p>The page I wanted to serve is expecting this URL:
-<tt class="docutils literal"><span class="pre">http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML</span></tt>.</p>
-<p>My task is to set up a redirect so that my own machine serves this URL.</p>
-<p>Luckily OSX comes shipped with a version of the <tt class="docutils literal"><span class="pre">apache</span></tt> web server.</p>
 <p>I have a local copy of MathJax, stored in <tt class="docutils literal"><span class="pre">~/stable_trees/mathjax</span></tt>.  This
 directory contains <tt class="docutils literal"><span class="pre">MathJax.js</span></tt>.</p>
 <p>OSX <tt class="docutils literal"><span class="pre">apache</span></tt> expects to serve user pages from <tt class="docutils literal"><span class="pre">~/Sites</span></tt>.  So, the linking
@@ -92,8 +95,8 @@ ln -s ~/stable_trees/mathjax Sites/cdn.mathjax.org/mathjax/latest
 <div class="highlight-python"><div class="highlight"><pre>sudo bash
 cd /etc/apache2/users
 MY_USERNAME=my_user
-cat &gt; :math:`{MY_USERNAME}.conf &lt;&lt; EOF
-&lt;Directory &quot;/Users/`{MY_USERNAME}/Sites/&quot;&gt;
+cat &gt; ${MY_USERNAME}.conf &lt;&lt; EOF
+&lt;Directory &quot;/Users/${MY_USERNAME}/Sites/&quot;&gt;
 Options Indexes MultiViews FollowSymLinks
 AllowOverride None
 Order allow,deny
@@ -165,6 +168,7 @@ speed.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Serving MathJax locally on OSX</a><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
 <li><a class="reference internal" href="#map">Map</a></li>
 <li><a class="reference internal" href="#details">Details</a><ul>
 <li><a class="reference internal" href="#linking-local-copy-of-mathjax">Linking local copy of MathJax</a></li>

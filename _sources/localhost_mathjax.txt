@@ -9,6 +9,17 @@ notebooks.
 
 Now I want to read Sphinx pages that use MathJax markup.
 
+**********
+Background
+**********
+
+The page I wanted to serve is expecting this URL:
+``http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML``.
+
+My task is to set up a redirect so that my own machine serves this URL.
+
+Luckily OSX comes shipped with a version of the ``apache`` web server.
+
 I worked off these two pages, both by Neil Gee:
 
 * `Installation guide for Apache etc
@@ -34,13 +45,6 @@ Details
 Linking local copy of MathJax
 =============================
 
-The page I wanted to serve is expecting this URL:
-``http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML``.
-
-My task is to set up a redirect so that my own machine serves this URL.
-
-Luckily OSX comes shipped with a version of the ``apache`` web server.
-
 I have a local copy of MathJax, stored in ``~/stable_trees/mathjax``.  This
 directory contains ``MathJax.js``.
 
@@ -59,8 +63,8 @@ Replace ``my_user`` with your login username in the following::
     sudo bash
     cd /etc/apache2/users
     MY_USERNAME=my_user
-    cat > ${MY_USERNAME}.conf << EOF
-    <Directory "/Users/${MY_USERNAME}/Sites/">
+    cat > \${MY_USERNAME}.conf << EOF
+    <Directory "/Users/\${MY_USERNAME}/Sites/">
     Options Indexes MultiViews FollowSymLinks
     AllowOverride None
     Order allow,deny
