@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>OSX flat packages &mdash; docosx 0.2 documentation</title>
+    <title>OSX flat packages &#8212; docosx 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,19 +17,21 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="docosx 0.2 documentation" href="index.html" />
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="OSX legacy packaging redux" href="legacy_package_redux.html" />
     <link rel="prev" title="Runtime linking on Mac" href="mac_runtime_link.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -41,18 +43,18 @@
         <li class="right" >
           <a href="mac_runtime_link.html" title="Runtime linking on Mac"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">docosx 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">docosx 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="osx-flat-packages">
 <h1>OSX flat packages<a class="headerlink" href="#osx-flat-packages" title="Permalink to this headline">¶</a></h1>
-<p>OSX flat packages are single installer files with <tt class="docutils literal"><span class="pre">.pkg</span></tt> file extensions.</p>
+<p>OSX flat packages are single installer files with <code class="docutils literal"><span class="pre">.pkg</span></code> file extensions.</p>
 <p>They appear to have originated with OSX 10.5.  You can&#8217;t install these files
 on OSX &lt; 10.5.</p>
 <p>The previous packaging formats were <em>bundles</em> rather than single files:</p>
@@ -62,7 +64,7 @@ on OSX &lt; 10.5.</p>
 facilitates their retrieval (see glossary in the <a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy
 guide</a>)</dd>
 </dl>
-<p>See <a class="reference internal" href="legacy_package_redux.html"><em>OSX legacy packaging redux</em></a> for details.</p>
+<p>See <a class="reference internal" href="legacy_package_redux.html"><span class="doc">OSX legacy packaging redux</span></a> for details.</p>
 <p>As far as I know there is no Apple document describing the flat package
 format.</p>
 <p>You may find these other pages useful as background:</p>
@@ -74,21 +76,21 @@ format.</p>
 </ul>
 <div class="section" id="flat-packages-in-general">
 <h2>Flat packages in general<a class="headerlink" href="#flat-packages-in-general" title="Permalink to this headline">¶</a></h2>
-<p>Flat packages are <tt class="docutils literal"><span class="pre">xar</span></tt> archives (see the <tt class="docutils literal"><span class="pre">xar</span></tt> man page).</p>
+<p>Flat packages are <code class="docutils literal"><span class="pre">xar</span></code> archives (see the <code class="docutils literal"><span class="pre">xar</span></code> man page).</p>
 <p>To see the contents of a flat package, the most convenient command is
-<tt class="docutils literal"><span class="pre">pkgutil</span> <span class="pre">--expand</span></tt>, as in:</p>
-<div class="highlight-python"><div class="highlight"><pre>pkgutil --expand my.pkg an_output_dir
+<code class="docutils literal"><span class="pre">pkgutil</span> <span class="pre">--expand</span></code>, as in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pkgutil</span> <span class="o">--</span><span class="n">expand</span> <span class="n">my</span><span class="o">.</span><span class="n">pkg</span> <span class="n">an_output_dir</span>
 </pre></div>
 </div>
 <p>This will unpack product archive (meta-packages) and their component packages,
-and allows you to futz with the directory contents in <tt class="docutils literal"><span class="pre">an_output_dir</span></tt> before
+and allows you to futz with the directory contents in <code class="docutils literal"><span class="pre">an_output_dir</span></code> before
 reconstituting the package with:</p>
-<div class="highlight-python"><div class="highlight"><pre>pkgutil --flatten an_output_dir my.pkg
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pkgutil</span> <span class="o">--</span><span class="n">flatten</span> <span class="n">an_output_dir</span> <span class="n">my</span><span class="o">.</span><span class="n">pkg</span>
 </pre></div>
 </div>
-<p>On OSX, <tt class="docutils literal"><span class="pre">tar</span></tt> will unpack xar archives, and will automatically detect that
-the archive is in xar format with <tt class="docutils literal"><span class="pre">tar</span> <span class="pre">xf</span> <span class="pre">my.pkg</span></tt>, if you really want to do
-the unpacking without <tt class="docutils literal"><span class="pre">pkgutil</span></tt>.</p>
+<p>On OSX, <code class="docutils literal"><span class="pre">tar</span></code> will unpack xar archives, and will automatically detect that
+the archive is in xar format with <code class="docutils literal"><span class="pre">tar</span> <span class="pre">xf</span> <span class="pre">my.pkg</span></code>, if you really want to do
+the unpacking without <code class="docutils literal"><span class="pre">pkgutil</span></code>.</p>
 </div>
 <div class="section" id="different-package-types">
 <h2>Different package types<a class="headerlink" href="#different-package-types" title="Permalink to this headline">¶</a></h2>
@@ -97,96 +99,99 @@ the unpacking without <tt class="docutils literal"><span class="pre">pkgutil</sp
 <li><em>product archive</em> – a meta-package format containing one or more
 <em>component packages</em> with an XML file specifying the behavior of the
 installer, including system and volume requirement checks giving informative
-error messages. See the <tt class="docutils literal"><span class="pre">productbuild</span></tt> man page for more detail.</li>
+error messages. See the <code class="docutils literal"><span class="pre">productbuild</span></code> man page for more detail.</li>
 <li><em>component package</em> – an installer to install one component. Generally
 included as part of a <em>product archive</em> but can be used as an installer in
 its own right.  A component package installer cannot control the behavior of
 the installer, but can abort the install or raise a post-install error
-via <tt class="docutils literal"><span class="pre">preinstall</span></tt> and <tt class="docutils literal"><span class="pre">postinstall</span></tt> scripts.</li>
+via <code class="docutils literal"><span class="pre">preinstall</span></code> and <code class="docutils literal"><span class="pre">postinstall</span></code> scripts.</li>
 </ul>
 </div>
 <div class="section" id="component-installer">
 <h2>Component installer<a class="headerlink" href="#component-installer" title="Permalink to this headline">¶</a></h2>
 <p>A component installer goes through these stages:</p>
 <ol class="arabic simple">
-<li>Runs <tt class="docutils literal"><span class="pre">preinstall</span></tt> script if present.  An exit code other than zero aborts
+<li>Runs <code class="docutils literal"><span class="pre">preinstall</span></code> script if present.  An exit code other than zero aborts
 the installation.</li>
 <li>Writes payload to one or more locations on the target volume</li>
-<li>Runs <tt class="docutils literal"><span class="pre">postinstall</span></tt> script if present.  An exit code other then zero gives
+<li>Runs <code class="docutils literal"><span class="pre">postinstall</span></code> script if present.  An exit code other then zero gives
 an error message.</li>
 </ol>
 <p>We start with some component packages that only have scripts and no payload,
 to show how they work.</p>
 <div class="section" id="component-installer-scripts">
 <h3>Component installer scripts<a class="headerlink" href="#component-installer-scripts" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir pkg_examples
-<span class="nv">$ </span><span class="nb">cd </span>pkg_examples
-<span class="nv">$ </span>mkdir scripts
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir pkg_examples
+$ <span class="nb">cd</span> pkg_examples
+$ mkdir scripts
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="c"># file: scripts/preinstall</span>
-<span class="c">#!/bin/sh</span>
+<div class="admonition">
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">scripts/preinstall</span></code><div class="last highlight-bash"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
 <span class="nb">echo</span> <span class="s2">&quot;Running preinstall&quot;</span> &gt; /tmp/my_preinstall.log
-<span class="nb">exit </span>0 <span class="c"># all good</span>
+<span class="nb">exit</span> <span class="m">0</span> <span class="c1"># all good</span>
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="c"># file: scripts/postinstall</span>
-<span class="c">#!/bin/sh</span>
+</div>
+<div class="admonition">
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">scripts/postinstall</span></code><div class="last highlight-bash"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
 <span class="nb">echo</span> <span class="s2">&quot;Running postinstall&quot;</span> &gt; /tmp/my_postinstall.log
-<span class="nb">exit </span>0 <span class="c"># all good</span>
+<span class="nb">exit</span> <span class="m">0</span> <span class="c1"># all good</span>
 </pre></div>
+</div>
 </div>
 <p>The scripts need to be executable:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>chmod u+x scripts/*
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ chmod u+x scripts/*
 </pre></div>
 </div>
 <p>Each package needs a package <em>identifier</em> to identify it to the database of
 installed packages on the target system.</p>
-<p>You can list the recorded installed packages on target <tt class="docutils literal"><span class="pre">/</span></tt> with:</p>
-<div class="highlight-python"><div class="highlight"><pre>pkgutil --pkgs /
+<p>You can list the recorded installed packages on target <code class="docutils literal"><span class="pre">/</span></code> with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pkgutil</span> <span class="o">--</span><span class="n">pkgs</span> <span class="o">/</span>
 </pre></div>
 </div>
 <p>Build the package with a fake identifier:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
 pkgbuild: Adding top-level preinstall script
 pkgbuild: Adding top-level postinstall script
 pkgbuild: Wrote package to my_package.pkg
 </pre></div>
 </div>
 <p>Install the package:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo installer -pkg my_package.pkg -target /
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo installer -pkg my_package.pkg -target /
 installer: Package name is my_package
 installer: Installing at base path /
 installer: The install was successful.
 </pre></div>
 </div>
 <p>Check the scripts ran by looking for output:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat /tmp/my_preinstall.log
-<span class="nv">$ </span>cat /tmp/my_postinstall.log
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ cat /tmp/my_preinstall.log
+$ cat /tmp/my_postinstall.log
 Running preinstall
 Running postinstall
 </pre></div>
 </div>
 <p>Exit code other than zero causes the installer to give an error message:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="c"># file: scripts/postinstall</span>
-<span class="c">#!/bin/sh</span>
-<span class="nb">exit </span>1 <span class="c"># not so good</span>
+<div class="admonition">
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">scripts/postinstall</span></code><div class="last highlight-bash"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="nb">exit</span> <span class="m">1</span> <span class="c1"># not so good</span>
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
-<span class="nv">$ </span>sudo installer -pkg my_package.pkg -target /
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
+$ sudo installer -pkg my_package.pkg -target /
 pkgbuild: Adding top-level preinstall script
 pkgbuild: Adding top-level postinstall script
 pkgbuild: Wrote package to my_package.pkg
 installer: Package name is my_package
 installer: Installing at base path /
-installer: The install failed <span class="o">(</span>The Installer encountered an error that caused the installation to fail. Contact the software manufacturer <span class="k">for </span>assistance.<span class="o">)</span>
+installer: The install failed <span class="o">(</span>The Installer encountered an error that caused the installation to fail. Contact the software manufacturer <span class="k">for</span> assistance.<span class="o">)</span>
 </pre></div>
 </div>
 <p>Fixed if the script is not run:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>rm scripts/postinstall
-<span class="nv">$ </span>pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
-<span class="nv">$ </span>sudo installer -pkg my_package.pkg -target /
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ rm scripts/postinstall
+$ pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
+$ sudo installer -pkg my_package.pkg -target /
 pkgbuild: Adding top-level preinstall script
 pkgbuild: Wrote package to my_package.pkg
 installer: Package name is my_package
@@ -195,21 +200,22 @@ installer: The install was successful.
 </pre></div>
 </div>
 <p>There are some useful environment variables available to the
-<tt class="docutils literal"><span class="pre">preinstall</span></tt>, <tt class="docutils literal"><span class="pre">postinstall</span></tt> scripts:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># Get the default environment when not in preinstall</span>
-<span class="nv">$ </span>sudo env &gt; /tmp/my_sudo_envs.log
+<code class="docutils literal"><span class="pre">preinstall</span></code>, <code class="docutils literal"><span class="pre">postinstall</span></code> scripts:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="c1"># Get the default environment when not in preinstall</span>
+$ sudo env &gt; /tmp/my_sudo_envs.log
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="c"># file: scripts/preinstall</span>
-<span class="c">#!/bin/sh</span>
+<div class="admonition">
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">scripts/preinstall</span></code><div class="last highlight-bash"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
 env &gt; /tmp/my_preinstall_envs.log
 <span class="nb">echo</span> <span class="s2">&quot;Positional arguments&quot;</span> <span class="nv">$@</span> &gt;&gt; /tmp/my_preinstall_envs.log
-<span class="nb">exit </span>0
+<span class="nb">exit</span> 0
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>chmod u+x scripts/preinstall
-<span class="nv">$ </span>pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
-<span class="nv">$ </span>sudo installer -pkg my_package.pkg -target /
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ chmod u+x scripts/preinstall
+$ pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
+$ sudo installer -pkg my_package.pkg -target /
 pkgbuild: Adding top-level preinstall script
 pkgbuild: Wrote package to my_package.pkg
 installer: Package name is my_package
@@ -218,17 +224,17 @@ installer: The install was successful.
 </pre></div>
 </div>
 <p>Here are the new environment variables inserted by the installer:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff /tmp/my_sudo_envs.log /tmp/my_preinstall_envs.log --old-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span> --unchanged-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span>
-<span class="nv">INSTALLER_TEMP</span><span class="o">=</span>/private/tmp/PKInstallSandbox.P5MjRL/tmp
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff /tmp/my_sudo_envs.log /tmp/my_preinstall_envs.log --old-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span> --unchanged-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="nv">INSTALLER_TEMP</span><span class="o">=</span>/private/tmp/PKInstallSandbox.EJ7LPV/tmp
 <span class="nv">DSTVOLUME</span><span class="o">=</span>/
-<span class="nv">TMPDIR</span><span class="o">=</span>/private/tmp/PKInstallSandbox.P5MjRL/tmp
+<span class="nv">TMPDIR</span><span class="o">=</span>/private/tmp/PKInstallSandbox.EJ7LPV/tmp
 <span class="nv">DSTROOT</span><span class="o">=</span>/
 <span class="nv">USER</span><span class="o">=</span>root
 <span class="nv">SCRIPT_NAME</span><span class="o">=</span>preinstall
 <span class="nv">SHARED_INSTALLER_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager-shared-tmp
-<span class="nv">INSTALLER_SECURE_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager/971A9F73-B52A-4B5E-BF40-D76BBF5937D9.activeSandbox/4EAEE499-E002-4E10-A194-503B4B222504
+<span class="nv">INSTALLER_SECURE_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager/350D511C-2C94-494B-8965-CBD846E683D1.activeSandbox/F08A2163-D4D0-4A50-A6BF-052CB8104B31
 <span class="nv">PATH</span><span class="o">=</span>/bin:/sbin:/usr/bin:/usr/sbin:/usr/libexec
-<span class="nv">PWD</span><span class="o">=</span>/private/tmp/PKInstallSandbox.P5MjRL/Scripts/my.fake.pkg.EIX38O
+<span class="nv">PWD</span><span class="o">=</span>/private/tmp/PKInstallSandbox.EJ7LPV/Scripts/my.fake.pkg.y8DFsw
 <span class="nv">INSTALL_PKG_SESSION_ID</span><span class="o">=</span>my.fake.pkg
 <span class="nv">PACKAGE_PATH</span><span class="o">=</span>/Users/mb312/dev_trees/docosx/pkg_examples/my_package.pkg
 <span class="nv">SHLVL</span><span class="o">=</span>1
@@ -243,7 +249,7 @@ bundle installers at <a class="reference external" href="https://developer.apple
 <h4>No payload, no receipt<a class="headerlink" href="#no-payload-no-receipt" title="Permalink to this headline">¶</a></h4>
 <p>These &#8220;scripts only&#8221; installers have no payload, and write no package receipt
 to the package database:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pkgutil --pkgs / | grep my.fake.pkg
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgutil --pkgs / <span class="p">|</span> grep my.fake.pkg
 </pre></div>
 </div>
 </div>
@@ -254,21 +260,21 @@ to the package database:</p>
 output locations on the target filesystem.</p>
 <p>There are two ways of specifying payload with target location:</p>
 <ul class="simple">
-<li>Using a <em>destination root</em>, using <tt class="docutils literal"><span class="pre">--root</span></tt> flag to <tt class="docutils literal"><span class="pre">pkgbuild</span></tt>.  This
-analyzes a given directory <tt class="docutils literal"><span class="pre">root-path</span></tt> taking this directory to represent
-the root <tt class="docutils literal"><span class="pre">/</span></tt> directory of the target system.  The installer will copy each
-directory at <tt class="docutils literal"><span class="pre">root-path</span></tt> to the target system at the same relative
+<li>Using a <em>destination root</em>, using <code class="docutils literal"><span class="pre">--root</span></code> flag to <code class="docutils literal"><span class="pre">pkgbuild</span></code>.  This
+analyzes a given directory <code class="docutils literal"><span class="pre">root-path</span></code> taking this directory to represent
+the root <code class="docutils literal"><span class="pre">/</span></code> directory of the target system.  The installer will copy each
+directory at <code class="docutils literal"><span class="pre">root-path</span></code> to the target system at the same relative
 filesystem location.</li>
-<li>By individual bundle <em>component</em>, using <tt class="docutils literal"><span class="pre">--component</span></tt> flag to
-<tt class="docutils literal"><span class="pre">pkgbuild</span></tt>.  Specify directories to copy, and give their output locations
-separately using the <tt class="docutils literal"><span class="pre">--install-location</span></tt> flag.</li>
+<li>By individual bundle <em>component</em>, using <code class="docutils literal"><span class="pre">--component</span></code> flag to
+<code class="docutils literal"><span class="pre">pkgbuild</span></code>.  Specify directories to copy, and give their output locations
+separately using the <code class="docutils literal"><span class="pre">--install-location</span></code> flag.</li>
 </ul>
 <div class="section" id="destination-root">
 <span id="id1"></span><h4>Destination root<a class="headerlink" href="#destination-root" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir -p my_root/tmp/dir1 my_root/tmp/dir2
-<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;Interesting info&quot;</span> &gt; my_root/tmp/dir1/file1
-<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;Compelling story&quot;</span> &gt; my_root/tmp/dir2/file2
-<span class="nv">$ </span>tree -a my_root
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir -p my_root/tmp/dir1 my_root/tmp/dir2
+$ <span class="nb">echo</span> <span class="s2">&quot;Interesting info&quot;</span> &gt; my_root/tmp/dir1/file1
+$ <span class="nb">echo</span> <span class="s2">&quot;Compelling story&quot;</span> &gt; my_root/tmp/dir2/file2
+$ tree -a my_root
 my_root
 └── tmp
     ├── dir1
@@ -276,29 +282,29 @@ my_root
     └── dir2
         └── file2
 
-3 directories, 2 files
+<span class="m">3</span> directories, <span class="m">2</span> files
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pkgbuild --root my_root --identifier my.fake.pkg my_package.pkg
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgbuild --root my_root --identifier my.fake.pkg my_package.pkg
 pkgbuild: Inferring bundle components from contents of my_root
 pkgbuild: Wrote package to my_package.pkg
 </pre></div>
 </div>
 <p>Do the install:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo installer -pkg my_package.pkg -target /
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo installer -pkg my_package.pkg -target /
 installer: Package name is my_package
 installer: Installing at base path /
 installer: The install was successful.
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat /tmp/dir1/file1
-<span class="nv">$ </span>cat /tmp/dir2/file2
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ cat /tmp/dir1/file1
+$ cat /tmp/dir2/file2
 Interesting info
 Compelling story
 </pre></div>
 </div>
 <p>This install did write a package receipt:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pkgutil --pkgs / | grep my.fake.pkg
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgutil --pkgs / <span class="p">|</span> grep my.fake.pkg
 my.fake.pkg
 </pre></div>
 </div>
@@ -308,9 +314,9 @@ my.fake.pkg
 <p>We point to a bundle to install and (usually) specify the install location.</p>
 <p>In this case the bundle must be a properly formed bundle of some sort.</p>
 <p>I&#8217;ll make a debug symbols bundle by doing a tiny compilation with clang:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;int main(int argc, char** argv) { }&quot;</span> &gt; aprogram.c
-<span class="nv">$ </span>clang -g aprogram.c -o aprogram
-<span class="nv">$ </span>tree aprogram.dSYM
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;int main(int argc, char** argv) { }&quot;</span> &gt; aprogram.c
+$ clang -g aprogram.c -o aprogram
+$ tree aprogram.dSYM
 aprogram.dSYM
 └── Contents
     ├── Info.plist
@@ -318,23 +324,23 @@ aprogram.dSYM
         └── DWARF
             └── aprogram
 
-3 directories, 2 files
+<span class="m">3</span> directories, <span class="m">2</span> files
 </pre></div>
 </div>
 <p>Build, install the package:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pkgbuild --component aprogram.dSYM --install-location /tmp my_package.pkg
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgbuild --component aprogram.dSYM --install-location /tmp my_package.pkg
 pkgbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram.dSYM
 pkgbuild: Wrote package to my_package.pkg
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo installer -pkg my_package.pkg -target /
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo installer -pkg my_package.pkg -target /
 installer: Package name is my_package
 installer: Upgrading at base path /
 installer: The upgrade was successful.
 </pre></div>
 </div>
 <p>The installer has written the expected output files:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree /tmp/aprogram.dSYM
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ tree /tmp/aprogram.dSYM
 /tmp/aprogram.dSYM
 └── Contents
     ├── Info.plist
@@ -342,14 +348,14 @@ installer: The upgrade was successful.
         └── DWARF
             └── aprogram
 
-3 directories, 2 files
+<span class="m">3</span> directories, <span class="m">2</span> files
 </pre></div>
 </div>
 <p>You can add more than one bundle to a single component installer.</p>
 <p>Here I make another bundle with a different name:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;int main(int argc, char** argv) { }&quot;</span> &gt; aprogram2.c
-<span class="nv">$ </span>clang -g aprogram2.c -o aprogram2
-<span class="nv">$ </span>tree aprogram2.dSYM
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;int main(int argc, char** argv) { }&quot;</span> &gt; aprogram2.c
+$ clang -g aprogram2.c -o aprogram2
+$ tree aprogram2.dSYM
 aprogram2.dSYM
 └── Contents
     ├── Info.plist
@@ -357,28 +363,28 @@ aprogram2.dSYM
         └── DWARF
             └── aprogram2
 
-3 directories, 2 files
+<span class="m">3</span> directories, <span class="m">2</span> files
 </pre></div>
 </div>
 <p>When you add more than one component, you need to give a package identifier,
-because <tt class="docutils literal"><span class="pre">pkgbuild</span></tt> will not know which component to get an identifier from.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pkgbuild --component aprogram.dSYM --install-location /tmp <span class="se">\</span>
-<span class="nv">$ </span>    --component aprogram2.dSYM --install-location /tmp <span class="se">\</span>
-<span class="nv">$ </span>    --identifier my.fake.pkg <span class="se">\</span>
-<span class="nv">$ </span>    my_package.pkg
+because <code class="docutils literal"><span class="pre">pkgbuild</span></code> will not know which component to get an identifier from.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgbuild --component aprogram.dSYM --install-location /tmp <span class="se">\</span>
+$     --component aprogram2.dSYM --install-location /tmp <span class="se">\</span>
+$     --identifier my.fake.pkg <span class="se">\</span>
+$     my_package.pkg
 pkgbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram.dSYM
 pkgbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram2.dSYM
 pkgbuild: Wrote package to my_package.pkg
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo installer -pkg my_package.pkg -target /
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo installer -pkg my_package.pkg -target /
 installer: Package name is my_package
 installer: Upgrading at base path /
 installer: The upgrade was successful.
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree /tmp/aprogram.dSYM
-<span class="nv">$ </span>tree /tmp/aprogram2.dSYM
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ tree /tmp/aprogram.dSYM
+$ tree /tmp/aprogram2.dSYM
 /tmp/aprogram.dSYM
 └── Contents
     ├── Info.plist
@@ -386,7 +392,7 @@ installer: The upgrade was successful.
         └── DWARF
             └── aprogram
 
-3 directories, 2 files
+<span class="m">3</span> directories, <span class="m">2</span> files
 /tmp/aprogram2.dSYM
 └── Contents
     ├── Info.plist
@@ -394,7 +400,7 @@ installer: The upgrade was successful.
         └── DWARF
             └── aprogram2
 
-3 directories, 2 files
+<span class="m">3</span> directories, <span class="m">2</span> files
 </pre></div>
 </div>
 </div>
@@ -412,22 +418,22 @@ error messages using javascript code;</li>
 <li>ability to customize choices of component packages to install using
 javascript code.</li>
 </ul>
-<p>An XML file named <tt class="docutils literal"><span class="pre">Distribution</span></tt> specifies these options (see <a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1">distribution
+<p>An XML file named <code class="docutils literal"><span class="pre">Distribution</span></code> specifies these options (see <a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1">distribution
 definition file</a>).</p>
 <div class="section" id="building-product-archives-with-productarchive">
-<h3>Building product archives with <tt class="docutils literal"><span class="pre">productarchive</span></tt><a class="headerlink" href="#building-product-archives-with-productarchive" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">productarchive</span></tt> has five modes of action:</p>
+<h3>Building product archives with <code class="docutils literal"><span class="pre">productarchive</span></code><a class="headerlink" href="#building-product-archives-with-productarchive" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">productarchive</span></code> has five modes of action:</p>
 <div class="section" id="archive-for-in-app-content">
 <h4>Archive for &#8220;in-app&#8221; content<a class="headerlink" href="#archive-for-in-app-content" title="Permalink to this headline">¶</a></h4>
-<p>This appears to be something to do with the App Store.  Use the <tt class="docutils literal"><span class="pre">--content</span></tt>
+<p>This appears to be something to do with the App Store.  Use the <code class="docutils literal"><span class="pre">--content</span></code>
 flag for this one.</p>
 </div>
 <div class="section" id="archive-from-destination-root">
 <h4>Archive from destination root<a class="headerlink" href="#archive-from-destination-root" title="Permalink to this headline">¶</a></h4>
 <p>Build an archive from a directory where the paths of the files relative to the
-<tt class="docutils literal"><span class="pre">--root</span></tt> directory give the output install location on the target volume
-(see <a class="reference internal" href="#destination-root"><em>Destination root</em></a>).</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --root my_root my_archive.pkg
+<code class="docutils literal"><span class="pre">--root</span></code> directory give the output install location on the target volume
+(see <a class="reference internal" href="#destination-root"><span class="std std-ref">Destination root</span></a>).</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ productbuild --root my_root my_archive.pkg
 productbuild: Wrote product to my_archive.pkg
 </pre></div>
 </div>
@@ -436,20 +442,20 @@ productbuild: Wrote product to my_archive.pkg
 <h4>Archive from component bundle(s) or package(s)<a class="headerlink" href="#archive-from-component-bundle-s-or-package-s" title="Permalink to this headline">¶</a></h4>
 <p>Build a product archive from one or more components by passing:</p>
 <ul class="simple">
-<li>bundle path(s) with one or more uses of the <tt class="docutils literal"><span class="pre">--component</span></tt> flag (see
-<a class="reference internal" href="#explicit-component"><em>Explicit component(s)</em></a>) and / or;</li>
-<li>package paths(s) with one or more uses of the <tt class="docutils literal"><span class="pre">--package</span></tt> flag.</li>
+<li>bundle path(s) with one or more uses of the <code class="docutils literal"><span class="pre">--component</span></code> flag (see
+<a class="reference internal" href="#explicit-component"><span class="std std-ref">Explicit component(s)</span></a>) and / or;</li>
+<li>package paths(s) with one or more uses of the <code class="docutils literal"><span class="pre">--package</span></code> flag.</li>
 </ul>
 <p>Build product archive with two component bundles:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --component aprogram.dSYM /tmp --component aprogram2.dSYM /tmp my_archive.pkg
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ productbuild --component aprogram.dSYM /tmp --component aprogram2.dSYM /tmp my_archive.pkg
 productbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram.dSYM
 productbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram2.dSYM
 productbuild: Wrote product to my_archive.pkg
 </pre></div>
 </div>
 <p>Make bundles into component packages:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pkgbuild --component aprogram.dSYM --install-location /tmp aprogram.pkg
-<span class="nv">$ </span>pkgbuild --component aprogram2.dSYM --install-location /tmp aprogram2.pkg
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgbuild --component aprogram.dSYM --install-location /tmp aprogram.pkg
+$ pkgbuild --component aprogram2.dSYM --install-location /tmp aprogram2.pkg
 pkgbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram.dSYM
 pkgbuild: Wrote package to aprogram.pkg
 pkgbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram2.dSYM
@@ -457,18 +463,18 @@ pkgbuild: Wrote package to aprogram2.pkg
 </pre></div>
 </div>
 <p>Build product archives from the component packages:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --package aprogram.pkg --package aprogram2.pkg my_archive.pkg
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ productbuild --package aprogram.pkg --package aprogram2.pkg my_archive.pkg
 productbuild: Wrote product to my_archive.pkg
 </pre></div>
 </div>
 </div>
 <div class="section" id="build-a-distribution-file-from-component-bundle-s-packages-s">
-<h4>Build a <tt class="docutils literal"><span class="pre">Distribution</span></tt> file from component bundle(s) / packages(s)<a class="headerlink" href="#build-a-distribution-file-from-component-bundle-s-packages-s" title="Permalink to this headline">¶</a></h4>
-<p>This builds a template <tt class="docutils literal"><span class="pre">Distribution</span></tt> XML file by analyzing one or more
-components in the form of bundles or <tt class="docutils literal"><span class="pre">.pkg</span></tt> files.  Use the <tt class="docutils literal"><span class="pre">--synthesize</span></tt>
+<h4>Build a <code class="docutils literal"><span class="pre">Distribution</span></code> file from component bundle(s) / packages(s)<a class="headerlink" href="#build-a-distribution-file-from-component-bundle-s-packages-s" title="Permalink to this headline">¶</a></h4>
+<p>This builds a template <code class="docutils literal"><span class="pre">Distribution</span></code> XML file by analyzing one or more
+components in the form of bundles or <code class="docutils literal"><span class="pre">.pkg</span></code> files.  Use the <code class="docutils literal"><span class="pre">--synthesize</span></code>
 flag.</p>
-<p>Analyze two component bundles to give a <tt class="docutils literal"><span class="pre">Distribution</span></tt> file:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --synthesize --component aprogram.dSYM --component aprogram2.dSYM Distribution-1
+<p>Analyze two component bundles to give a <code class="docutils literal"><span class="pre">Distribution</span></code> file:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ productbuild --synthesize --component aprogram.dSYM --component aprogram2.dSYM Distribution-1
 productbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram.dSYM
 productbuild: Inferred install-location of /Users/mb312/dev_trees/docosx/pkg_examples
 productbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram2.dSYM
@@ -476,12 +482,12 @@ productbuild: Inferred install-location of /Users/mb312/dev_trees/docosx/pkg_exa
 productbuild: Wrote synthesized distribution to Distribution-1
 </pre></div>
 </div>
-<p>Analyze two component packages to give a <tt class="docutils literal"><span class="pre">Distribution</span></tt> file:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --synthesize --package aprogram.pkg --package aprogram2.pkg Distribution-2
+<p>Analyze two component packages to give a <code class="docutils literal"><span class="pre">Distribution</span></code> file:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ productbuild --synthesize --package aprogram.pkg --package aprogram2.pkg Distribution-2
 productbuild: Wrote synthesized distribution to Distribution-2
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat Distribution-2
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ cat Distribution-2
 &lt;?xml <span class="nv">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span> <span class="nv">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span> <span class="nv">standalone</span><span class="o">=</span><span class="s2">&quot;no&quot;</span>?&gt;
 &lt;installer-gui-script <span class="nv">minSpecVersion</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;
     &lt;pkg-ref <span class="nv">id</span><span class="o">=</span><span class="s2">&quot;com.apple.xcode.dsym.aprogram&quot;</span>/&gt;
@@ -507,12 +513,12 @@ productbuild: Wrote synthesized distribution to Distribution-2
 </div>
 </div>
 <div class="section" id="archive-from-distribution-file">
-<h4>Archive from <tt class="docutils literal"><span class="pre">Distribution</span></tt> file<a class="headerlink" href="#archive-from-distribution-file" title="Permalink to this headline">¶</a></h4>
-<p>Build a product archive from a pre-existing <tt class="docutils literal"><span class="pre">Distribution</span></tt> file, using the
-<tt class="docutils literal"><span class="pre">--distribution</span></tt> flag.  The <tt class="docutils literal"><span class="pre">Distribution</span></tt> file refers to pre-existing
-component <tt class="docutils literal"><span class="pre">.pkg</span></tt> files.  If these are not in the current directory, you can
-give paths to find <tt class="docutils literal"><span class="pre">.pkg</span></tt> files with the <tt class="docutils literal"><span class="pre">--package-path</span></tt> flag.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --distribution Distribution-2 my_archive.pkg
+<h4>Archive from <code class="docutils literal"><span class="pre">Distribution</span></code> file<a class="headerlink" href="#archive-from-distribution-file" title="Permalink to this headline">¶</a></h4>
+<p>Build a product archive from a pre-existing <code class="docutils literal"><span class="pre">Distribution</span></code> file, using the
+<code class="docutils literal"><span class="pre">--distribution</span></code> flag.  The <code class="docutils literal"><span class="pre">Distribution</span></code> file refers to pre-existing
+component <code class="docutils literal"><span class="pre">.pkg</span></code> files.  If these are not in the current directory, you can
+give paths to find <code class="docutils literal"><span class="pre">.pkg</span></code> files with the <code class="docutils literal"><span class="pre">--package-path</span></code> flag.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ productbuild --distribution Distribution-2 my_archive.pkg
 productbuild: Wrote product to my_archive.pkg
 </pre></div>
 </div>
@@ -520,12 +526,12 @@ productbuild: Wrote product to my_archive.pkg
 </div>
 </div>
 <div class="section" id="customizing-the-distribution-file">
-<h2>Customizing the <tt class="docutils literal"><span class="pre">Distribution</span></tt> file<a class="headerlink" href="#customizing-the-distribution-file" title="Permalink to this headline">¶</a></h2>
+<h2>Customizing the <code class="docutils literal"><span class="pre">Distribution</span></code> file<a class="headerlink" href="#customizing-the-distribution-file" title="Permalink to this headline">¶</a></h2>
 <p>See: <a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1">distribution definition file</a> and <a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/InstallerJavaScriptRef/InstallerJavaScriptRef.pdf">installer javascript reference</a>.</p>
 <div class="section" id="adding-system-and-volume-checks">
 <h3>Adding system and volume checks<a class="headerlink" href="#adding-system-and-volume-checks" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-xml"><div class="highlight"><pre># file: distro_check.xml
-<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;</span>
+<div class="admonition">
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">distro_check.xml</span></code><div class="last highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;</span>
 <span class="nt">&lt;installer-gui-script</span> <span class="na">minSpecVersion=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;pkg-ref</span> <span class="na">id=</span><span class="s">&quot;com.apple.xcode.dsym.aprogram&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;pkg-ref</span> <span class="na">id=</span><span class="s">&quot;com.apple.xcode.dsym.aprogram2&quot;</span><span class="nt">/&gt;</span>
@@ -575,19 +581,20 @@ productbuild: Wrote product to my_archive.pkg
 <span class="nt">&lt;/installer-gui-script&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --distribution distro_check.xml my_archive.pkg
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ productbuild --distribution distro_check.xml my_archive.pkg
 productbuild: Wrote product to my_archive.pkg
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo installer -pkg my_archive.pkg -target /
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo installer -pkg my_archive.pkg -target /
 installer: Package name is 
 installer: Upgrading at base path /
 installer: The upgrade was successful.
 </pre></div>
 </div>
 <p>Now make the volume check fail:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo rm /tmp/my_postinstall.log
-<span class="nv">$ </span>sudo installer -pkg my_archive.pkg -target /
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo rm /tmp/my_postinstall.log
+$ sudo installer -pkg my_archive.pkg -target /
 installer: Cannot install on volume / because it is disabled.
 installer: No my_postinstall file on volume
 </pre></div>
@@ -596,11 +603,11 @@ installer: No my_postinstall file on volume
 the check is eligible for the install.</p>
 </div>
 <div class="section" id="debugging-distribution-javascript-with-system-log">
-<h3>Debugging <tt class="docutils literal"><span class="pre">Distribution</span></tt> javascript with <tt class="docutils literal"><span class="pre">system.log</span></tt><a class="headerlink" href="#debugging-distribution-javascript-with-system-log" title="Permalink to this headline">¶</a></h3>
+<h3>Debugging <code class="docutils literal"><span class="pre">Distribution</span></code> javascript with <code class="docutils literal"><span class="pre">system.log</span></code><a class="headerlink" href="#debugging-distribution-javascript-with-system-log" title="Permalink to this headline">¶</a></h3>
 <p>Getting the javascript right can be tricky because it is running in a highly
-specific environment.  <tt class="docutils literal"><span class="pre">system.log()</span></tt> can help.</p>
-<div class="highlight-xml"><div class="highlight"><pre># file: distro_debug.xml
-<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;</span>
+specific environment.  <code class="docutils literal"><span class="pre">system.log()</span></code> can help.</p>
+<div class="admonition">
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">distro_debug.xml</span></code><div class="last highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;</span>
 <span class="nt">&lt;installer-gui-script</span> <span class="na">minSpecVersion=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;pkg-ref</span> <span class="na">id=</span><span class="s">&quot;com.apple.xcode.dsym.aprogram&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;pkg-ref</span> <span class="na">id=</span><span class="s">&quot;com.apple.xcode.dsym.aprogram2&quot;</span><span class="nt">/&gt;</span>
@@ -635,46 +642,47 @@ specific environment.  <tt class="docutils literal"><span class="pre">system.log
 <span class="nt">&lt;/installer-gui-script&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --distribution distro_debug.xml my_archive.pkg
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ productbuild --distribution distro_debug.xml my_archive.pkg
 productbuild: Wrote product to my_archive.pkg
 </pre></div>
 </div>
-<p>Use the <tt class="docutils literal"><span class="pre">-dumplog</span></tt> flag to the installer to see the log.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo installer -dumplog -pkg my_archive.pkg -target /
+<p>Use the <code class="docutils literal"><span class="pre">-dumplog</span></code> flag to the installer to see the log.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo installer -dumplog -pkg my_archive.pkg -target /
 installer: Package name is 
 installer: Upgrading at base path /
 installer: The upgrade was successful.
-Jan 16 18:42:50 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Debug&gt;: JS: my: choice,target,search,product,result
-Jan 16 18:42:50 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Debug&gt;: JS: system: supportedSpecVersion,bundles,openCL,defaults,search,ioregistry,env,files,hasWindowServer,users,applications,version,localizedStandardStringWithFormat,gestalt,localizedStringWithFormat,run,sysctl,propertiesOf,log,numericalCompare,runOnce,compareVersions,localizedString,localizedStandardString
-Jan 16 18:42:50 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Debug&gt;: JS: system.applications: fromIdentifier,all,fromPID
-Jan 16 18:42:50 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Debug&gt;: Product archive /Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg <span class="nv">trustLevel</span><span class="o">=</span>100
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: <span class="nv">location</span> <span class="o">=</span> file://localhost
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram.pkg
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram2.pkg
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Debug&gt;: Set authorization level to root <span class="k">for </span>session
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Debug&gt;: Will use PK session
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Info&gt;: Starting installation:
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: Configuring volume <span class="s2">&quot;SSD&quot;</span>
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Info&gt;: Preparing disk <span class="k">for </span><span class="nb">local </span>booted install.
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: Free space on <span class="s2">&quot;SSD&quot;</span>: 18.66 GB <span class="o">(</span>18656899072 bytes<span class="o">)</span>.
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: Create temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.61413tafJbk&quot;</span>
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: IFPKInstallElement <span class="o">(</span>2 packages<span class="o">)</span>
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Debug&gt;: Using authorization level of root <span class="k">for </span>IFPKInstallElement
-Jan 16 18:42:51 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: PackageKit: Enqueuing install with boosting
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: Running install actions
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: Removing temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.61413tafJbk&quot;</span>
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: Finalize disk <span class="s2">&quot;SSD&quot;</span>
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: Notifying system of updated components
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: 
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: **** Summary Information ****
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;:   Operation      Elapsed <span class="nb">time</span>
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: -----------------------------
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;:        disk      0.05 seconds
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;:      script      0.00 seconds
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;:        zero      0.01 seconds
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;:     install      1.03 seconds
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;:     -total-      1.09 seconds
-Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]</span> &lt;Notice&gt;: 
+Mar <span class="m">24</span> 13:29:39 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: JS: my: choice,target,search,product,result
+Mar <span class="m">24</span> 13:29:39 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: JS: system: supportedSpecVersion,bundles,openCL,defaults,search,ioregistry,env,files,hasWindowServer,users,applications,version,localizedStandardStringWithFormat,gestalt,localizedStringWithFormat,run,sysctl,propertiesOf,log,numericalCompare,runOnce,compareVersions,localizedString,localizedStandardString
+Mar <span class="m">24</span> 13:29:39 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: JS: system.applications: fromIdentifier,all,fromPID
+Mar <span class="m">24</span> 13:29:39 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: Product archive /Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg <span class="nv">trustLevel</span><span class="o">=</span>100
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: <span class="nv">location</span> <span class="o">=</span> file://localhost
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram.pkg
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram2.pkg
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: Set authorization level to root <span class="k">for</span> session
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: Will use PK session
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Info&gt;: Starting installation:
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Configuring volume <span class="s2">&quot;SSD&quot;</span>
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Info&gt;: Preparing disk <span class="k">for</span> <span class="nb">local</span> booted install.
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Free space on <span class="s2">&quot;SSD&quot;</span>: 8.63 GB <span class="o">(</span><span class="m">8630685696</span> bytes<span class="o">)</span>.
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Create temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.64233RS7bB8&quot;</span>
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: IFPKInstallElement <span class="o">(</span><span class="m">2</span> packages<span class="o">)</span>
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: Using authorization level of root <span class="k">for</span> IFPKInstallElement
+Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: PackageKit: Enqueuing install with boosting
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Running install actions
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Removing temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.64233RS7bB8&quot;</span>
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Finalize disk <span class="s2">&quot;SSD&quot;</span>
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Notifying system of updated components
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: 
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: **** Summary Information ****
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:   Operation      Elapsed <span class="nb">time</span>
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: -----------------------------
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:        disk      0.03 seconds
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:      script      0.00 seconds
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:        zero      0.01 seconds
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:     install      1.03 seconds
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:     -total-      1.07 seconds
+Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: 
 </pre></div>
 </div>
 </div>
@@ -682,20 +690,20 @@ Jan 16 18:42:52 shanghai installer<span class="o">[</span>61413<span class="o">]
 <h3>Adding custom script checks<a class="headerlink" href="#adding-custom-script-checks" title="Permalink to this headline">¶</a></h3>
 <p>You can add custom executable scripts or binaries to run via the javascript
 functions such as the volume check and the system check.</p>
-<p>You first have to enable the <tt class="docutils literal"><span class="pre">allow-external-scripts</span></tt> option in the
+<p>You first have to enable the <code class="docutils literal"><span class="pre">allow-external-scripts</span></code> option in the
 Distribution file XML:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;options allow-external-scripts=&quot;yes&quot;/&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">options</span> <span class="n">allow</span><span class="o">-</span><span class="n">external</span><span class="o">-</span><span class="n">scripts</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="o">/&gt;</span>
 </pre></div>
 </div>
 <p>This will cause the installer GUI to ask if you want to allow an external
 script to check if the software can be installed.</p>
-<p>You can then call external programs via the javascript <tt class="docutils literal"><span class="pre">system.run()</span></tt>
-function.  The programs you call with <tt class="docutils literal"><span class="pre">system.run</span></tt> either need to be on the
+<p>You can then call external programs via the javascript <code class="docutils literal"><span class="pre">system.run()</span></code>
+function.  The programs you call with <code class="docutils literal"><span class="pre">system.run</span></code> either need to be on the
 system PATH that the installer uses, or provided in the installer, usually via
-the <tt class="docutils literal"><span class="pre">--scripts</span></tt> flag to <tt class="docutils literal"><span class="pre">productbuild</span></tt>.  Here&#8217;s an example of a command
+the <code class="docutils literal"><span class="pre">--scripts</span></code> flag to <code class="docutils literal"><span class="pre">productbuild</span></code>.  Here&#8217;s an example of a command
 already on the path:</p>
-<div class="highlight-xml"><div class="highlight"><pre># file: distro_system_run.xml
-<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;</span>
+<div class="admonition">
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">distro_system_run.xml</span></code><div class="last highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;</span>
 <span class="nt">&lt;installer-gui-script</span> <span class="na">minSpecVersion=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;pkg-ref</span> <span class="na">id=</span><span class="s">&quot;com.apple.xcode.dsym.aprogram&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;pkg-ref</span> <span class="na">id=</span><span class="s">&quot;com.apple.xcode.dsym.aprogram2&quot;</span><span class="nt">/&gt;</span>
@@ -735,22 +743,23 @@ already on the path:</p>
 <span class="nt">&lt;/installer-gui-script&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --distribution distro_system_run.xml my_archive.pkg
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ productbuild --distribution distro_system_run.xml my_archive.pkg
 productbuild: Wrote product to my_archive.pkg
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo installer -pkg my_archive.pkg -target /
-installer: Error - Test <span class="k">function </span>failed by design
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo installer -pkg my_archive.pkg -target /
+installer: Error - Test <span class="k">function</span> failed by design
 </pre></div>
 </div>
 <p>Check the script ran:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat /tmp/my_system_run.log
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ cat /tmp/my_system_run.log
 Command ran
 </pre></div>
 </div>
 <p>Here&#8217;s an example of a custom script:</p>
-<div class="highlight-xml"><div class="highlight"><pre># file: distro_custom_run.xml
-<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;</span>
+<div class="admonition">
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">distro_custom_run.xml</span></code><div class="last highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;</span>
 <span class="nt">&lt;installer-gui-script</span> <span class="na">minSpecVersion=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;pkg-ref</span> <span class="na">id=</span><span class="s">&quot;com.apple.xcode.dsym.aprogram&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;pkg-ref</span> <span class="na">id=</span><span class="s">&quot;com.apple.xcode.dsym.aprogram2&quot;</span><span class="nt">/&gt;</span>
@@ -789,36 +798,38 @@ Command ran
 <span class="nt">&lt;/installer-gui-script&gt;</span>
 </pre></div>
 </div>
+</div>
 <p>Make a directory to contain the test script:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir archive_scripts
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir archive_scripts
 </pre></div>
 </div>
 <p>Use test script to look for any interesting environment variables available to
 the custom script:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="c"># file: archive_scripts/my_test_cmd.sh</span>
-<span class="c">#!/bin/sh</span>
+<div class="admonition">
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">archive_scripts/my_test_cmd.sh</span></code><div class="last highlight-bash"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
 env &gt; /tmp/my_custom_envs.log
-<span class="nb">echo</span> <span class="s2">&quot;Positional arguments&quot;</span> <span class="nv">$@</span> &gt;&gt; /tmp/my_custom_envs.log
-<span class="nb">exit </span>2
+<span class="nb">echo</span> <span class="s2">&quot;Positional arguments&quot;</span> <span class="se">\$</span>@ &gt;&gt; /tmp/my_custom_envs.log
+<span class="nb">exit</span> 2
 </pre></div>
+</div>
 </div>
 <p>The script must be executable:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>chmod u+x archive_scripts/my_test_cmd.sh
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ chmod u+x archive_scripts/my_test_cmd.sh
 </pre></div>
 </div>
-<p>Build the product archive with <tt class="docutils literal"><span class="pre">--scripts</span></tt> flag:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --distribution distro_custom_run.xml --scripts archive_scripts my_archive.pkg
+<p>Build the product archive with <code class="docutils literal"><span class="pre">--scripts</span></code> flag:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ productbuild --distribution distro_custom_run.xml --scripts archive_scripts my_archive.pkg
 productbuild: Wrote product to my_archive.pkg
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo installer -pkg my_archive.pkg -target /
-installer: Error - Test <span class="k">function </span>failed by design
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo installer -pkg my_archive.pkg -target /
+installer: Error - Test <span class="k">function</span> failed by design
 </pre></div>
 </div>
 <p>Check the environment variables available to the custom script.  We already
-have <tt class="docutils literal"><span class="pre">/tmp/my_sudo_envs.log</span></tt> with the standard environment variables
+have <code class="docutils literal"><span class="pre">/tmp/my_sudo_envs.log</span></code> with the standard environment variables
 available as root, so look for the difference:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>diff /tmp/my_sudo_envs.log /tmp/my_custom_envs.log --old-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span> --unchanged-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff /tmp/my_sudo_envs.log /tmp/my_custom_envs.log --old-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span> --unchanged-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span>
 <span class="nv">SHELL</span><span class="o">=</span>/bin/bash
 <span class="nv">USER</span><span class="o">=</span>root
 <span class="nv">SUDO_USER</span><span class="o">=</span>mb312
@@ -826,18 +837,18 @@ available as root, so look for the difference:</p>
 <span class="nv">__CF_USER_TEXT_ENCODING</span><span class="o">=</span>0x0:0:0
 <span class="nv">USERNAME</span><span class="o">=</span>root
 <span class="nv">MAIL</span><span class="o">=</span>/var/mail/root
-<span class="nv">PWD</span><span class="o">=</span>/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/com.apple.install.hHhCCZTm
+<span class="nv">PWD</span><span class="o">=</span>/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/com.apple.install.zCD4mtw9
 <span class="nv">SHLVL</span><span class="o">=</span>1
 <span class="nv">SUDO_COMMAND</span><span class="o">=</span>/usr/sbin/installer -pkg my_archive.pkg -target /
 <span class="nv">COMMAND_LINE_INSTALL</span><span class="o">=</span>1
-<span class="nv">DISPLAY</span><span class="o">=</span>/tmp/launch-cu1hvI/org.macosforge.xquartz:0
+<span class="nv">DISPLAY</span><span class="o">=</span>/tmp/launch-bIbO3P/org.macosforge.xquartz:0
 <span class="nv">_</span><span class="o">=</span>/usr/bin/env
-Positional arguments args I passed
+Positional arguments <span class="nv">$@</span>
 </pre></div>
 </div>
 <p>There do not seem to be any environment variables to tell us where the
-installer <tt class="docutils literal"><span class="pre">.pkg</span></tt> file is.  Here we can work out which volume the installer
-is installing to with the <tt class="docutils literal"><span class="pre">SUDO_COMMAND</span></tt> variable, but this will only work
+installer <code class="docutils literal"><span class="pre">.pkg</span></code> file is.  Here we can work out which volume the installer
+is installing to with the <code class="docutils literal"><span class="pre">SUDO_COMMAND</span></code> variable, but this will only work
 for command line installs - the installer GUI does not set this variable.</p>
 </div>
 <div class="section" id="customizing-the-installer-pages">
@@ -845,43 +856,44 @@ for command line installs - the installer GUI does not set this variable.</p>
 <p>See <a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1">distribution definition file</a> for details.</p>
 <p>You can customize these pages:</p>
 <ul class="simple">
-<li>Welcome (<tt class="docutils literal"><span class="pre">&lt;welcome</span> <span class="pre">...</span> <span class="pre">/&gt;</span></tt> element)</li>
-<li>Readme  (<tt class="docutils literal"><span class="pre">&lt;readme</span> <span class="pre">...</span> <span class="pre">/&gt;</span></tt>)</li>
-<li>License (<tt class="docutils literal"><span class="pre">&lt;license</span> <span class="pre">...</span> <span class="pre">/&gt;</span></tt>)</li>
-<li>Conclusion (<tt class="docutils literal"><span class="pre">&lt;conclusion</span> <span class="pre">...</span> <span class="pre">/&gt;</span></tt>)</li>
+<li>Welcome (<code class="docutils literal"><span class="pre">&lt;welcome</span> <span class="pre">...</span> <span class="pre">/&gt;</span></code> element)</li>
+<li>Readme  (<code class="docutils literal"><span class="pre">&lt;readme</span> <span class="pre">...</span> <span class="pre">/&gt;</span></code>)</li>
+<li>License (<code class="docutils literal"><span class="pre">&lt;license</span> <span class="pre">...</span> <span class="pre">/&gt;</span></code>)</li>
+<li>Conclusion (<code class="docutils literal"><span class="pre">&lt;conclusion</span> <span class="pre">...</span> <span class="pre">/&gt;</span></code>)</li>
 </ul>
 <p>To do this, you specify the filename containing the custom text, and the
 format of the file.  For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;welcome file=&quot;welcome.html&quot; mime-type=&quot;text/html&quot;/&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">welcome</span> <span class="n">file</span><span class="o">=</span><span class="s2">&quot;welcome.html&quot;</span> <span class="n">mime</span><span class="o">-</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text/html&quot;</span><span class="o">/&gt;</span>
 </pre></div>
 </div>
-<p>The file should be in the <tt class="docutils literal"><span class="pre">Resources/&lt;language&gt;.lproj</span></tt> directory of the
-installer <tt class="docutils literal"><span class="pre">.pkg</span></tt>, where <tt class="docutils literal"><span class="pre">&lt;language&gt;</span></tt> is a language like &#8220;English&#8221;,
+<p>The file should be in the <code class="docutils literal"><span class="pre">Resources/&lt;language&gt;.lproj</span></code> directory of the
+installer <code class="docutils literal"><span class="pre">.pkg</span></code>, where <code class="docutils literal"><span class="pre">&lt;language&gt;</span></code> is a language like &#8220;English&#8221;,
 &#8220;French&#8221; or &#8220;Spanish&#8221;, or shorthand for these such as &#8220;en&#8221;, &#8220;fr&#8221;, &#8220;es&#8221;.  Can
-you can provide a <tt class="docutils literal"><span class="pre">Resources</span></tt> directory with the <tt class="docutils literal"><span class="pre">--resources</span></tt> flag to
-<tt class="docutils literal"><span class="pre">productbuild</span></tt>.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir -p my_resources/English.lproj
+you can provide a <code class="docutils literal"><span class="pre">Resources</span></code> directory with the <code class="docutils literal"><span class="pre">--resources</span></code> flag to
+<code class="docutils literal"><span class="pre">productbuild</span></code>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir -p my_resources/English.lproj
 </pre></div>
 </div>
-<div class="highlight-html"><div class="highlight"><pre># file: my_resources/English.lproj/welcome.html
-<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;head&gt;</span>
-    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=iso-8859-1&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;title&gt;</span>Install my_archive <span class="nt">&lt;/title&gt;</span>
-<span class="nt">&lt;/head&gt;</span>
-<span class="nt">&lt;body&gt;</span>
-<span class="nt">&lt;font</span> <span class="na">face=</span><span class="s">&quot;Helvetica&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;b&gt;</span>Welcome to the <span class="nt">&lt;i&gt;</span>my_archive<span class="nt">&lt;/i&gt;</span> installer<span class="nt">&lt;/b&gt;</span>
-<span class="nt">&lt;p&gt;</span>
-This installer will install <span class="nt">&lt;i&gt;</span>my_archive<span class="nt">&lt;/i&gt;</span> on your computer.
-<span class="nt">&lt;/font&gt;</span>
-<span class="nt">&lt;/ul&gt;</span>
-<span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
+<div class="admonition">
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">my_resources/English.lproj/welcome.html</span></code><div class="last highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;content-type&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;text/html; charset=iso-8859-1&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Install my_archive <span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">font</span> <span class="na">face</span><span class="o">=</span><span class="s">&quot;Helvetica&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Welcome to the <span class="p">&lt;</span><span class="nt">i</span><span class="p">&gt;</span>my_archive<span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span> installer<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+This installer will install <span class="p">&lt;</span><span class="nt">i</span><span class="p">&gt;</span>my_archive<span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span> on your computer.
+<span class="p">&lt;/</span><span class="nt">font</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-xml"><div class="highlight"><pre># file: distro_welcome.xml
-<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;</span>
+</div>
+<div class="admonition">
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">distro_welcome.xml</span></code><div class="last highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&gt;</span>
 <span class="nt">&lt;installer-gui-script</span> <span class="na">minSpecVersion=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;welcome</span> <span class="na">file=</span><span class="s">&quot;welcome.html&quot;</span> <span class="na">mime-type=</span><span class="s">&quot;text/html&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;pkg-ref</span> <span class="na">id=</span><span class="s">&quot;com.apple.xcode.dsym.aprogram&quot;</span><span class="nt">/&gt;</span>
@@ -904,19 +916,20 @@ This installer will install <span class="nt">&lt;i&gt;</span>my_archive<span cla
 <span class="nt">&lt;/installer-gui-script&gt;</span>
 </pre></div>
 </div>
-<p>We use the <tt class="docutils literal"><span class="pre">--resources</span></tt> flag to add the resources directory:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>productbuild --distribution distro_welcome.xml --resources my_resources my_archive.pkg
+</div>
+<p>We use the <code class="docutils literal"><span class="pre">--resources</span></code> flag to add the resources directory:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ productbuild --distribution distro_welcome.xml --resources my_resources my_archive.pkg
 productbuild: Wrote product to my_archive.pkg
 </pre></div>
 </div>
 <p>The welcome won&#8217;t show up in the command line install, so you need to run this
 installer via the GUI to see the new text.</p>
 <p>I used an HTML file here, and that works as expected, for me at least.  There
-are many installers that use <tt class="docutils literal"><span class="pre">.rtf</span></tt> files instead of HTML, but I heard a
-rumor that <tt class="docutils literal"><span class="pre">productbuild</span></tt> does not deal with these correctly. If you want to
-use rich text format files with <tt class="docutils literal"><span class="pre">productbuild</span></tt>, you might have to do some
-post-processing of your installer with – <tt class="docutils literal"><span class="pre">pkgutil</span> <span class="pre">--expand</span> <span class="pre">my_archive.pkg</span>
-<span class="pre">out_dir</span></tt>; (futz); <tt class="docutils literal"><span class="pre">pkgutil</span> <span class="pre">--flatten</span> <span class="pre">out_dir</span> <span class="pre">my_archive.pkg</span></tt>.</p>
+are many installers that use <code class="docutils literal"><span class="pre">.rtf</span></code> files instead of HTML, but I heard a
+rumor that <code class="docutils literal"><span class="pre">productbuild</span></code> does not deal with these correctly. If you want to
+use rich text format files with <code class="docutils literal"><span class="pre">productbuild</span></code>, you might have to do some
+post-processing of your installer with – <code class="docutils literal"><span class="pre">pkgutil</span> <span class="pre">--expand</span> <span class="pre">my_archive.pkg</span>
+<span class="pre">out_dir</span></code>; (futz); <code class="docutils literal"><span class="pre">pkgutil</span> <span class="pre">--flatten</span> <span class="pre">out_dir</span> <span class="pre">my_archive.pkg</span></code>.</p>
 </div>
 </div>
 </div>
@@ -925,7 +938,7 @@ post-processing of your installer with – <tt class="docutils literal"><span cl
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -945,19 +958,19 @@ post-processing of your installer with – <tt class="docutils literal"><span cl
 </ul>
 </li>
 <li><a class="reference internal" href="#product-archive">Product archive</a><ul>
-<li><a class="reference internal" href="#building-product-archives-with-productarchive">Building product archives with <tt class="docutils literal"><span class="pre">productarchive</span></tt></a><ul>
+<li><a class="reference internal" href="#building-product-archives-with-productarchive">Building product archives with <code class="docutils literal"><span class="pre">productarchive</span></code></a><ul>
 <li><a class="reference internal" href="#archive-for-in-app-content">Archive for &#8220;in-app&#8221; content</a></li>
 <li><a class="reference internal" href="#archive-from-destination-root">Archive from destination root</a></li>
 <li><a class="reference internal" href="#archive-from-component-bundle-s-or-package-s">Archive from component bundle(s) or package(s)</a></li>
-<li><a class="reference internal" href="#build-a-distribution-file-from-component-bundle-s-packages-s">Build a <tt class="docutils literal"><span class="pre">Distribution</span></tt> file from component bundle(s) / packages(s)</a></li>
-<li><a class="reference internal" href="#archive-from-distribution-file">Archive from <tt class="docutils literal"><span class="pre">Distribution</span></tt> file</a></li>
+<li><a class="reference internal" href="#build-a-distribution-file-from-component-bundle-s-packages-s">Build a <code class="docutils literal"><span class="pre">Distribution</span></code> file from component bundle(s) / packages(s)</a></li>
+<li><a class="reference internal" href="#archive-from-distribution-file">Archive from <code class="docutils literal"><span class="pre">Distribution</span></code> file</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#customizing-the-distribution-file">Customizing the <tt class="docutils literal"><span class="pre">Distribution</span></tt> file</a><ul>
+<li><a class="reference internal" href="#customizing-the-distribution-file">Customizing the <code class="docutils literal"><span class="pre">Distribution</span></code> file</a><ul>
 <li><a class="reference internal" href="#adding-system-and-volume-checks">Adding system and volume checks</a></li>
-<li><a class="reference internal" href="#debugging-distribution-javascript-with-system-log">Debugging <tt class="docutils literal"><span class="pre">Distribution</span></tt> javascript with <tt class="docutils literal"><span class="pre">system.log</span></tt></a></li>
+<li><a class="reference internal" href="#debugging-distribution-javascript-with-system-log">Debugging <code class="docutils literal"><span class="pre">Distribution</span></code> javascript with <code class="docutils literal"><span class="pre">system.log</span></code></a></li>
 <li><a class="reference internal" href="#adding-custom-script-checks">Adding custom script checks</a></li>
 <li><a class="reference internal" href="#customizing-the-installer-pages">Customizing the installer pages</a></li>
 </ul>
@@ -972,29 +985,28 @@ post-processing of your installer with – <tt class="docutils literal"><span cl
   <h4>Next topic</h4>
   <p class="topless"><a href="legacy_package_redux.html"
                         title="next chapter">OSX legacy packaging redux</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/flat_packages.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/flat_packages.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1006,12 +1018,12 @@ post-processing of your installer with – <tt class="docutils literal"><span cl
         <li class="right" >
           <a href="mac_runtime_link.html" title="Runtime linking on Mac"
              >previous</a> |</li>
-        <li><a href="index.html">docosx 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">docosx 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2010-2014: Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2014: Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

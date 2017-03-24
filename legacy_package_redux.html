@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>OSX legacy packaging redux &mdash; docosx 0.2 documentation</title>
+    <title>OSX legacy packaging redux &#8212; docosx 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,19 +17,21 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="docosx 0.2 documentation" href="index.html" />
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Serving MathJax locally on OSX" href="localhost_mathjax.html" />
     <link rel="prev" title="OSX flat packages" href="flat_packages.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -41,14 +43,14 @@
         <li class="right" >
           <a href="flat_packages.html" title="OSX flat packages"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">docosx 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">docosx 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="osx-legacy-packaging-redux">
 <h1>OSX legacy packaging redux<a class="headerlink" href="#osx-legacy-packaging-redux" title="Permalink to this headline">¶</a></h1>
@@ -73,18 +75,18 @@ facilitates their retrieval.</dd>
 a particular structure.  These are the package types described in the legacy
 guide, and this document.  Newer OSX will still install from these packages.</p>
 <p>In the new world (OSX 10.5 and above), the standard package formats are
-<em>flat</em>, meaning that the packages are archived up into single file <tt class="docutils literal"><span class="pre">xar</span></tt>
+<em>flat</em>, meaning that the packages are archived up into single file <code class="docutils literal"><span class="pre">xar</span></code>
 archives.  There are two types of packages in this new world of flat:</p>
 <ul class="simple">
-<li>flat <em>component packages</em> (built by <tt class="docutils literal"><span class="pre">pkgbuild</span></tt> utility) (see <a class="reference external" href="http://s.sudre.free.fr/Stuff/Ivanhoe/FLAT.html">flat package
-format</a>, <a class="reference external" href="http://ilostmynotes.blogspot.com/2012/06/mac-os-x-pkg-bom-files-package.html">unpacking flat packages</a> and the <tt class="docutils literal"><span class="pre">pkgbuild</span></tt> man page).</li>
-<li>flat <em>product archives</em> (built by the <tt class="docutils literal"><span class="pre">productbuild</span></tt> utility) (see the
-<tt class="docutils literal"><span class="pre">productbuild</span></tt> man page).  These contain component packages, but can
+<li>flat <em>component packages</em> (built by <code class="docutils literal"><span class="pre">pkgbuild</span></code> utility) (see <a class="reference external" href="http://s.sudre.free.fr/Stuff/Ivanhoe/FLAT.html">flat package
+format</a>, <a class="reference external" href="http://ilostmynotes.blogspot.com/2012/06/mac-os-x-pkg-bom-files-package.html">unpacking flat packages</a> and the <code class="docutils literal"><span class="pre">pkgbuild</span></code> man page).</li>
+<li>flat <em>product archives</em> (built by the <code class="docutils literal"><span class="pre">productbuild</span></code> utility) (see the
+<code class="docutils literal"><span class="pre">productbuild</span></code> man page).  These contain component packages, but can
 customize the install experience with a XML  <a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1">Distribution definition file</a>
-called <tt class="docutils literal"><span class="pre">Distribution</span></tt>. The <tt class="docutils literal"><span class="pre">Distribution</span></tt> file may contain javascript
+called <code class="docutils literal"><span class="pre">Distribution</span></code>. The <code class="docutils literal"><span class="pre">Distribution</span></code> file may contain javascript
 code for checking installation requirements and customizing install options.</li>
 </ul>
-<p>See <a class="reference internal" href="flat_packages.html"><em>OSX flat packages</em></a> for details.</p>
+<p>See <a class="reference internal" href="flat_packages.html"><span class="doc">OSX flat packages</span></a> for details.</p>
 <p>Now we forget about flat packages and go back to the world where all installer
 packages are bundles.</p>
 </div>
@@ -94,10 +96,10 @@ packages are bundles.</p>
 <dl class="docutils">
 <dt>Manual installs</dt>
 <dd>You provide a single directory or file that the user drags to their hard
-disk.  This is a typical install for an OSX <tt class="docutils literal"><span class="pre">*.app</span></tt> bundle, where the user
-drags the <tt class="docutils literal"><span class="pre">*.app</span></tt> folder (bundle) to <tt class="docutils literal"><span class="pre">/Applications</span></tt></dd>
+disk.  This is a typical install for an OSX <code class="docutils literal"><span class="pre">*.app</span></code> bundle, where the user
+drags the <code class="docutils literal"><span class="pre">*.app</span></code> folder (bundle) to <code class="docutils literal"><span class="pre">/Applications</span></code></dd>
 <dt>Managed installs</dt>
-<dd>Installs via a <tt class="docutils literal"><span class="pre">.pkg</span></tt> or <tt class="docutils literal"><span class="pre">.mpkg</span></tt> installer.  The install is &#8220;managed&#8221;
+<dd>Installs via a <code class="docutils literal"><span class="pre">.pkg</span></code> or <code class="docutils literal"><span class="pre">.mpkg</span></code> installer.  The install is &#8220;managed&#8221;
 because the installer automates the task of checking for dependencies,
 getting Administrator authentication from the user, and moving files to
 different parts of the file system.</dd>
@@ -130,16 +132,16 @@ units for building multi-component packages.</p>
 <p>A component package carries information and data for installing one particular
 component. A component package:</p>
 <ul class="simple">
-<li>has a <tt class="docutils literal"><span class="pre">.pkg</span></tt> directory extension for the package bundle;</li>
+<li>has a <code class="docutils literal"><span class="pre">.pkg</span></code> directory extension for the package bundle;</li>
 <li>installs on any version of OSX;</li>
 <li>usually contains a <em>payload</em> - directories and files to be installed at one
 particular location on disk;</li>
-<li>has a bundle structure where the  <tt class="docutils literal"><span class="pre">.pkg</span></tt> directory contains a top-level
-<tt class="docutils literal"><span class="pre">Contents</span></tt> directory, which in turn contains files <tt class="docutils literal"><span class="pre">Archive.bom</span></tt>,
-<tt class="docutils literal"><span class="pre">Archive.pax.gz</span></tt>, <tt class="docutils literal"><span class="pre">Info.plist</span></tt>, <tt class="docutils literal"><span class="pre">PkgInfo</span></tt>, and directory
-<tt class="docutils literal"><span class="pre">Resources</span></tt>.</li>
+<li>has a bundle structure where the  <code class="docutils literal"><span class="pre">.pkg</span></code> directory contains a top-level
+<code class="docutils literal"><span class="pre">Contents</span></code> directory, which in turn contains files <code class="docutils literal"><span class="pre">Archive.bom</span></code>,
+<code class="docutils literal"><span class="pre">Archive.pax.gz</span></code>, <code class="docutils literal"><span class="pre">Info.plist</span></code>, <code class="docutils literal"><span class="pre">PkgInfo</span></code>, and directory
+<code class="docutils literal"><span class="pre">Resources</span></code>.</li>
 </ul>
-<p>This is one <tt class="docutils literal"><span class="pre">.pkg</span></tt> compoenent bundle from the Python.org installer:</p>
+<p>This is one <code class="docutils literal"><span class="pre">.pkg</span></code> compoenent bundle from the Python.org installer:</p>
 <img alt="_images/python_unix_tools.png" id="python-unix-tools-image" src="_images/python_unix_tools.png" />
 </div>
 <div class="section" id="multi-component-packages">
@@ -150,30 +152,30 @@ particular location on disk;</li>
 <h4>Metapackage<a class="headerlink" href="#metapackage" title="Permalink to this headline">¶</a></h4>
 <p>A metapackage:</p>
 <ul class="simple">
-<li>has a <tt class="docutils literal"><span class="pre">.mpkg</span></tt> directory extension for the package bundle;</li>
+<li>has a <code class="docutils literal"><span class="pre">.mpkg</span></code> directory extension for the package bundle;</li>
 <li>installs on OSX 10.2 or later;</li>
-<li>has a bundle structure where the <tt class="docutils literal"><span class="pre">.mpkg</span></tt> directory contains a top-level
-<tt class="docutils literal"><span class="pre">Contents</span></tt> directory, which in turn contains files <tt class="docutils literal"><span class="pre">Info.plist</span></tt>,
-<tt class="docutils literal"><span class="pre">PkgInfo</span></tt>, and directories <tt class="docutils literal"><span class="pre">Resources</span></tt>, <tt class="docutils literal"><span class="pre">Packages</span></tt>.</li>
+<li>has a bundle structure where the <code class="docutils literal"><span class="pre">.mpkg</span></code> directory contains a top-level
+<code class="docutils literal"><span class="pre">Contents</span></code> directory, which in turn contains files <code class="docutils literal"><span class="pre">Info.plist</span></code>,
+<code class="docutils literal"><span class="pre">PkgInfo</span></code>, and directories <code class="docutils literal"><span class="pre">Resources</span></code>, <code class="docutils literal"><span class="pre">Packages</span></code>.</li>
 </ul>
-<p>Here&#8217;s is the <tt class="docutils literal"><span class="pre">.mpkg</span></tt> bundle for the Python.org installer:</p>
+<p>Here&#8217;s is the <code class="docutils literal"><span class="pre">.mpkg</span></code> bundle for the Python.org installer:</p>
 <img alt="_images/python_mpkg.png" src="_images/python_mpkg.png" />
-<p>Each of the listed <tt class="docutils literal"><span class="pre">.pkg</span></tt> component packages is also a bundle.  In fact the
-<a class="reference internal" href="#python-unix-tools-image"><em>example component bundle contents</em></a> is the
-contents of <tt class="docutils literal"><span class="pre">PythonUnixTools-2.7.pkg</span></tt> from the Python.org <tt class="docutils literal"><span class="pre">.mpkg</span></tt> bundle
+<p>Each of the listed <code class="docutils literal"><span class="pre">.pkg</span></code> component packages is also a bundle.  In fact the
+<a class="reference internal" href="#python-unix-tools-image"><span class="std std-ref">example component bundle contents</span></a> is the
+contents of <code class="docutils literal"><span class="pre">PythonUnixTools-2.7.pkg</span></code> from the Python.org <code class="docutils literal"><span class="pre">.mpkg</span></code> bundle
 here.</p>
 </div>
 <div class="section" id="distribution-package">
 <h4>Distribution package<a class="headerlink" href="#distribution-package" title="Permalink to this headline">¶</a></h4>
 <p>A distribution package:</p>
 <ul class="simple">
-<li>has a <tt class="docutils literal"><span class="pre">.mpkg</span></tt> directory extension for the package bundle;</li>
+<li>has a <code class="docutils literal"><span class="pre">.mpkg</span></code> directory extension for the package bundle;</li>
 <li>installs on OSX 10.4 or later;</li>
 <li>can customize install messages and options using XML elements and javascript
-code in the <tt class="docutils literal"><span class="pre">distribution.dist</span></tt> file.</li>
-<li>has a bundle structure where the <tt class="docutils literal"><span class="pre">.mpkg</span></tt> directory contains a top-level
-<tt class="docutils literal"><span class="pre">Contents</span></tt> directory, which in turn contains file <tt class="docutils literal"><span class="pre">description.dist</span></tt>,
-and directories <tt class="docutils literal"><span class="pre">Resources</span></tt>, <tt class="docutils literal"><span class="pre">Packages</span></tt>.</li>
+code in the <code class="docutils literal"><span class="pre">distribution.dist</span></code> file.</li>
+<li>has a bundle structure where the <code class="docutils literal"><span class="pre">.mpkg</span></code> directory contains a top-level
+<code class="docutils literal"><span class="pre">Contents</span></code> directory, which in turn contains file <code class="docutils literal"><span class="pre">description.dist</span></code>,
+and directories <code class="docutils literal"><span class="pre">Resources</span></code>, <code class="docutils literal"><span class="pre">Packages</span></code>.</li>
 </ul>
 <p>This is the contents of a distribution package I had lying around on my hard
 drive:</p>
@@ -183,7 +185,7 @@ drive:</p>
 <span id="id1"></span><h4>Hybrid package<a class="headerlink" href="#hybrid-package" title="Permalink to this headline">¶</a></h4>
 <p>Confusingly, it is also possible to make a package that is <em>both</em> a
 metapackage <em>and</em> a distribution package.  These packages have the contents of
-a metapackage, but with the extra <tt class="docutils literal"><span class="pre">distribution.dist</span></tt> file.  The installer
+a metapackage, but with the extra <code class="docutils literal"><span class="pre">distribution.dist</span></code> file.  The installer
 runs as a metapackage on OSX &lt; 10.4, and as a distribution package for OSX &gt;=
 10.4.  For example, this is why the metapackage and distribution package
 directory listings shown in the <a class="reference external" href="http://www.mactech.com/articles/mactech/Vol.26/26.02/TheFlatPackage/index.html">MacTech flat package article</a> have the same
@@ -200,7 +202,7 @@ files.</p>
 <li>Installation properties : e.g. system requirements, whether the installer
 requires Administrator permissions</li>
 <li>Install operations : one of pre-flight, pre-install, pre-upgrade,
-post-install, post-upgrade, post-flight (see <a class="reference internal" href="#install-operations"><em>Install operations</em></a>).</li>
+post-install, post-upgrade, post-flight (see <a class="reference internal" href="#install-operations"><span class="std std-ref">Install operations</span></a>).</li>
 </ul>
 </div>
 <div class="section" id="steps-in-an-install">
@@ -212,7 +214,7 @@ installation volumes meet any requirements for the install</li>
 operations; these may cancel the install.</li>
 <li>Install / payload drop: installer copies payload(s) to target volume</li>
 <li>Save receipt : &#8220;Installer copies the component package file (with its
-payload stripped) to the <tt class="docutils literal"><span class="pre">/Library/Receipts</span></tt> directory in the installation
+payload stripped) to the <code class="docutils literal"><span class="pre">/Library/Receipts</span></code> directory in the installation
 volume.&#8221; (<a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy guide</a>).</li>
 <li>Postinstall : installer runs post-install / post-upgrade and post-flight
 operations.</li>
@@ -223,7 +225,7 @@ operations.</li>
 <p>Install operations are operations run during the <em>steps</em> of an install, that
 can customize the behavior of the installer.</p>
 <p>I&#8217;ll also call these <em>pre / post operations</em>.</p>
-<p>The operations are run in the following order (see <a class="reference internal" href="#install-steps"><em>Steps in an install</em></a>).</p>
+<p>The operations are run in the following order (see <a class="reference internal" href="#install-steps"><span class="std std-ref">Steps in an install</span></a>).</p>
 <ul class="simple">
 <li>Pre-flight : operation run after requirements check step.  Implemented by
 <cite>preflight</cite> executable. Return value other than 0 cancels the install.</li>
@@ -258,30 +260,30 @@ checks and which operation executables they run.</p>
 <h4>Requirements check<a class="headerlink" href="#requirements-check" title="Permalink to this headline">¶</a></h4>
 <p>A component package can have none or more of the following executables:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">InstallationCheck</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">VolumeCheck</span></tt></li>
+<li><code class="docutils literal"><span class="pre">InstallationCheck</span></code></li>
+<li><code class="docutils literal"><span class="pre">VolumeCheck</span></code></li>
 </ul>
 <p>These scripts implement requirement checking for the &#8220;requirements check&#8221; step
-(<a class="reference internal" href="#install-steps"><em>Steps in an install</em></a>).</p>
-<p>If <tt class="docutils literal"><span class="pre">InstallationCheck</span></tt> is present, it should return 0 if the system is
+(<a class="reference internal" href="#install-steps"><span class="std std-ref">Steps in an install</span></a>).</p>
+<p>If <code class="docutils literal"><span class="pre">InstallationCheck</span></code> is present, it should return 0 if the system is
 suitable for the install. If not, it should return another number, where the
 number identifies a message to display (see the <a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy
 guide</a> for details).</p>
-<p>If <tt class="docutils literal"><span class="pre">VolumeCheck</span></tt> is present, it should return 0 for any volume that is
+<p>If <code class="docutils literal"><span class="pre">VolumeCheck</span></code> is present, it should return 0 for any volume that is
 suitable for the install.  If a particular volume is not suitable, it should
 return another number, where the number identifies a message to display (see
 the <a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy guide</a> for details).  The installer will run
-<tt class="docutils literal"><span class="pre">VolumeCheck</span></tt> on each available volume at install-time.</p>
+<code class="docutils literal"><span class="pre">VolumeCheck</span></code> on each available volume at install-time.</p>
 <p>An install using a component package also runs these (optional) operations /
 executables:</p>
 </div>
 <div class="section" id="pre-post-operations">
 <h4>pre / post operations<a class="headerlink" href="#pre-post-operations" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">preflight</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">preinstall</span></tt> or <tt class="docutils literal"><span class="pre">preupgrade</span></tt> (depending on whether a receipt is present)</li>
-<li><tt class="docutils literal"><span class="pre">postinstall</span></tt> or <tt class="docutils literal"><span class="pre">postupgrade</span></tt> (depending on whether a receipt is present)</li>
-<li><tt class="docutils literal"><span class="pre">postflight</span></tt></li>
+<li><code class="docutils literal"><span class="pre">preflight</span></code></li>
+<li><code class="docutils literal"><span class="pre">preinstall</span></code> or <code class="docutils literal"><span class="pre">preupgrade</span></code> (depending on whether a receipt is present)</li>
+<li><code class="docutils literal"><span class="pre">postinstall</span></code> or <code class="docutils literal"><span class="pre">postupgrade</span></code> (depending on whether a receipt is present)</li>
+<li><code class="docutils literal"><span class="pre">postflight</span></code></li>
 </ul>
 </div>
 </div>
@@ -296,8 +298,8 @@ executables:</p>
 <div class="section" id="id5">
 <h4>Requirements check<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">InstallationCheck</span></tt> for each component package.</li>
-<li><tt class="docutils literal"><span class="pre">VolumeCheck</span></tt> for each component package and each available volume.</li>
+<li><code class="docutils literal"><span class="pre">InstallationCheck</span></code> for each component package.</li>
+<li><code class="docutils literal"><span class="pre">VolumeCheck</span></code> for each component package and each available volume.</li>
 </ul>
 <p>The metapackage cannot implement its own installation or volume requirement
 checking, and only uses the checks of the component packages.</p>
@@ -305,14 +307,14 @@ checking, and only uses the checks of the component packages.</p>
 <div class="section" id="id6">
 <h4>Pre-post operations<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">preflight</span></tt> for top metapackage</li>
-<li><tt class="docutils literal"><span class="pre">preflight</span></tt> for each component package</li>
-<li><tt class="docutils literal"><span class="pre">preinstall</span></tt> or <tt class="docutils literal"><span class="pre">preupgrade</span></tt> for top metapackage</li>
-<li><tt class="docutils literal"><span class="pre">preinstall</span></tt> or <tt class="docutils literal"><span class="pre">preupgrade</span></tt> for each component package</li>
-<li><tt class="docutils literal"><span class="pre">postinstall</span></tt> or <tt class="docutils literal"><span class="pre">postupgrade</span></tt> for each component package</li>
-<li><tt class="docutils literal"><span class="pre">postinstall</span></tt> or <tt class="docutils literal"><span class="pre">postupgrade</span></tt> for top metapackage</li>
-<li><tt class="docutils literal"><span class="pre">postflight</span></tt> for top metapackage</li>
-<li><tt class="docutils literal"><span class="pre">postflight</span></tt> for each component package</li>
+<li><code class="docutils literal"><span class="pre">preflight</span></code> for top metapackage</li>
+<li><code class="docutils literal"><span class="pre">preflight</span></code> for each component package</li>
+<li><code class="docutils literal"><span class="pre">preinstall</span></code> or <code class="docutils literal"><span class="pre">preupgrade</span></code> for top metapackage</li>
+<li><code class="docutils literal"><span class="pre">preinstall</span></code> or <code class="docutils literal"><span class="pre">preupgrade</span></code> for each component package</li>
+<li><code class="docutils literal"><span class="pre">postinstall</span></code> or <code class="docutils literal"><span class="pre">postupgrade</span></code> for each component package</li>
+<li><code class="docutils literal"><span class="pre">postinstall</span></code> or <code class="docutils literal"><span class="pre">postupgrade</span></code> for top metapackage</li>
+<li><code class="docutils literal"><span class="pre">postflight</span></code> for top metapackage</li>
+<li><code class="docutils literal"><span class="pre">postflight</span></code> for each component package</li>
 </ul>
 </div>
 </div>
@@ -323,7 +325,7 @@ other distribution packages.</p>
 <div class="section" id="id8">
 <h4>Requirements check<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <p>Distribution packages implement their requirement checks with javascript code
-embedded in an XML file called <tt class="docutils literal"><span class="pre">distribution.dist</span></tt>.  This file can contain
+embedded in an XML file called <code class="docutils literal"><span class="pre">distribution.dist</span></code>.  This file can contain
 javascript code for checking whether the system is suitable for the install
 (the <em>Installation Check script</em>) and code for checking whether a volume is
 suitable for install (the <em>Volume Check script</em>).  The requirements check
@@ -336,10 +338,10 @@ process is therefore:</p>
 <div class="section" id="id9">
 <h4>Pre-post operations<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">preflight</span></tt> for each component package</li>
-<li><tt class="docutils literal"><span class="pre">preinstall</span></tt> or <tt class="docutils literal"><span class="pre">preupgrade</span></tt> for each component package</li>
-<li><tt class="docutils literal"><span class="pre">postinstall</span></tt> or <tt class="docutils literal"><span class="pre">postupgrade</span></tt> for each component package</li>
-<li><tt class="docutils literal"><span class="pre">postflight</span></tt> for each component package</li>
+<li><code class="docutils literal"><span class="pre">preflight</span></code> for each component package</li>
+<li><code class="docutils literal"><span class="pre">preinstall</span></code> or <code class="docutils literal"><span class="pre">preupgrade</span></code> for each component package</li>
+<li><code class="docutils literal"><span class="pre">postinstall</span></code> or <code class="docutils literal"><span class="pre">postupgrade</span></code> for each component package</li>
+<li><code class="docutils literal"><span class="pre">postflight</span></code> for each component package</li>
 </ul>
 <p>Unlike the metapackage, the distribution package cannot itself specify
 pre-post operations with scripts (they will be ignored if present).</p>
@@ -352,7 +354,7 @@ pre-post operations with scripts (they will be ignored if present).</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -400,29 +402,28 @@ pre-post operations with scripts (they will be ignored if present).</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="localhost_mathjax.html"
                         title="next chapter">Serving MathJax locally on OSX</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/legacy_package_redux.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/legacy_package_redux.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -434,12 +435,12 @@ pre-post operations with scripts (they will be ignored if present).</p>
         <li class="right" >
           <a href="flat_packages.html" title="OSX flat packages"
              >previous</a> |</li>
-        <li><a href="index.html">docosx 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">docosx 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2010-2014: Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2014: Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

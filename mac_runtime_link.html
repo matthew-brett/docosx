@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Runtime linking on Mac &mdash; docosx 0.2 documentation</title>
+    <title>Runtime linking on Mac &#8212; docosx 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,19 +17,21 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="docosx 0.2 documentation" href="index.html" />
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="OSX flat packages" href="flat_packages.html" />
     <link rel="prev" title="Booting Macs" href="booting_macs.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -41,23 +43,23 @@
         <li class="right" >
           <a href="booting_macs.html" title="Booting Macs"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">docosx 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">docosx 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="runtime-linking-on-mac">
 <h1>Runtime linking on Mac<a class="headerlink" href="#runtime-linking-on-mac" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="some-files-for-testing">
 <h2>Some files for testing<a class="headerlink" href="#some-files-for-testing" title="Permalink to this headline">¶</a></h2>
 <p>With thanks to <a class="reference external" href="https://dev.lsstcorp.org/trac/wiki/LinkingDarwin">https://dev.lsstcorp.org/trac/wiki/LinkingDarwin</a></p>
-<p>Create files <tt class="docutils literal"><span class="pre">a.cc</span></tt> through <tt class="docutils literal"><span class="pre">d.cc</span></tt></p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir $HOME/dyldtest
-cd $HOME/dyldtest
+<p>Create files <code class="docutils literal"><span class="pre">a.cc</span></code> through <code class="docutils literal"><span class="pre">d.cc</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>mkdir \$HOME/dyldtest
+cd \$HOME/dyldtest
 
 cat &lt;&lt; EOF &gt; a.cc
 #include &lt;iostream&gt;
@@ -83,68 +85,68 @@ EOF
 </pre></div>
 </div>
 <p>Compile them to object files:</p>
-<div class="highlight-python"><div class="highlight"><pre>clang++ -c a.cc b.cc c.cc d.cc
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">clang</span><span class="o">++</span> <span class="o">-</span><span class="n">c</span> <span class="n">a</span><span class="o">.</span><span class="n">cc</span> <span class="n">b</span><span class="o">.</span><span class="n">cc</span> <span class="n">c</span><span class="o">.</span><span class="n">cc</span> <span class="n">d</span><span class="o">.</span><span class="n">cc</span>
 </pre></div>
 </div>
 <p>Create libraries from a.o and b.o:</p>
-<div class="highlight-python"><div class="highlight"><pre>clang++ -o liba.dylib -dynamiclib a.o
-clang++ -o libb.dylib -dynamiclib b.o -L. -la
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">clang</span><span class="o">++</span> <span class="o">-</span><span class="n">o</span> <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="o">-</span><span class="n">dynamiclib</span> <span class="n">a</span><span class="o">.</span><span class="n">o</span>
+<span class="n">clang</span><span class="o">++</span> <span class="o">-</span><span class="n">o</span> <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="o">-</span><span class="n">dynamiclib</span> <span class="n">b</span><span class="o">.</span><span class="n">o</span> <span class="o">-</span><span class="n">L</span><span class="o">.</span> <span class="o">-</span><span class="n">la</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="using-otool-l-to-show-linked-library-locations">
-<h2>Using <tt class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></tt> to show linked library locations<a class="headerlink" href="#using-otool-l-to-show-linked-library-locations" title="Permalink to this headline">¶</a></h2>
-<p>Notice the <tt class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></tt> output for these libraries:</p>
-<div class="highlight-python"><div class="highlight"><pre>liba.dylib:
-    liba.dylib (compatibility version 0.0.0, current version 0.0.0)
-    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 120.0.0)
-    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)
+<h2>Using <code class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></code> to show linked library locations<a class="headerlink" href="#using-otool-l-to-show-linked-library-locations" title="Permalink to this headline">¶</a></h2>
+<p>Notice the <code class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></code> output for these libraries:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span><span class="p">:</span>
+    <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
+    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libc</span><span class="o">++.</span><span class="mf">1.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">120.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
+    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libSystem</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">1197.1</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
 
-libb.dylib:
-    libb.dylib (compatibility version 0.0.0, current version 0.0.0)
-    liba.dylib (compatibility version 0.0.0, current version 0.0.0)
-    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 120.0.0)
-    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)
+<span class="n">libb</span><span class="o">.</span><span class="n">dylib</span><span class="p">:</span>
+    <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
+    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libc</span><span class="o">++.</span><span class="mf">1.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">120.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
+    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libSystem</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">1197.1</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Link another library against these libraries:</p>
-<div class="highlight-python"><div class="highlight"><pre>clang++ -o libc.dylib -dynamiclib c.o -L. -lb -la
-clang++ -o test-lib d.o -L. -lc
-export DYLD_PRINT_LIBRARIES=y
-./test-lib
-unset DYLD_PRINT_LIBRARIES
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">clang</span><span class="o">++</span> <span class="o">-</span><span class="n">o</span> <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="o">-</span><span class="n">dynamiclib</span> <span class="n">c</span><span class="o">.</span><span class="n">o</span> <span class="o">-</span><span class="n">L</span><span class="o">.</span> <span class="o">-</span><span class="n">lb</span> <span class="o">-</span><span class="n">la</span>
+<span class="n">clang</span><span class="o">++</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span><span class="o">-</span><span class="n">lib</span> <span class="n">d</span><span class="o">.</span><span class="n">o</span> <span class="o">-</span><span class="n">L</span><span class="o">.</span> <span class="o">-</span><span class="n">lc</span>
+<span class="n">export</span> <span class="n">DYLD_PRINT_LIBRARIES</span><span class="o">=</span><span class="n">y</span>
+<span class="o">./</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
+<span class="n">unset</span> <span class="n">DYLD_PRINT_LIBRARIES</span>
 </pre></div>
 </div>
 <p>This gives, among other output:</p>
-<div class="highlight-python"><div class="highlight"><pre>dyld: loaded: /Users/mb312/dyldtest/./test-lib
-dyld: loaded: libc.dylib
-dyld: loaded: /usr/lib/libc++.1.dylib
-dyld: loaded: /usr/lib/libSystem.B.dylib
-dyld: loaded: libb.dylib
-dyld: loaded: liba.dylib
-dyld: loaded: /usr/lib/libc++abi.dylib
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">mb312</span><span class="o">/</span><span class="n">dyldtest</span><span class="o">/./</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
+<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
+<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libc</span><span class="o">++.</span><span class="mf">1.</span><span class="n">dylib</span>
+<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libSystem</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">dylib</span>
+<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span>
+<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span>
+<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libc</span><span class="o">++</span><span class="n">abi</span><span class="o">.</span><span class="n">dylib</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></tt> on <tt class="docutils literal"><span class="pre">libc.dylib</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre>libc.dylib:
-    libc.dylib (compatibility version 0.0.0, current version 0.0.0)
-    libb.dylib (compatibility version 0.0.0, current version 0.0.0)
-    liba.dylib (compatibility version 0.0.0, current version 0.0.0)
-    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 120.0.0)
-    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)
+<p><code class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></code> on <code class="docutils literal"><span class="pre">libc.dylib</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span><span class="p">:</span>
+    <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
+    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libc</span><span class="o">++.</span><span class="mf">1.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">120.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
+    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libSystem</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">1197.1</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="the-install-name">
-<h2>The <tt class="docutils literal"><span class="pre">install_name</span></tt><a class="headerlink" href="#the-install-name" title="Permalink to this headline">¶</a></h2>
-<p>So &#8211; the <tt class="docutils literal"><span class="pre">install_name</span></tt> is two things:</p>
+<h2>The <code class="docutils literal"><span class="pre">install_name</span></code><a class="headerlink" href="#the-install-name" title="Permalink to this headline">¶</a></h2>
+<p>So &#8211; the <code class="docutils literal"><span class="pre">install_name</span></code> is two things:</p>
 <ol class="arabic simple">
 <li>The name / location that a library <em>provides</em> to something that links against
-it. This is also the install name <tt class="docutils literal"><span class="pre">id</span></tt> (see man page for
-<tt class="docutils literal"><span class="pre">install_name_tool</span></tt>).  The <tt class="docutils literal"><span class="pre">install_name</span></tt> <tt class="docutils literal"><span class="pre">id</span></tt> in a library you are
+it. This is also the install name <code class="docutils literal"><span class="pre">id</span></code> (see man page for
+<code class="docutils literal"><span class="pre">install_name_tool</span></code>).  The <code class="docutils literal"><span class="pre">install_name</span></code> <code class="docutils literal"><span class="pre">id</span></code> in a library you are
 linking to only matters at link time</li>
 <li>The name that the linking application uses to say where it should find a
-library.  The <tt class="docutils literal"><span class="pre">install_name</span></tt> values stored in your linking application or
+library.  The <code class="docutils literal"><span class="pre">install_name</span></code> values stored in your linking application or
 library matter at run time - because they tell the application or library
 where to find the library.</li>
 </ol>
@@ -154,76 +156,76 @@ where to find the library.</li>
 <p>So far we&#8217;ve used library paths that are relative paths - in fact they are
 relative to the current directory from which we are executing our commands.</p>
 <p>We can try moving our library:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir a
-mv liba.dylib a
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">a</span>
+<span class="n">mv</span> <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="n">a</span>
 </pre></div>
 </div>
 <p>Of course now our application fails:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./test-lib
+<div class="highlight-default"><div class="highlight"><pre><span></span>\$ ./test-lib
 dyld: Library not loaded: liba.dylib
 Referenced from: /Users/mb312/dyldtest/libc.dylib
 Reason: image not found
 Trace/BPT trap: 5
 </pre></div>
 </div>
-<p>From the <tt class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></tt> output above, we have to change the <tt class="docutils literal"><span class="pre">install_name</span></tt> in
-<tt class="docutils literal"><span class="pre">libb.dylib</span></tt>, and <tt class="docutils literal"><span class="pre">libc.dylib</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change liba.dylib a/liba.dylib libb.dylib
-install_name_tool -change liba.dylib a/liba.dylib libc.dylib
+<p>From the <code class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></code> output above, we have to change the <code class="docutils literal"><span class="pre">install_name</span></code> in
+<code class="docutils literal"><span class="pre">libb.dylib</span></code>, and <code class="docutils literal"><span class="pre">libc.dylib</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span>
+<span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
 </pre></div>
 </div>
-<p>Then, sure enough, <tt class="docutils literal"><span class="pre">test-lib</span></tt> works again:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./test-lib
+<p>Then, sure enough, <code class="docutils literal"><span class="pre">test-lib</span></code> works again:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>\$ ./test-lib
 c()
 b()
 a()
 </pre></div>
 </div>
 <p>Now move the other libraries to a new directory:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir libs
-mv libb.dylib libc.dylib libs
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">libs</span>
+<span class="n">mv</span> <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libs</span>
 </pre></div>
 </div>
-<p>Obviously we first have to tell <tt class="docutils literal"><span class="pre">test-lib</span></tt> where <tt class="docutils literal"><span class="pre">libc.dylib</span></tt> went:</p>
-<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change libc.dylib libs/libc.dylib test-lib
+<p>Obviously we first have to tell <code class="docutils literal"><span class="pre">test-lib</span></code> where <code class="docutils literal"><span class="pre">libc.dylib</span></code> went:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="n">test</span><span class="o">-</span><span class="n">lib</span>
 </pre></div>
 </div>
-<p>But - oh dear - now <tt class="docutils literal"><span class="pre">libc.dylib</span></tt> is confused:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./test-lib
+<p>But - oh dear - now <code class="docutils literal"><span class="pre">libc.dylib</span></code> is confused:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>\$ ./test-lib
 dyld: Library not loaded: libb.dylib
 Referenced from: /Users/mb312/dyldtest/libs/libc.dylib
 Reason: image not found
 Trace/BPT trap: 5
 </pre></div>
 </div>
-<p>So we need to tell <tt class="docutils literal"><span class="pre">libc.dylib</span></tt> where <tt class="docutils literal"><span class="pre">libb.dylib</span></tt> is:</p>
-<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change libb.dylib libs/libb.dylib libs/libc.dylib
+<p>So we need to tell <code class="docutils literal"><span class="pre">libc.dylib</span></code> where <code class="docutils literal"><span class="pre">libb.dylib</span></code> is:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libs</span><span class="o">/</span><span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">test-lib</span></tt> then runs OK.</p>
+<p><code class="docutils literal"><span class="pre">test-lib</span></code> then runs OK.</p>
 </div>
 <div class="section" id="loader-path">
 <h2>&#64;loader_path<a class="headerlink" href="#loader-path" title="Permalink to this headline">¶</a></h2>
-<p>At the moment all our <tt class="docutils literal"><span class="pre">install_name</span></tt> values are relative to the current
+<p>At the moment all our <code class="docutils literal"><span class="pre">install_name</span></code> values are relative to the current
 directory. That&#8217;s not satisfying because it means if we run our command from
-anywhere but the current directory, the paths will be wrong.  <tt class="docutils literal"><span class="pre">&#64;loader_path</span></tt>
-is one way to fix this.  Here we tell <tt class="docutils literal"><span class="pre">test-lib</span></tt> that it should look for
-<tt class="docutils literal"><span class="pre">libc.dylib</span></tt> in the <tt class="docutils literal"><span class="pre">lib</span></tt> directory relative to itself:</p>
-<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change libs/libc.dylib @loader_path/libs/libc.dylib test-lib
+anywhere but the current directory, the paths will be wrong.  <code class="docutils literal"><span class="pre">&#64;loader_path</span></code>
+is one way to fix this.  Here we tell <code class="docutils literal"><span class="pre">test-lib</span></code> that it should look for
+<code class="docutils literal"><span class="pre">libc.dylib</span></code> in the <code class="docutils literal"><span class="pre">lib</span></code> directory relative to itself:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@loader_path</span><span class="o">/</span><span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="n">test</span><span class="o">-</span><span class="n">lib</span>
 </pre></div>
 </div>
-<p>Note the use of <tt class="docutils literal"><span class="pre">&#64;loader_path</span></tt>.  This will be the directory containing the loading
-application or library - in our case the directory containing <tt class="docutils literal"><span class="pre">test-lib</span></tt>. We
-can do the same trick to tell <tt class="docutils literal"><span class="pre">libc.dylib</span></tt> where to find <tt class="docutils literal"><span class="pre">libb.dylib</span></tt>,
+<p>Note the use of <code class="docutils literal"><span class="pre">&#64;loader_path</span></code>.  This will be the directory containing the loading
+application or library - in our case the directory containing <code class="docutils literal"><span class="pre">test-lib</span></code>. We
+can do the same trick to tell <code class="docutils literal"><span class="pre">libc.dylib</span></code> where to find <code class="docutils literal"><span class="pre">libb.dylib</span></code>,
 relative to itself:</p>
-<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change libs/libb.dylib @loader_path/libb.dylib libs/libc.dylib
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">libs</span><span class="o">/</span><span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@loader_path</span><span class="o">/</span><span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
 </pre></div>
 </div>
-<p>Note <tt class="docutils literal"><span class="pre">&#64;loader_path</span></tt> again.  See <a class="reference external" href="https://wincent.com/wiki/&#64;executable_path,_&#64;load_path_and_&#64;rpath">rpath etc</a> and <a class="reference external" href="https://www.mikeash.com/pyblog/friday-qa-2009-11-06-linking-and-install-names.html">linking and install
-names</a> for more explanation. In this case <tt class="docutils literal"><span class="pre">&#64;load_path</span></tt> will be the path of
-<tt class="docutils literal"><span class="pre">libc.dylib</span></tt> - the library doing the loading of <tt class="docutils literal"><span class="pre">libb.dylib</span></tt>.  Now all&#8217;s
-good:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./test-lib
+<p>Note <code class="docutils literal"><span class="pre">&#64;loader_path</span></code> again.  See <a class="reference external" href="https://wincent.com/wiki/&#64;executable_path,_&#64;load_path_and_&#64;rpath">rpath etc</a> and <a class="reference external" href="https://www.mikeash.com/pyblog/friday-qa-2009-11-06-linking-and-install-names.html">linking and install
+names</a> for more explanation. In this case <code class="docutils literal"><span class="pre">&#64;loader_path</span></code> will be the path
+of <code class="docutils literal"><span class="pre">libc.dylib</span></code> - the library doing the loading of <code class="docutils literal"><span class="pre">libb.dylib</span></code>.  Now
+all&#8217;s good:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>\$ ./test-lib
 c()
 b()
 a()
@@ -231,69 +233,69 @@ a()
 </div>
 <p>We wanted to make it possible to call our executable from any directory, so we
 try that:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir nice-place
-cd nice-place
-../test-lib
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">nice</span><span class="o">-</span><span class="n">place</span>
+<span class="n">cd</span> <span class="n">nice</span><span class="o">-</span><span class="n">place</span>
+<span class="o">../</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
 </pre></div>
 </div>
 <p>This gives:</p>
-<div class="highlight-python"><div class="highlight"><pre>dyld: Library not loaded: a/liba.dylib
-Referenced from: /Users/mb312/dyldtest/libs/libc.dylib
-Reason: image not found
-Trace/BPT trap: 5
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dyld</span><span class="p">:</span> <span class="n">Library</span> <span class="ow">not</span> <span class="n">loaded</span><span class="p">:</span> <span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span>
+<span class="n">Referenced</span> <span class="n">from</span><span class="p">:</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">mb312</span><span class="o">/</span><span class="n">dyldtest</span><span class="o">/</span><span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
+<span class="n">Reason</span><span class="p">:</span> <span class="n">image</span> <span class="ow">not</span> <span class="n">found</span>
+<span class="n">Trace</span><span class="o">/</span><span class="n">BPT</span> <span class="n">trap</span><span class="p">:</span> <span class="mi">5</span>
 </pre></div>
 </div>
-<p>Why?  Because <tt class="docutils literal"><span class="pre">libc.dylib</span></tt> is still looking for <tt class="docutils literal"><span class="pre">liba.dylib</span></tt> at
-<tt class="docutils literal"><span class="pre">a/liba.dylib</span></tt> &#8211; <em>starting at the current working directory</em>. How to fix?  Of
+<p>Why?  Because <code class="docutils literal"><span class="pre">libc.dylib</span></code> is still looking for <code class="docutils literal"><span class="pre">liba.dylib</span></code> at
+<code class="docutils literal"><span class="pre">a/liba.dylib</span></code> &#8211; <em>starting at the current working directory</em>. How to fix?  Of
 course:</p>
-<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change a/liba.dylib @loader_path/../a/liba.dylib \
-    ../libs/libc.dylib
-install_name_tool -change a/liba.dylib @loader_path/../a/liba.dylib \
-    ../libs/libb.dylib
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@loader_path</span><span class="o">/../</span><span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> \
+    <span class="o">../</span><span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
+<span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@loader_path</span><span class="o">/../</span><span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> \
+    <span class="o">../</span><span class="n">libs</span><span class="o">/</span><span class="n">libb</span><span class="o">.</span><span class="n">dylib</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="rpath">
 <h2>&#64;rpath<a class="headerlink" href="#rpath" title="Permalink to this headline">¶</a></h2>
-<p>Another option is to use <tt class="docutils literal"><span class="pre">&#64;rpath</span></tt> &#8211; see <a class="reference external" href="https://wincent.com/wiki/&#64;executable_path,_&#64;load_path_and_&#64;rpath">rpath etc</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change @loader_path/../a/liba.dylib @rpath/liba.dylib \
-    ../libs/libc.dylib
-install_name_tool -change @loader_path/../a/liba.dylib @rpath/liba.dylib \
-    ../libs/libb.dylib
+<p>Another option is to use <code class="docutils literal"><span class="pre">&#64;rpath</span></code> &#8211; see <a class="reference external" href="https://wincent.com/wiki/&#64;executable_path,_&#64;load_path_and_&#64;rpath">rpath etc</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="nd">@loader_path</span><span class="o">/../</span><span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@rpath</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> \
+    <span class="o">../</span><span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
+<span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="nd">@loader_path</span><span class="o">/../</span><span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@rpath</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> \
+    <span class="o">../</span><span class="n">libs</span><span class="o">/</span><span class="n">libb</span><span class="o">.</span><span class="n">dylib</span>
 </pre></div>
 </div>
-<p>This won&#8217;t work yet because we haven&#8217;t told anything what <tt class="docutils literal"><span class="pre">&#64;rpath</span></tt> is:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ../test-lib
+<p>This won&#8217;t work yet because we haven&#8217;t told anything what <code class="docutils literal"><span class="pre">&#64;rpath</span></code> is:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>\$ ../test-lib
 dyld: Library not loaded: @rpath/liba.dylib
 Referenced from: /Users/mb312/dyldtest/libs/libc.dylib
 Reason: image not found
 Trace/BPT trap: 5
 </pre></div>
 </div>
-<p>We can set <tt class="docutils literal"><span class="pre">&#64;rpath</span></tt> in our executable:</p>
-<div class="highlight-python"><div class="highlight"><pre>install_name_tool -add_rpath @loader_path/a ../test-lib
+<p>We can set <code class="docutils literal"><span class="pre">&#64;rpath</span></code> in our executable:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">add_rpath</span> <span class="nd">@loader_path</span><span class="o">/</span><span class="n">a</span> <span class="o">../</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
 </pre></div>
 </div>
 <p>That works.  Or in the libraries doing the loading:</p>
-<div class="highlight-python"><div class="highlight"><pre># delete rpath we just set in executable
-install_name_tool -delete_rpath @loader_path/a ../test-lib
-# put into the library instead
-install_name_tool -add_rpath @loader_path/../a ../libs/libc.dylib
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># delete rpath we just set in executable</span>
+<span class="n">install_name_tool</span> <span class="o">-</span><span class="n">delete_rpath</span> <span class="nd">@loader_path</span><span class="o">/</span><span class="n">a</span> <span class="o">../</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
+<span class="c1"># put into the library instead</span>
+<span class="n">install_name_tool</span> <span class="o">-</span><span class="n">add_rpath</span> <span class="nd">@loader_path</span><span class="o">/../</span><span class="n">a</span> <span class="o">../</span><span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
 </pre></div>
 </div>
 <p>All good again.</p>
-<p>One advantage of <tt class="docutils literal"><span class="pre">&#64;rpath</span></tt> is that you can put several different search paths
-into the the library or executable <tt class="docutils literal"><span class="pre">&#64;rpath</span></tt>.  For example, you could set the
-<tt class="docutils literal"><span class="pre">&#64;rpath</span></tt> so that the library or executable looks for its libraries in a
+<p>One advantage of <code class="docutils literal"><span class="pre">&#64;rpath</span></code> is that you can put several different search paths
+into the the library or executable <code class="docutils literal"><span class="pre">&#64;rpath</span></code>.  For example, you could set the
+<code class="docutils literal"><span class="pre">&#64;rpath</span></code> so that the library or executable looks for its libraries in a
 relative path and also an absolute system path.</p>
 </div>
 <div class="section" id="loader-path-and-rpath-make-code-relocatable">
 <h2>&#64;loader_path and &#64;rpath make code relocatable<a class="headerlink" href="#loader-path-and-rpath-make-code-relocatable" title="Permalink to this headline">¶</a></h2>
 <p>Now notice this entire stack is relocatable (and has been since we started using
-<tt class="docutils literal"><span class="pre">&#64;loader_path</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd
-cp -r dyldtest dyldtest2
-./dyldtest2/test-lib
+<code class="docutils literal"><span class="pre">&#64;loader_path</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">dyldtest</span> <span class="n">dyldtest2</span>
+<span class="o">./</span><span class="n">dyldtest2</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
 </pre></div>
 </div>
 <p>All is still good.  You are ready for great things related to OSX run-time
@@ -305,14 +307,14 @@ loading.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Runtime linking on Mac</a><ul>
 <li><a class="reference internal" href="#some-files-for-testing">Some files for testing</a></li>
-<li><a class="reference internal" href="#using-otool-l-to-show-linked-library-locations">Using <tt class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></tt> to show linked library locations</a></li>
-<li><a class="reference internal" href="#the-install-name">The <tt class="docutils literal"><span class="pre">install_name</span></tt></a></li>
+<li><a class="reference internal" href="#using-otool-l-to-show-linked-library-locations">Using <code class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></code> to show linked library locations</a></li>
+<li><a class="reference internal" href="#the-install-name">The <code class="docutils literal"><span class="pre">install_name</span></code></a></li>
 <li><a class="reference internal" href="#install-names-and-static-absolute-or-relative-paths">Install names and static absolute or relative paths</a></li>
 <li><a class="reference internal" href="#loader-path">&#64;loader_path</a></li>
 <li><a class="reference internal" href="#rpath">&#64;rpath</a></li>
@@ -327,29 +329,28 @@ loading.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="flat_packages.html"
                         title="next chapter">OSX flat packages</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/mac_runtime_link.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/mac_runtime_link.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -361,12 +362,12 @@ loading.</p>
         <li class="right" >
           <a href="booting_macs.html" title="Booting Macs"
              >previous</a> |</li>
-        <li><a href="index.html">docosx 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">docosx 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2010-2014: Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2014: Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

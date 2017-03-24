@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Booting Macs &mdash; docosx 0.2 documentation</title>
+    <title>Booting Macs &#8212; docosx 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,19 +17,21 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="docosx 0.2 documentation" href="index.html" />
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Runtime linking on Mac" href="mac_runtime_link.html" />
     <link rel="prev" title="Developing on mac" href="develop_mac.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -41,14 +43,14 @@
         <li class="right" >
           <a href="develop_mac.html" title="Developing on mac"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">docosx 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">docosx 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="booting-macs">
 <h1>Booting Macs<a class="headerlink" href="#booting-macs" title="Permalink to this headline">¶</a></h1>
@@ -122,23 +124,23 @@ operating system support, using only EFI firmware service calls. These
 programs are frequently boot loaders (see above) but can also be other useful
 programs like diagnostic utilities.</li>
 <li>The choice of possible EFI executable programs can be explicit or implicit,
-controlled by a defined variable <tt class="docutils literal"><span class="pre">BootOrder</span></tt> stored in <a class="reference external" href="http://en.wikipedia.org/wiki/Non-volatile_random-access_memory">Non-volatile RAM</a>
+controlled by a defined variable <code class="docutils literal"><span class="pre">BootOrder</span></code> stored in <a class="reference external" href="http://en.wikipedia.org/wiki/Non-volatile_random-access_memory">Non-volatile RAM</a>
 (NVRAM):<ul>
-<li>If the <tt class="docutils literal"><span class="pre">BootOrder</span></tt> variable is defined, the boot options are explicit.
-The <tt class="docutils literal"><span class="pre">BootOrder</span></tt> variable contains a list of further EFI NVRAM variables,
+<li>If the <code class="docutils literal"><span class="pre">BootOrder</span></code> variable is defined, the boot options are explicit.
+The <code class="docutils literal"><span class="pre">BootOrder</span></code> variable contains a list of further EFI NVRAM variables,
 each defining the EFI executable program to run and any parameters to pass
-to that program. Each EFI variable pointed to by <tt class="docutils literal"><span class="pre">BootOrder</span></tt> corresponds
+to that program. Each EFI variable pointed to by <code class="docutils literal"><span class="pre">BootOrder</span></code> corresponds
 to a choice the user should see when the boot manager starts.  The boot
 manager then runs the chosen program with the given options.</li>
-<li>If <tt class="docutils literal"><span class="pre">BootOrder</span></tt> is not defined, then the boot options are implicit, in
+<li>If <code class="docutils literal"><span class="pre">BootOrder</span></code> is not defined, then the boot options are implicit, in
 that the boot manager should search all the disks on the system for a
 runnable EFI executable. The boot manager searches EFI system partitions on
 fixed disks, and assumes there is only one partition for removable disks.
 In either case, the boot manager looks for files with names of form:
-<tt class="docutils literal"><span class="pre">\EFI\BOOT\BOOT{machine</span> <span class="pre">type</span> <span class="pre">short-name}.EFI</span></tt>, where <tt class="docutils literal"><span class="pre">{machine</span> <span class="pre">type</span>
-<span class="pre">short-name}</span></tt> matches the CPU architecture. The short name can be one of
-<tt class="docutils literal"><span class="pre">IA32</span></tt> (32-bit Intel), <tt class="docutils literal"><span class="pre">X64</span></tt> (64-bit), <tt class="docutils literal"><span class="pre">IA64</span></tt> (Itanium) <tt class="docutils literal"><span class="pre">ARM</span></tt>,
-<tt class="docutils literal"><span class="pre">AA64</span></tt> (ARM 32 and 64 bit). For example <tt class="docutils literal"><span class="pre">\EFI\BOOT\BOOTX64.EFI</span></tt> matches
+<code class="docutils literal"><span class="pre">\EFI\BOOT\BOOT{machine</span> <span class="pre">type</span> <span class="pre">short-name}.EFI</span></code>, where <code class="docutils literal"><span class="pre">{machine</span> <span class="pre">type</span>
+<span class="pre">short-name}</span></code> matches the CPU architecture. The short name can be one of
+<code class="docutils literal"><span class="pre">IA32</span></code> (32-bit Intel), <code class="docutils literal"><span class="pre">X64</span></code> (64-bit), <code class="docutils literal"><span class="pre">IA64</span></code> (Itanium) <code class="docutils literal"><span class="pre">ARM</span></code>,
+<code class="docutils literal"><span class="pre">AA64</span></code> (ARM 32 and 64 bit). For example <code class="docutils literal"><span class="pre">\EFI\BOOT\BOOTX64.EFI</span></code> matches
 the 64 bit standard Intel architecture.</li>
 </ul>
 </li>
@@ -161,31 +163,31 @@ emulate booting in a standard BIOS firmware setup.  The BIOS emulation comes
 from a compatibility support module (CSM) - see <a class="reference external" href="http://www.rodsbooks.com/ubuntu-efi">EFI and Ubuntu</a> and <a class="reference external" href="http://www.intel.com/content/www/us/en/architecture-and-technology/unified-extensible-firmware-interface/efi-compatibility-support-module-specification-v097.html">Intel CSM
 docs</a>.</p>
 <p>I can&#8217;t see the conditions that enable BIOS emulation from the docs in front of
-me.  The <a class="reference external" href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man8/bless.8.html">bless manpage online</a> lists a flag <tt class="docutils literal"><span class="pre">--legacy</span></tt> that appears to
+me.  The <a class="reference external" href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man8/bless.8.html">bless manpage online</a> lists a flag <code class="docutils literal"><span class="pre">--legacy</span></code> that appears to
 activate BIOS emulation in subsequent boot. Quoting from <a class="reference external" href="http://www.rodsbooks.com/ubuntu-efi">EFI and Ubuntu</a>:</p>
 <blockquote>
 <div>As far as I can tell, BIOS emulation mode only works when a hybrid MBR is present on the hard disk or when a BIOS-bootable optical disk is inserted in the optical drive.</div></blockquote>
 <p>See <a class="reference external" href="http://www.rodsbooks.com/gdisk/hybrid.html">hybrid MBR</a> for more detail.  In brief, there is a hack to a GUID
 partition table that can make the GPT also appear to be an MBR.  The Apple
 &#8220;Bootcamp&#8221; utilities make this hybrid-MBR when making a partition to install
-Windows XP, but you can also do this with Rod Smith&#8217;s <a class="reference external" href="http://www.rodsbooks.com/gdisk/index.html">GPT fdisk</a> (<tt class="docutils literal"><span class="pre">gdisk</span></tt>)</p>
+Windows XP, but you can also do this with Rod Smith&#8217;s <a class="reference external" href="http://www.rodsbooks.com/gdisk/index.html">GPT fdisk</a> (<code class="docutils literal"><span class="pre">gdisk</span></code>)</p>
 </div>
 <div class="section" id="the-boot-process">
 <h3>The boot process<a class="headerlink" href="#the-boot-process" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic">
 <li><p class="first">On boot, an Apple boot manager starts.</p>
 </li>
-<li><p class="first">The Apple boot manager uses the results of previous <tt class="docutils literal"><span class="pre">bless</span></tt> commands to
-select how to boot. The <tt class="docutils literal"><span class="pre">bless</span></tt> commands may have pointed to:</p>
+<li><p class="first">The Apple boot manager uses the results of previous <code class="docutils literal"><span class="pre">bless</span></code> commands to
+select how to boot. The <code class="docutils literal"><span class="pre">bless</span></code> commands may have pointed to:</p>
 <ul class="simple">
-<li>A file containing an <tt class="docutils literal"><span class="pre">.efi</span></tt> file to execute</li>
-<li>A folder containing a file <tt class="docutils literal"><span class="pre">boot.efi</span></tt> file to execute</li>
-<li>A partition from which to boot (in the <tt class="docutils literal"><span class="pre">efi-boot-device</span></tt> NVRAM variable)</li>
+<li>A file containing an <code class="docutils literal"><span class="pre">.efi</span></code> file to execute</li>
+<li>A folder containing a file <code class="docutils literal"><span class="pre">boot.efi</span></code> file to execute</li>
+<li>A partition from which to boot (in the <code class="docutils literal"><span class="pre">efi-boot-device</span></code> NVRAM variable)</li>
 </ul>
-<p><tt class="docutils literal"><span class="pre">bless</span></tt> sets necessary NVRAM variables.  In certain modes, <tt class="docutils literal"><span class="pre">bless</span></tt> also
+<p><code class="docutils literal"><span class="pre">bless</span></code> sets necessary NVRAM variables.  In certain modes, <code class="docutils literal"><span class="pre">bless</span></code> also
 writes the location of the boot efi file into the HFS+ volume header, so that
 the location of the boot file persists if the disk is moved to another
-machine or the NVRAM gets cleared (see <tt class="docutils literal"><span class="pre">man</span> <span class="pre">bless</span></tt> or the <a class="reference external" href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man8/bless.8.html">bless manpage
+machine or the NVRAM gets cleared (see <code class="docutils literal"><span class="pre">man</span> <span class="pre">bless</span></code> or the <a class="reference external" href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man8/bless.8.html">bless manpage
 online</a>).</p>
 </li>
 <li><p class="first">Somehow the BIOS compatibility mode can get activated.  See above.</p>
@@ -196,7 +198,7 @@ online</a>).</p>
 <h3>The EFI system partition on Mac<a class="headerlink" href="#the-efi-system-partition-on-mac" title="Permalink to this headline">¶</a></h3>
 <p>The Mac does indeed have an EFI partition, but it doesn&#8217;t use it for booting. On
 my laptop:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ diskutil list
+<div class="highlight-default"><div class="highlight"><pre><span></span>\$ diskutil list
 
 /dev/disk0
 #:                       TYPE NAME                    SIZE       IDENTIFIER
@@ -209,17 +211,17 @@ my laptop:</p>
 <p>We can mount the EFI partition, but it hasn&#8217;t got any defined BOOTable EFI
 programs.  (Please be careful, you can mess up your system by writing into the
 EFI partition):</p>
-<div class="highlight-python"><div class="highlight"><pre>$ diskutil mount /dev/disk0s1
+<div class="highlight-default"><div class="highlight"><pre><span></span>\$ diskutil mount /dev/disk0s1
 
 Volume EFI on /dev/disk0s1 mounted
 
-$ ls /Volumes/EFI/EFI/
+\$ ls /Volumes/EFI/EFI/
 
 APPLE
 </pre></div>
 </div>
 <p>Unmount the file system to avoid accidental damage:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ diskutil unmount /Volumes/EFI
+<div class="highlight-default"><div class="highlight"><pre><span></span>\$ diskutil unmount /Volumes/EFI
 
 Volume EFI on disk0s1 unmounted
 </pre></div>
@@ -232,7 +234,7 @@ Volume EFI on disk0s1 unmounted
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -257,29 +259,28 @@ Volume EFI on disk0s1 unmounted
   <h4>Next topic</h4>
   <p class="topless"><a href="mac_runtime_link.html"
                         title="next chapter">Runtime linking on Mac</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/booting_macs.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/booting_macs.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -291,12 +292,12 @@ Volume EFI on disk0s1 unmounted
         <li class="right" >
           <a href="develop_mac.html" title="Developing on mac"
              >previous</a> |</li>
-        <li><a href="index.html">docosx 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">docosx 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2010-2014: Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2014: Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

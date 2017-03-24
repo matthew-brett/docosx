@@ -16,9 +16,13 @@ Contents:
     legacy_package_redux
     localhost_mathjax
 
+.. toctree::
+    :hidden:
+
+    README
+
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`

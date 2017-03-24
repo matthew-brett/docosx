@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Serving MathJax locally on OSX &mdash; docosx 0.2 documentation</title>
+    <title>Serving MathJax locally on OSX &#8212; docosx 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,34 +17,40 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="docosx 0.2 documentation" href="index.html" />
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="docosx" href="README.html" />
     <link rel="prev" title="OSX legacy packaging redux" href="legacy_package_redux.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="README.html" title="docosx"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
           <a href="legacy_package_redux.html" title="OSX legacy packaging redux"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">docosx 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">docosx 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="serving-mathjax-locally-on-osx">
 <h1>Serving MathJax locally on OSX<a class="headerlink" href="#serving-mathjax-locally-on-osx" title="Permalink to this headline">¶</a></h1>
@@ -55,9 +61,9 @@ notebooks.</p>
 <div class="section" id="background">
 <h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
 <p>The page I wanted to serve is expecting this URL:
-<tt class="docutils literal"><span class="pre">http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML</span></tt>.</p>
+<code class="docutils literal"><span class="pre">http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML</span></code>.</p>
 <p>My task is to set up a redirect so that my own machine serves this URL.</p>
-<p>Luckily OSX comes shipped with a version of the <tt class="docutils literal"><span class="pre">apache</span></tt> web server.</p>
+<p>Luckily OSX comes shipped with a version of the <code class="docutils literal"><span class="pre">apache</span></code> web server.</p>
 <p>I worked off these two pages, both by Neil Gee:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://coolestguidesontheplanet.com/get-apache-mysql-php-phpmyadmin-working-osx-10-9-mavericks/">Installation guide for Apache etc</a>
@@ -68,10 +74,10 @@ on OSX 10.9;</li>
 <div class="section" id="map">
 <h2>Map<a class="headerlink" href="#map" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Link local copy of MathJax into <tt class="docutils literal"><span class="pre">~/Sites/cdn.mathjax.org/mathjax/latest</span></tt>;</li>
-<li>Enable apache serving from my <tt class="docutils literal"><span class="pre">~/Sites</span></tt> user directories;</li>
-<li>Enable apache virtualhost for <tt class="docutils literal"><span class="pre">cdn.mathjax.org</span></tt> domain;</li>
-<li>Redirect IP traffic for <tt class="docutils literal"><span class="pre">cdn.mathjax.org</span></tt> to localhost;</li>
+<li>Link local copy of MathJax into <code class="docutils literal"><span class="pre">~/Sites/cdn.mathjax.org/mathjax/latest</span></code>;</li>
+<li>Enable apache serving from my <code class="docutils literal"><span class="pre">~/Sites</span></code> user directories;</li>
+<li>Enable apache virtualhost for <code class="docutils literal"><span class="pre">cdn.mathjax.org</span></code> domain;</li>
+<li>Redirect IP traffic for <code class="docutils literal"><span class="pre">cdn.mathjax.org</span></code> to localhost;</li>
 <li>Restart apache.</li>
 </ul>
 </div>
@@ -79,24 +85,24 @@ on OSX 10.9;</li>
 <h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="linking-local-copy-of-mathjax">
 <h3>Linking local copy of MathJax<a class="headerlink" href="#linking-local-copy-of-mathjax" title="Permalink to this headline">¶</a></h3>
-<p>I have a local copy of MathJax, stored in <tt class="docutils literal"><span class="pre">~/stable_trees/mathjax</span></tt>.  This
-directory contains <tt class="docutils literal"><span class="pre">MathJax.js</span></tt>.</p>
-<p>OSX <tt class="docutils literal"><span class="pre">apache</span></tt> expects to serve user pages from <tt class="docutils literal"><span class="pre">~/Sites</span></tt>.  So, the linking
+<p>I have a local copy of MathJax, stored in <code class="docutils literal"><span class="pre">~/stable_trees/mathjax</span></code>.  This
+directory contains <code class="docutils literal"><span class="pre">MathJax.js</span></code>.</p>
+<p>OSX <code class="docutils literal"><span class="pre">apache</span></code> expects to serve user pages from <code class="docutils literal"><span class="pre">~/Sites</span></code>.  So, the linking
 step is:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd
-mkdir -p Sites/cdn.mathjax.org/mathjax
-ln -s ~/stable_trees/mathjax Sites/cdn.mathjax.org/mathjax/latest
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span>
+<span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">Sites</span><span class="o">/</span><span class="n">cdn</span><span class="o">.</span><span class="n">mathjax</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">mathjax</span>
+<span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">stable_trees</span><span class="o">/</span><span class="n">mathjax</span> <span class="n">Sites</span><span class="o">/</span><span class="n">cdn</span><span class="o">.</span><span class="n">mathjax</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">mathjax</span><span class="o">/</span><span class="n">latest</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="enable-apache-serving-from-sites-directories">
-<h3>Enable apache serving from <tt class="docutils literal"><span class="pre">~/Sites</span></tt> directories<a class="headerlink" href="#enable-apache-serving-from-sites-directories" title="Permalink to this headline">¶</a></h3>
-<p>Replace <tt class="docutils literal"><span class="pre">my_user</span></tt> with your login username in the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo bash
+<h3>Enable apache serving from <code class="docutils literal"><span class="pre">~/Sites</span></code> directories<a class="headerlink" href="#enable-apache-serving-from-sites-directories" title="Permalink to this headline">¶</a></h3>
+<p>Replace <code class="docutils literal"><span class="pre">my_user</span></code> with your login username in the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>sudo bash
 cd /etc/apache2/users
 MY_USERNAME=my_user
-cat &gt; ${MY_USERNAME}.conf &lt;&lt; EOF
-&lt;Directory &quot;/Users/${MY_USERNAME}/Sites/&quot;&gt;
+cat &gt; \${MY_USERNAME}.conf &lt;&lt; EOF
+&lt;Directory &quot;/Users/\${MY_USERNAME}/Sites/&quot;&gt;
 Options Indexes MultiViews FollowSymLinks
 AllowOverride None
 Order allow,deny
@@ -106,49 +112,49 @@ EOF
 </pre></div>
 </div>
 <p>Now start apache:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apachectl start
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apachectl</span> <span class="n">start</span>
 </pre></div>
 </div>
 <p>You now should be able to read
-<tt class="docutils literal"><span class="pre">http://localhost/~my_user/cdn.mathjax.org/mathjax/latest</span></tt> in your browser
-(where you need to replace <tt class="docutils literal"><span class="pre">my_user</span></tt> in the URL with your login username).</p>
+<code class="docutils literal"><span class="pre">http://localhost/~my_user/cdn.mathjax.org/mathjax/latest</span></code> in your browser
+(where you need to replace <code class="docutils literal"><span class="pre">my_user</span></code> in the URL with your login username).</p>
 </div>
 <div class="section" id="enable-apache-virtualhost-for-mathjax-directory">
 <h3>Enable apache virtualhost for mathjax directory<a class="headerlink" href="#enable-apache-virtualhost-for-mathjax-directory" title="Permalink to this headline">¶</a></h3>
-<p>(As root) edit <tt class="docutils literal"><span class="pre">/etc/apache2/httpd.conf</span></tt>.</p>
-<p>Uncomment the line <tt class="docutils literal"><span class="pre">Include</span> <span class="pre">/private/etc/apache2/extra/httpd-vhosts.conf</span></tt>
+<p>(As root) edit <code class="docutils literal"><span class="pre">/etc/apache2/httpd.conf</span></code>.</p>
+<p>Uncomment the line <code class="docutils literal"><span class="pre">Include</span> <span class="pre">/private/etc/apache2/extra/httpd-vhosts.conf</span></code>
 and save.</p>
-<p>Edit <tt class="docutils literal"><span class="pre">/etc/apache2/extra/httpd-vhosts.conf</span></tt>.</p>
+<p>Edit <code class="docutils literal"><span class="pre">/etc/apache2/extra/httpd-vhosts.conf</span></code>.</p>
 <p>Add the following at the end:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;VirtualHost *:80&gt;
-    ServerName cdn.mathjax.org
-    DocumentRoot &quot;/Users/my_user/Sites/cdn.mathjax.org&quot;
-    ErrorLog &quot;/private/var/log/apache2/mathjax.org-error_log&quot;
-    CustomLog &quot;/private/var/log/apache2/mathjax.org-access_log&quot; common
-    ServerAdmin your.name@your.address.com
-    &lt;Directory &quot;/Users/my_user/Sites/cdn.mathjax.org&quot;&gt;
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Order allow,deny
-        Allow from all
-    &lt;/Directory&gt;
-&lt;/VirtualHost&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">VirtualHost</span> <span class="o">*</span><span class="p">:</span><span class="mi">80</span><span class="o">&gt;</span>
+    <span class="n">ServerName</span> <span class="n">cdn</span><span class="o">.</span><span class="n">mathjax</span><span class="o">.</span><span class="n">org</span>
+    <span class="n">DocumentRoot</span> <span class="s2">&quot;/Users/my_user/Sites/cdn.mathjax.org&quot;</span>
+    <span class="n">ErrorLog</span> <span class="s2">&quot;/private/var/log/apache2/mathjax.org-error_log&quot;</span>
+    <span class="n">CustomLog</span> <span class="s2">&quot;/private/var/log/apache2/mathjax.org-access_log&quot;</span> <span class="n">common</span>
+    <span class="n">ServerAdmin</span> <span class="n">your</span><span class="o">.</span><span class="n">name</span><span class="nd">@your</span><span class="o">.</span><span class="n">address</span><span class="o">.</span><span class="n">com</span>
+    <span class="o">&lt;</span><span class="n">Directory</span> <span class="s2">&quot;/Users/my_user/Sites/cdn.mathjax.org&quot;</span><span class="o">&gt;</span>
+        <span class="n">Options</span> <span class="n">Indexes</span> <span class="n">FollowSymLinks</span>
+        <span class="n">AllowOverride</span> <span class="n">All</span>
+        <span class="n">Order</span> <span class="n">allow</span><span class="p">,</span><span class="n">deny</span>
+        <span class="n">Allow</span> <span class="kn">from</span> <span class="nn">all</span>
+    <span class="o">&lt;/</span><span class="n">Directory</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">VirtualHost</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>where you replace <tt class="docutils literal"><span class="pre">my_user</span></tt> with your login username.</p>
-<p>Note the <tt class="docutils literal"><span class="pre">FollowSymLinks</span></tt> option – we need this because the directory we
+<p>where you replace <code class="docutils literal"><span class="pre">my_user</span></code> with your login username.</p>
+<p>Note the <code class="docutils literal"><span class="pre">FollowSymLinks</span></code> option – we need this because the directory we
 want to serve is in fact a symbolic link.</p>
 </div>
 <div class="section" id="redirect-ip-traffic-for-cdn-mathjax-org-to-localhost">
-<h3>Redirect IP traffic for <tt class="docutils literal"><span class="pre">cdn.mathjax.org</span></tt> to localhost<a class="headerlink" href="#redirect-ip-traffic-for-cdn-mathjax-org-to-localhost" title="Permalink to this headline">¶</a></h3>
-<p>(As root), edit <tt class="docutils literal"><span class="pre">/etc/hosts</span></tt> and add the following line:</p>
-<div class="highlight-python"><div class="highlight"><pre>127.0.0.1 cdn.mathjax.org
+<h3>Redirect IP traffic for <code class="docutils literal"><span class="pre">cdn.mathjax.org</span></code> to localhost<a class="headerlink" href="#redirect-ip-traffic-for-cdn-mathjax-org-to-localhost" title="Permalink to this headline">¶</a></h3>
+<p>(As root), edit <code class="docutils literal"><span class="pre">/etc/hosts</span></code> and add the following line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="n">cdn</span><span class="o">.</span><span class="n">mathjax</span><span class="o">.</span><span class="n">org</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="restart-apache">
 <h3>Restart apache<a class="headerlink" href="#restart-apache" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre>sudo apachectl restart
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apachectl</span> <span class="n">restart</span>
 </pre></div>
 </div>
 <p>You should now be able to disconnect your internet connection but still get a
@@ -163,7 +169,7 @@ speed.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -172,9 +178,9 @@ speed.</p>
 <li><a class="reference internal" href="#map">Map</a></li>
 <li><a class="reference internal" href="#details">Details</a><ul>
 <li><a class="reference internal" href="#linking-local-copy-of-mathjax">Linking local copy of MathJax</a></li>
-<li><a class="reference internal" href="#enable-apache-serving-from-sites-directories">Enable apache serving from <tt class="docutils literal"><span class="pre">~/Sites</span></tt> directories</a></li>
+<li><a class="reference internal" href="#enable-apache-serving-from-sites-directories">Enable apache serving from <code class="docutils literal"><span class="pre">~/Sites</span></code> directories</a></li>
 <li><a class="reference internal" href="#enable-apache-virtualhost-for-mathjax-directory">Enable apache virtualhost for mathjax directory</a></li>
-<li><a class="reference internal" href="#redirect-ip-traffic-for-cdn-mathjax-org-to-localhost">Redirect IP traffic for <tt class="docutils literal"><span class="pre">cdn.mathjax.org</span></tt> to localhost</a></li>
+<li><a class="reference internal" href="#redirect-ip-traffic-for-cdn-mathjax-org-to-localhost">Redirect IP traffic for <code class="docutils literal"><span class="pre">cdn.mathjax.org</span></code> to localhost</a></li>
 <li><a class="reference internal" href="#restart-apache">Restart apache</a></li>
 </ul>
 </li>
@@ -185,43 +191,48 @@ speed.</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="legacy_package_redux.html"
                         title="previous chapter">OSX legacy packaging redux</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/localhost_mathjax.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <h4>Next topic</h4>
+  <p class="topless"><a href="README.html"
+                        title="next chapter">docosx</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/localhost_mathjax.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="README.html" title="docosx"
+             >next</a> |</li>
+        <li class="right" >
           <a href="legacy_package_redux.html" title="OSX legacy packaging redux"
              >previous</a> |</li>
-        <li><a href="index.html">docosx 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">docosx 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2010-2014: Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2014: Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>
