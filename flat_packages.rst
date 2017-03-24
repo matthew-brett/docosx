@@ -154,6 +154,7 @@ Exit code other than zero causes the installer to give an error message:
     exit 1 # not so good
 
 .. pkgrun::
+    :allow-fail:
 
     pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
     sudo installer -pkg my_package.pkg -target /
@@ -180,7 +181,7 @@ There are some useful environment variables available to the
     # file: scripts/preinstall
     #!/bin/sh
     env > /tmp/my_preinstall_envs.log
-    echo "Positional arguments" \$@ >> /tmp/my_preinstall_envs.log
+    echo "Positional arguments" $@ >> /tmp/my_preinstall_envs.log
     exit 0
 
 .. pkgrun::
@@ -192,6 +193,7 @@ There are some useful environment variables available to the
 Here are the new environment variables inserted by the installer:
 
 .. runblock::
+    :allow-fail:
 
     diff /tmp/my_sudo_envs.log /tmp/my_preinstall_envs.log --old-line-format="" --unchanged-line-format=""
 
@@ -205,6 +207,7 @@ These "scripts only" installers have no payload, and write no package receipt
 to the package database:
 
 .. runblock::
+    :allow-fail:
 
     pkgutil --pkgs / | grep my.fake.pkg
 
@@ -506,6 +509,7 @@ Adding system and volume checks
 Now make the volume check fail:
 
 .. pkgrun::
+    :allow-fail:
 
     sudo rm /tmp/my_postinstall.log
     sudo installer -pkg my_archive.pkg -target /
@@ -635,6 +639,7 @@ already on the path:
     productbuild --distribution distro_system_run.xml my_archive.pkg
 
 .. pkgrun::
+    :allow-fail:
 
     sudo installer -pkg my_archive.pkg -target /
 
@@ -719,6 +724,7 @@ Build the product archive with ``--scripts`` flag:
     productbuild --distribution distro_custom_run.xml --scripts archive_scripts my_archive.pkg
 
 .. pkgrun::
+    :allow-fail:
 
     sudo installer -pkg my_archive.pkg -target /
 
@@ -727,6 +733,7 @@ have ``/tmp/my_sudo_envs.log`` with the standard environment variables
 available as root, so look for the difference:
 
 .. pkgrun::
+    :allow-fail:
 
     diff /tmp/my_sudo_envs.log /tmp/my_custom_envs.log --old-line-format="" --unchanged-line-format=""
 

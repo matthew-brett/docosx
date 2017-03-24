@@ -25,10 +25,11 @@ sys.path.append(os.path.abspath('sphinxext'))
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.doctest',
               'sphinx.ext.mathjax',
+              'texext.math_dollar',  # has to go before numpydoc
               'autorun',
               'writefile',
               'pkgfiles',
-              'math_dollar']
+             ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

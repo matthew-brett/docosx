@@ -3,7 +3,7 @@
 Autorun-related directives with ``pkg_examples`` as the default directory
 """
 
-from autorun import RunBlock, AddVars
+from autorun import RunBlock, CmdAddVar
 from writefile import WriteFile
 
 class PkgRun(RunBlock):
@@ -14,7 +14,7 @@ class PkgWrite(WriteFile):
     default_cwd = 'pkg_examples'
 
 
-class PkgVars(AddVars):
+class PkgVars(CmdAddVar):
     default_cwd = 'pkg_examples'
 
 
