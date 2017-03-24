@@ -1,3 +1,7 @@
+.. -*- rst -*-
+.. vim: ft=rst
+.. Links and substitutions that might be used on more than one page
+
 .. Version control
 .. _git: http://git-scm.com
 .. _git parable: http://tom.preston-werner.com/2009/05/19/the-git-parable.html
@@ -32,10 +36,11 @@
 .. _example pypi: http://packages.python.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg
 
 .. Mac development
+.. _homebrew: https://brew.sh/
 .. _macports: http://www.macports.org
 .. _github osx installation: http://help.github.com/mac-git-installation
 .. _xcode: http://developer.apple.com/TOOLS/xcode
-.. _macvim: https://github.com/b4winckler/macvim
+.. _macvim: http://macvim-dev.github.io/macvim/
 .. _bdist_mpkg: http://pypi.python.org/pypi/bdist_mpkg
 .. _parallels: http://www.parallels.com
 .. _flat package format: http://s.sudre.free.fr/Stuff/Ivanhoe/FLAT.html
