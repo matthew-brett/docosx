@@ -74,18 +74,27 @@ format.</p>
 <li>A guide on <a class="reference external" href="http://ilostmynotes.blogspot.com/2012/06/mac-os-x-pkg-bom-files-package.html">unpacking flat packages</a> manually;</li>
 <li>A comprehensive <a class="reference external" href="http://stackoverflow.com/questions/11487596/making-os-x-installer-packages-like-a-pro-xcode4-developer-id-mountain-lion-re/11487658#11487658">stackoverflow package building answer</a>.</li>
 </ul>
+<div class="section" id="about-the-examples-on-this-page">
+<h2>About the examples on this page<a class="headerlink" href="#about-the-examples-on-this-page" title="Permalink to this headline">¶</a></h2>
+<p>I wrote this page in reStructuredText (<a class="reference external" href="http://docutils.sourceforge.net/rst.html">reST</a>) for <a class="reference external" href="http://www.sphinx-doc.org">Sphinx</a>, with some custom
+Sphinx extensions. The extensions pick up the code fragments in this page and
+run them on my laptop as part of the build process for the web pages.  They
+also write out the example files listed on this page.  The combination means
+that, at the time I last built the website, I confirmed that the code ran on
+my laptop, and gave the output you see here.</p>
+</div>
 <div class="section" id="flat-packages-in-general">
 <h2>Flat packages in general<a class="headerlink" href="#flat-packages-in-general" title="Permalink to this headline">¶</a></h2>
 <p>Flat packages are <code class="docutils literal"><span class="pre">xar</span></code> archives (see the <code class="docutils literal"><span class="pre">xar</span></code> man page).</p>
 <p>To see the contents of a flat package, the most convenient command is
 <code class="docutils literal"><span class="pre">pkgutil</span> <span class="pre">--expand</span></code>, as in:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pkgutil</span> <span class="o">--</span><span class="n">expand</span> <span class="n">my</span><span class="o">.</span><span class="n">pkg</span> <span class="n">an_output_dir</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgutil --expand my.pkg an_output_dir
 </pre></div>
 </div>
 <p>This will unpack product archive (meta-packages) and their component packages,
 and allows you to futz with the directory contents in <code class="docutils literal"><span class="pre">an_output_dir</span></code> before
 reconstituting the package with:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pkgutil</span> <span class="o">--</span><span class="n">flatten</span> <span class="n">an_output_dir</span> <span class="n">my</span><span class="o">.</span><span class="n">pkg</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgutil --flatten an_output_dir my.pkg
 </pre></div>
 </div>
 <p>On OSX, <code class="docutils literal"><span class="pre">tar</span></code> will unpack xar archives, and will automatically detect that
@@ -147,7 +156,7 @@ $ mkdir scripts
 <p>Each package needs a package <em>identifier</em> to identify it to the database of
 installed packages on the target system.</p>
 <p>You can list the recorded installed packages on target <code class="docutils literal"><span class="pre">/</span></code> with:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pkgutil</span> <span class="o">--</span><span class="n">pkgs</span> <span class="o">/</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>pkgutil --pkgs /
 </pre></div>
 </div>
 <p>Build the package with a fake identifier:</p>
@@ -166,8 +175,10 @@ installer: The install was successful.
 </div>
 <p>Check the scripts ran by looking for output:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ cat /tmp/my_preinstall.log
-$ cat /tmp/my_postinstall.log
 Running preinstall
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ cat /tmp/my_postinstall.log
 Running postinstall
 </pre></div>
 </div>
@@ -179,10 +190,12 @@ Running postinstall
 </div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
-$ sudo installer -pkg my_package.pkg -target /
 pkgbuild: Adding top-level preinstall script
 pkgbuild: Adding top-level postinstall script
 pkgbuild: Wrote package to my_package.pkg
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo installer -pkg my_package.pkg -target /
 installer: Package name is my_package
 installer: Installing at base path /
 installer: The install failed <span class="o">(</span>The Installer encountered an error that caused the installation to fail. Contact the software manufacturer <span class="k">for</span> assistance.<span class="o">)</span>
@@ -191,9 +204,11 @@ installer: The install failed <span class="o">(</span>The Installer encountered 
 <p>Fixed if the script is not run:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ rm scripts/postinstall
 $ pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
-$ sudo installer -pkg my_package.pkg -target /
 pkgbuild: Adding top-level preinstall script
 pkgbuild: Wrote package to my_package.pkg
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo installer -pkg my_package.pkg -target /
 installer: Package name is my_package
 installer: Installing at base path /
 installer: The install was successful.
@@ -215,9 +230,11 @@ env &gt; /tmp/my_preinstall_envs.log
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ chmod u+x scripts/preinstall
 $ pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
-$ sudo installer -pkg my_package.pkg -target /
 pkgbuild: Adding top-level preinstall script
 pkgbuild: Wrote package to my_package.pkg
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo installer -pkg my_package.pkg -target /
 installer: Package name is my_package
 installer: Installing at base path /
 installer: The install was successful.
@@ -225,16 +242,16 @@ installer: The install was successful.
 </div>
 <p>Here are the new environment variables inserted by the installer:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ diff /tmp/my_sudo_envs.log /tmp/my_preinstall_envs.log --old-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span> --unchanged-line-format<span class="o">=</span><span class="s2">&quot;&quot;</span>
-<span class="nv">INSTALLER_TEMP</span><span class="o">=</span>/private/tmp/PKInstallSandbox.EJ7LPV/tmp
+<span class="nv">INSTALLER_TEMP</span><span class="o">=</span>/private/tmp/PKInstallSandbox.tdJsf0/tmp
 <span class="nv">DSTVOLUME</span><span class="o">=</span>/
-<span class="nv">TMPDIR</span><span class="o">=</span>/private/tmp/PKInstallSandbox.EJ7LPV/tmp
+<span class="nv">TMPDIR</span><span class="o">=</span>/private/tmp/PKInstallSandbox.tdJsf0/tmp
 <span class="nv">DSTROOT</span><span class="o">=</span>/
 <span class="nv">USER</span><span class="o">=</span>root
 <span class="nv">SCRIPT_NAME</span><span class="o">=</span>preinstall
 <span class="nv">SHARED_INSTALLER_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager-shared-tmp
-<span class="nv">INSTALLER_SECURE_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager/350D511C-2C94-494B-8965-CBD846E683D1.activeSandbox/F08A2163-D4D0-4A50-A6BF-052CB8104B31
+<span class="nv">INSTALLER_SECURE_TEMP</span><span class="o">=</span>/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/C/PKInstallSandboxManager/D7EF765B-3E18-4615-837E-BF0BE408D6AB.activeSandbox/4A08007C-0B4A-46CD-A520-FF6869F04813
 <span class="nv">PATH</span><span class="o">=</span>/bin:/sbin:/usr/bin:/usr/sbin:/usr/libexec
-<span class="nv">PWD</span><span class="o">=</span>/private/tmp/PKInstallSandbox.EJ7LPV/Scripts/my.fake.pkg.y8DFsw
+<span class="nv">PWD</span><span class="o">=</span>/private/tmp/PKInstallSandbox.tdJsf0/Scripts/my.fake.pkg.m6QPRD
 <span class="nv">INSTALL_PKG_SESSION_ID</span><span class="o">=</span>my.fake.pkg
 <span class="nv">PACKAGE_PATH</span><span class="o">=</span>/Users/mb312/dev_trees/docosx/pkg_examples/my_package.pkg
 <span class="nv">SHLVL</span><span class="o">=</span>1
@@ -298,8 +315,10 @@ installer: The install was successful.
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ cat /tmp/dir1/file1
-$ cat /tmp/dir2/file2
 Interesting info
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ cat /tmp/dir2/file2
 Compelling story
 </pre></div>
 </div>
@@ -384,7 +403,6 @@ installer: The upgrade was successful.
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ tree /tmp/aprogram.dSYM
-$ tree /tmp/aprogram2.dSYM
 /tmp/aprogram.dSYM
 └── Contents
     ├── Info.plist
@@ -393,6 +411,9 @@ $ tree /tmp/aprogram2.dSYM
             └── aprogram
 
 <span class="m">3</span> directories, <span class="m">2</span> files
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ tree /tmp/aprogram2.dSYM
 /tmp/aprogram2.dSYM
 └── Contents
     ├── Info.plist
@@ -455,9 +476,11 @@ productbuild: Wrote product to my_archive.pkg
 </div>
 <p>Make bundles into component packages:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgbuild --component aprogram.dSYM --install-location /tmp aprogram.pkg
-$ pkgbuild --component aprogram2.dSYM --install-location /tmp aprogram2.pkg
 pkgbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram.dSYM
 pkgbuild: Wrote package to aprogram.pkg
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pkgbuild --component aprogram2.dSYM --install-location /tmp aprogram2.pkg
 pkgbuild: Adding component at /Users/mb312/dev_trees/docosx/pkg_examples/aprogram2.dSYM
 pkgbuild: Wrote package to aprogram2.pkg
 </pre></div>
@@ -652,37 +675,37 @@ productbuild: Wrote product to my_archive.pkg
 installer: Package name is 
 installer: Upgrading at base path /
 installer: The upgrade was successful.
-Mar <span class="m">24</span> 13:29:39 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: JS: my: choice,target,search,product,result
-Mar <span class="m">24</span> 13:29:39 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: JS: system: supportedSpecVersion,bundles,openCL,defaults,search,ioregistry,env,files,hasWindowServer,users,applications,version,localizedStandardStringWithFormat,gestalt,localizedStringWithFormat,run,sysctl,propertiesOf,log,numericalCompare,runOnce,compareVersions,localizedString,localizedStandardString
-Mar <span class="m">24</span> 13:29:39 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: JS: system.applications: fromIdentifier,all,fromPID
-Mar <span class="m">24</span> 13:29:39 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: Product archive /Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg <span class="nv">trustLevel</span><span class="o">=</span>100
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: <span class="nv">location</span> <span class="o">=</span> file://localhost
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram.pkg
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram2.pkg
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: Set authorization level to root <span class="k">for</span> session
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: Will use PK session
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Info&gt;: Starting installation:
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Configuring volume <span class="s2">&quot;SSD&quot;</span>
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Info&gt;: Preparing disk <span class="k">for</span> <span class="nb">local</span> booted install.
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Free space on <span class="s2">&quot;SSD&quot;</span>: 8.63 GB <span class="o">(</span><span class="m">8630685696</span> bytes<span class="o">)</span>.
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Create temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.64233RS7bB8&quot;</span>
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: IFPKInstallElement <span class="o">(</span><span class="m">2</span> packages<span class="o">)</span>
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Debug&gt;: Using authorization level of root <span class="k">for</span> IFPKInstallElement
-Mar <span class="m">24</span> 13:29:40 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: PackageKit: Enqueuing install with boosting
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Running install actions
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Removing temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.64233RS7bB8&quot;</span>
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Finalize disk <span class="s2">&quot;SSD&quot;</span>
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: Notifying system of updated components
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: 
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: **** Summary Information ****
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:   Operation      Elapsed <span class="nb">time</span>
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: -----------------------------
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:        disk      0.03 seconds
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:      script      0.00 seconds
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:        zero      0.01 seconds
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:     install      1.03 seconds
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;:     -total-      1.07 seconds
-Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span>64233<span class="o">]</span> &lt;Notice&gt;: 
+Mar <span class="m">24</span> 14:34:47 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Debug&gt;: JS: my: choice,target,search,product,result
+Mar <span class="m">24</span> 14:34:47 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Debug&gt;: JS: system: supportedSpecVersion,bundles,openCL,defaults,search,ioregistry,env,files,hasWindowServer,users,applications,version,localizedStandardStringWithFormat,gestalt,localizedStringWithFormat,run,sysctl,propertiesOf,log,numericalCompare,runOnce,compareVersions,localizedString,localizedStandardString
+Mar <span class="m">24</span> 14:34:47 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Debug&gt;: JS: system.applications: fromIdentifier,all,fromPID
+Mar <span class="m">24</span> 14:34:47 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Debug&gt;: Product archive /Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg <span class="nv">trustLevel</span><span class="o">=</span>100
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: <span class="nv">location</span> <span class="o">=</span> file://localhost
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram.pkg
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Debug&gt;: -<span class="o">[</span>IFDInstallController<span class="o">(</span>Private<span class="o">)</span> _buildInstallPlan<span class="o">]</span>: file://localhost/Users/mb312/dev_trees/docosx/pkg_examples/my_archive.pkg#aprogram2.pkg
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Debug&gt;: Set authorization level to root <span class="k">for</span> session
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Debug&gt;: Will use PK session
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Info&gt;: Starting installation:
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: Configuring volume <span class="s2">&quot;SSD&quot;</span>
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Info&gt;: Preparing disk <span class="k">for</span> <span class="nb">local</span> booted install.
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: Free space on <span class="s2">&quot;SSD&quot;</span>: 8.66 GB <span class="o">(</span><span class="m">8661966848</span> bytes<span class="o">)</span>.
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: Create temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.66285NokAvc&quot;</span>
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: IFPKInstallElement <span class="o">(</span><span class="m">2</span> packages<span class="o">)</span>
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Debug&gt;: Using authorization level of root <span class="k">for</span> IFPKInstallElement
+Mar <span class="m">24</span> 14:34:48 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: PackageKit: Enqueuing install with boosting
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: Running install actions
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: Removing temporary directory <span class="s2">&quot;/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T//Install.66285NokAvc&quot;</span>
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: Finalize disk <span class="s2">&quot;SSD&quot;</span>
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: Notifying system of updated components
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: 
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: **** Summary Information ****
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;:   Operation      Elapsed <span class="nb">time</span>
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: -----------------------------
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;:        disk      0.03 seconds
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;:      script      0.00 seconds
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;:        zero      0.01 seconds
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;:     install      1.03 seconds
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;:     -total-      1.07 seconds
+Mar <span class="m">24</span> 14:34:49 shanghai installer<span class="o">[</span>66285<span class="o">]</span> &lt;Notice&gt;: 
 </pre></div>
 </div>
 </div>
@@ -692,7 +715,7 @@ Mar <span class="m">24</span> 13:29:41 shanghai installer<span class="o">[</span
 functions such as the volume check and the system check.</p>
 <p>You first have to enable the <code class="docutils literal"><span class="pre">allow-external-scripts</span></code> option in the
 Distribution file XML:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">options</span> <span class="n">allow</span><span class="o">-</span><span class="n">external</span><span class="o">-</span><span class="n">scripts</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="o">/&gt;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&lt;options allow-external-scripts<span class="o">=</span><span class="s2">&quot;yes&quot;</span>/&gt;
 </pre></div>
 </div>
 <p>This will cause the installer GUI to ask if you want to allow an external
@@ -837,7 +860,7 @@ available as root, so look for the difference:</p>
 <span class="nv">__CF_USER_TEXT_ENCODING</span><span class="o">=</span>0x0:0:0
 <span class="nv">USERNAME</span><span class="o">=</span>root
 <span class="nv">MAIL</span><span class="o">=</span>/var/mail/root
-<span class="nv">PWD</span><span class="o">=</span>/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/com.apple.install.zCD4mtw9
+<span class="nv">PWD</span><span class="o">=</span>/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/com.apple.install.5A8V5pOb
 <span class="nv">SHLVL</span><span class="o">=</span>1
 <span class="nv">SUDO_COMMAND</span><span class="o">=</span>/usr/sbin/installer -pkg my_archive.pkg -target /
 <span class="nv">COMMAND_LINE_INSTALL</span><span class="o">=</span>1
@@ -863,13 +886,13 @@ for command line installs - the installer GUI does not set this variable.</p>
 </ul>
 <p>To do this, you specify the filename containing the custom text, and the
 format of the file.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">welcome</span> <span class="n">file</span><span class="o">=</span><span class="s2">&quot;welcome.html&quot;</span> <span class="n">mime</span><span class="o">-</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text/html&quot;</span><span class="o">/&gt;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>&lt;welcome <span class="nv">file</span><span class="o">=</span><span class="s2">&quot;welcome.html&quot;</span> mime-type<span class="o">=</span><span class="s2">&quot;text/html&quot;</span>/&gt;
 </pre></div>
 </div>
 <p>The file should be in the <code class="docutils literal"><span class="pre">Resources/&lt;language&gt;.lproj</span></code> directory of the
 installer <code class="docutils literal"><span class="pre">.pkg</span></code>, where <code class="docutils literal"><span class="pre">&lt;language&gt;</span></code> is a language like &#8220;English&#8221;,
-&#8220;French&#8221; or &#8220;Spanish&#8221;, or shorthand for these such as &#8220;en&#8221;, &#8220;fr&#8221;, &#8220;es&#8221;.  Can
-you can provide a <code class="docutils literal"><span class="pre">Resources</span></code> directory with the <code class="docutils literal"><span class="pre">--resources</span></code> flag to
+&#8220;French&#8221; or &#8220;Spanish&#8221;, or shorthand for these such as &#8220;en&#8221;, &#8220;fr&#8221;, &#8220;es&#8221;.  You
+can provide a <code class="docutils literal"><span class="pre">Resources</span></code> directory with the <code class="docutils literal"><span class="pre">--resources</span></code> flag to
 <code class="docutils literal"><span class="pre">productbuild</span></code>.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir -p my_resources/English.lproj
 </pre></div>
@@ -943,6 +966,7 @@ post-processing of your installer with – <code class="docutils literal"><span 
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">OSX flat packages</a><ul>
+<li><a class="reference internal" href="#about-the-examples-on-this-page">About the examples on this page</a></li>
 <li><a class="reference internal" href="#flat-packages-in-general">Flat packages in general</a></li>
 <li><a class="reference internal" href="#different-package-types">Different package types</a></li>
 <li><a class="reference internal" href="#component-installer">Component installer</a><ul>

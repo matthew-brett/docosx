@@ -58,82 +58,82 @@
 <h2>Some files for testing<a class="headerlink" href="#some-files-for-testing" title="Permalink to this headline">¶</a></h2>
 <p>With thanks to <a class="reference external" href="https://dev.lsstcorp.org/trac/wiki/LinkingDarwin">https://dev.lsstcorp.org/trac/wiki/LinkingDarwin</a></p>
 <p>Create files <code class="docutils literal"><span class="pre">a.cc</span></code> through <code class="docutils literal"><span class="pre">d.cc</span></code></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>mkdir \$HOME/dyldtest
-cd \$HOME/dyldtest
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir <span class="se">\$</span>HOME/dyldtest
+<span class="nb">cd</span> <span class="se">\$</span>HOME/dyldtest
 
-cat &lt;&lt; EOF &gt; a.cc
-#include &lt;iostream&gt;
-void a() { std::cout &lt;&lt; &quot;a()&quot; &lt;&lt; std::endl; }
-EOF
+cat <span class="s">&lt;&lt; EOF &gt; a.cc</span>
+<span class="s">#include &lt;iostream&gt;</span>
+<span class="s">void a() { std::cout &lt;&lt; &quot;a()&quot; &lt;&lt; std::endl; }</span>
+<span class="s">EOF</span>
 
-cat &gt; b.cc &lt;&lt; EOF
-#include &lt;iostream&gt;
-void a();
-void b() { std::cout &lt;&lt; &quot;b()&quot; &lt;&lt; std::endl; a(); }
-EOF
+cat &gt; b.cc <span class="s">&lt;&lt; EOF</span>
+<span class="s">#include &lt;iostream&gt;</span>
+<span class="s">void a();</span>
+<span class="s">void b() { std::cout &lt;&lt; &quot;b()&quot; &lt;&lt; std::endl; a(); }</span>
+<span class="s">EOF</span>
 
-cat &gt; c.cc &lt;&lt; EOF
-#include &lt;iostream&gt;
-void b();
-void c() { std::cout &lt;&lt; &quot;c()&quot; &lt;&lt; std::endl; b(); }
-EOF
+cat &gt; c.cc <span class="s">&lt;&lt; EOF</span>
+<span class="s">#include &lt;iostream&gt;</span>
+<span class="s">void b();</span>
+<span class="s">void c() { std::cout &lt;&lt; &quot;c()&quot; &lt;&lt; std::endl; b(); }</span>
+<span class="s">EOF</span>
 
-cat &gt; d.cc &lt;&lt; EOF
-void c();
-int main(int, char**) { c(); return 0; }
-EOF
+cat &gt; d.cc <span class="s">&lt;&lt; EOF</span>
+<span class="s">void c();</span>
+<span class="s">int main(int, char**) { c(); return 0; }</span>
+<span class="s">EOF</span>
 </pre></div>
 </div>
 <p>Compile them to object files:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">clang</span><span class="o">++</span> <span class="o">-</span><span class="n">c</span> <span class="n">a</span><span class="o">.</span><span class="n">cc</span> <span class="n">b</span><span class="o">.</span><span class="n">cc</span> <span class="n">c</span><span class="o">.</span><span class="n">cc</span> <span class="n">d</span><span class="o">.</span><span class="n">cc</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>clang++ -c a.cc b.cc c.cc d.cc
 </pre></div>
 </div>
 <p>Create libraries from a.o and b.o:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">clang</span><span class="o">++</span> <span class="o">-</span><span class="n">o</span> <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="o">-</span><span class="n">dynamiclib</span> <span class="n">a</span><span class="o">.</span><span class="n">o</span>
-<span class="n">clang</span><span class="o">++</span> <span class="o">-</span><span class="n">o</span> <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="o">-</span><span class="n">dynamiclib</span> <span class="n">b</span><span class="o">.</span><span class="n">o</span> <span class="o">-</span><span class="n">L</span><span class="o">.</span> <span class="o">-</span><span class="n">la</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>clang++ -o liba.dylib -dynamiclib a.o
+clang++ -o libb.dylib -dynamiclib b.o -L. -la
 </pre></div>
 </div>
 </div>
 <div class="section" id="using-otool-l-to-show-linked-library-locations">
 <h2>Using <code class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></code> to show linked library locations<a class="headerlink" href="#using-otool-l-to-show-linked-library-locations" title="Permalink to this headline">¶</a></h2>
 <p>Notice the <code class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></code> output for these libraries:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span><span class="p">:</span>
-    <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
-    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libc</span><span class="o">++.</span><span class="mf">1.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">120.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
-    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libSystem</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">1197.1</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>liba.dylib:
+    liba.dylib <span class="o">(</span>compatibility version 0.0.0, current version 0.0.0<span class="o">)</span>
+    /usr/lib/libc++.1.dylib <span class="o">(</span>compatibility version 1.0.0, current version 120.0.0<span class="o">)</span>
+    /usr/lib/libSystem.B.dylib <span class="o">(</span>compatibility version 1.0.0, current version 1197.1.1<span class="o">)</span>
 
-<span class="n">libb</span><span class="o">.</span><span class="n">dylib</span><span class="p">:</span>
-    <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
-    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libc</span><span class="o">++.</span><span class="mf">1.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">120.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
-    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libSystem</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">1197.1</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
+libb.dylib:
+    libb.dylib <span class="o">(</span>compatibility version 0.0.0, current version 0.0.0<span class="o">)</span>
+    liba.dylib <span class="o">(</span>compatibility version 0.0.0, current version 0.0.0<span class="o">)</span>
+    /usr/lib/libc++.1.dylib <span class="o">(</span>compatibility version 1.0.0, current version 120.0.0<span class="o">)</span>
+    /usr/lib/libSystem.B.dylib <span class="o">(</span>compatibility version 1.0.0, current version 1197.1.1<span class="o">)</span>
 </pre></div>
 </div>
 <p>Link another library against these libraries:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">clang</span><span class="o">++</span> <span class="o">-</span><span class="n">o</span> <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="o">-</span><span class="n">dynamiclib</span> <span class="n">c</span><span class="o">.</span><span class="n">o</span> <span class="o">-</span><span class="n">L</span><span class="o">.</span> <span class="o">-</span><span class="n">lb</span> <span class="o">-</span><span class="n">la</span>
-<span class="n">clang</span><span class="o">++</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span><span class="o">-</span><span class="n">lib</span> <span class="n">d</span><span class="o">.</span><span class="n">o</span> <span class="o">-</span><span class="n">L</span><span class="o">.</span> <span class="o">-</span><span class="n">lc</span>
-<span class="n">export</span> <span class="n">DYLD_PRINT_LIBRARIES</span><span class="o">=</span><span class="n">y</span>
-<span class="o">./</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
-<span class="n">unset</span> <span class="n">DYLD_PRINT_LIBRARIES</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>clang++ -o libc.dylib -dynamiclib c.o -L. -lb -la
+clang++ -o test-lib d.o -L. -lc
+<span class="nb">export</span> <span class="nv">DYLD_PRINT_LIBRARIES</span><span class="o">=</span>y
+./test-lib
+<span class="nb">unset</span> DYLD_PRINT_LIBRARIES
 </pre></div>
 </div>
 <p>This gives, among other output:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">mb312</span><span class="o">/</span><span class="n">dyldtest</span><span class="o">/./</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
-<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
-<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libc</span><span class="o">++.</span><span class="mf">1.</span><span class="n">dylib</span>
-<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libSystem</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">dylib</span>
-<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span>
-<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span>
-<span class="n">dyld</span><span class="p">:</span> <span class="n">loaded</span><span class="p">:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libc</span><span class="o">++</span><span class="n">abi</span><span class="o">.</span><span class="n">dylib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>dyld: loaded: /Users/mb312/dyldtest/./test-lib
+dyld: loaded: libc.dylib
+dyld: loaded: /usr/lib/libc++.1.dylib
+dyld: loaded: /usr/lib/libSystem.B.dylib
+dyld: loaded: libb.dylib
+dyld: loaded: liba.dylib
+dyld: loaded: /usr/lib/libc++abi.dylib
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></code> on <code class="docutils literal"><span class="pre">libc.dylib</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span><span class="p">:</span>
-    <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">0.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
-    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libc</span><span class="o">++.</span><span class="mf">1.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">120.0</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
-    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libSystem</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">dylib</span> <span class="p">(</span><span class="n">compatibility</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">current</span> <span class="n">version</span> <span class="mf">1197.1</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>libc.dylib:
+    libc.dylib <span class="o">(</span>compatibility version 0.0.0, current version 0.0.0<span class="o">)</span>
+    libb.dylib <span class="o">(</span>compatibility version 0.0.0, current version 0.0.0<span class="o">)</span>
+    liba.dylib <span class="o">(</span>compatibility version 0.0.0, current version 0.0.0<span class="o">)</span>
+    /usr/lib/libc++.1.dylib <span class="o">(</span>compatibility version 1.0.0, current version 120.0.0<span class="o">)</span>
+    /usr/lib/libSystem.B.dylib <span class="o">(</span>compatibility version 1.0.0, current version 1197.1.1<span class="o">)</span>
 </pre></div>
 </div>
 </div>
@@ -156,12 +156,12 @@ where to find the library.</li>
 <p>So far we&#8217;ve used library paths that are relative paths - in fact they are
 relative to the current directory from which we are executing our commands.</p>
 <p>We can try moving our library:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">a</span>
-<span class="n">mv</span> <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="n">a</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir a
+mv liba.dylib a
 </pre></div>
 </div>
 <p>Of course now our application fails:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>\$ ./test-lib
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\$</span> ./test-lib
 dyld: Library not loaded: liba.dylib
 Referenced from: /Users/mb312/dyldtest/libc.dylib
 Reason: image not found
@@ -170,28 +170,28 @@ Trace/BPT trap: 5
 </div>
 <p>From the <code class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></code> output above, we have to change the <code class="docutils literal"><span class="pre">install_name</span></code> in
 <code class="docutils literal"><span class="pre">libb.dylib</span></code>, and <code class="docutils literal"><span class="pre">libc.dylib</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span>
-<span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>install_name_tool -change liba.dylib a/liba.dylib libb.dylib
+install_name_tool -change liba.dylib a/liba.dylib libc.dylib
 </pre></div>
 </div>
 <p>Then, sure enough, <code class="docutils literal"><span class="pre">test-lib</span></code> works again:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>\$ ./test-lib
-c()
-b()
-a()
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\$</span> ./test-lib
+c<span class="o">()</span>
+b<span class="o">()</span>
+a<span class="o">()</span>
 </pre></div>
 </div>
 <p>Now move the other libraries to a new directory:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">libs</span>
-<span class="n">mv</span> <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libs</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir libs
+mv libb.dylib libc.dylib libs
 </pre></div>
 </div>
 <p>Obviously we first have to tell <code class="docutils literal"><span class="pre">test-lib</span></code> where <code class="docutils literal"><span class="pre">libc.dylib</span></code> went:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="n">test</span><span class="o">-</span><span class="n">lib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>install_name_tool -change libc.dylib libs/libc.dylib test-lib
 </pre></div>
 </div>
 <p>But - oh dear - now <code class="docutils literal"><span class="pre">libc.dylib</span></code> is confused:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>\$ ./test-lib
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\$</span> ./test-lib
 dyld: Library not loaded: libb.dylib
 Referenced from: /Users/mb312/dyldtest/libs/libc.dylib
 Reason: image not found
@@ -199,7 +199,7 @@ Trace/BPT trap: 5
 </pre></div>
 </div>
 <p>So we need to tell <code class="docutils literal"><span class="pre">libc.dylib</span></code> where <code class="docutils literal"><span class="pre">libb.dylib</span></code> is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libs</span><span class="o">/</span><span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>install_name_tool -change libb.dylib libs/libb.dylib libs/libc.dylib
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">test-lib</span></code> then runs OK.</p>
@@ -211,61 +211,61 @@ directory. That&#8217;s not satisfying because it means if we run our command fr
 anywhere but the current directory, the paths will be wrong.  <code class="docutils literal"><span class="pre">&#64;loader_path</span></code>
 is one way to fix this.  Here we tell <code class="docutils literal"><span class="pre">test-lib</span></code> that it should look for
 <code class="docutils literal"><span class="pre">libc.dylib</span></code> in the <code class="docutils literal"><span class="pre">lib</span></code> directory relative to itself:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@loader_path</span><span class="o">/</span><span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span> <span class="n">test</span><span class="o">-</span><span class="n">lib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>install_name_tool -change libs/libc.dylib @loader_path/libs/libc.dylib test-lib
 </pre></div>
 </div>
 <p>Note the use of <code class="docutils literal"><span class="pre">&#64;loader_path</span></code>.  This will be the directory containing the loading
 application or library - in our case the directory containing <code class="docutils literal"><span class="pre">test-lib</span></code>. We
 can do the same trick to tell <code class="docutils literal"><span class="pre">libc.dylib</span></code> where to find <code class="docutils literal"><span class="pre">libb.dylib</span></code>,
 relative to itself:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">libs</span><span class="o">/</span><span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@loader_path</span><span class="o">/</span><span class="n">libb</span><span class="o">.</span><span class="n">dylib</span> <span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>install_name_tool -change libs/libb.dylib @loader_path/libb.dylib libs/libc.dylib
 </pre></div>
 </div>
 <p>Note <code class="docutils literal"><span class="pre">&#64;loader_path</span></code> again.  See <a class="reference external" href="https://wincent.com/wiki/&#64;executable_path,_&#64;load_path_and_&#64;rpath">rpath etc</a> and <a class="reference external" href="https://www.mikeash.com/pyblog/friday-qa-2009-11-06-linking-and-install-names.html">linking and install
 names</a> for more explanation. In this case <code class="docutils literal"><span class="pre">&#64;loader_path</span></code> will be the path
 of <code class="docutils literal"><span class="pre">libc.dylib</span></code> - the library doing the loading of <code class="docutils literal"><span class="pre">libb.dylib</span></code>.  Now
 all&#8217;s good:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>\$ ./test-lib
-c()
-b()
-a()
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\$</span> ./test-lib
+c<span class="o">()</span>
+b<span class="o">()</span>
+a<span class="o">()</span>
 </pre></div>
 </div>
 <p>We wanted to make it possible to call our executable from any directory, so we
 try that:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">nice</span><span class="o">-</span><span class="n">place</span>
-<span class="n">cd</span> <span class="n">nice</span><span class="o">-</span><span class="n">place</span>
-<span class="o">../</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir nice-place
+<span class="nb">cd</span> nice-place
+../test-lib
 </pre></div>
 </div>
 <p>This gives:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dyld</span><span class="p">:</span> <span class="n">Library</span> <span class="ow">not</span> <span class="n">loaded</span><span class="p">:</span> <span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span>
-<span class="n">Referenced</span> <span class="n">from</span><span class="p">:</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">mb312</span><span class="o">/</span><span class="n">dyldtest</span><span class="o">/</span><span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
-<span class="n">Reason</span><span class="p">:</span> <span class="n">image</span> <span class="ow">not</span> <span class="n">found</span>
-<span class="n">Trace</span><span class="o">/</span><span class="n">BPT</span> <span class="n">trap</span><span class="p">:</span> <span class="mi">5</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>dyld: Library not loaded: a/liba.dylib
+Referenced from: /Users/mb312/dyldtest/libs/libc.dylib
+Reason: image not found
+Trace/BPT trap: 5
 </pre></div>
 </div>
 <p>Why?  Because <code class="docutils literal"><span class="pre">libc.dylib</span></code> is still looking for <code class="docutils literal"><span class="pre">liba.dylib</span></code> at
 <code class="docutils literal"><span class="pre">a/liba.dylib</span></code> &#8211; <em>starting at the current working directory</em>. How to fix?  Of
 course:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@loader_path</span><span class="o">/../</span><span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> \
-    <span class="o">../</span><span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
-<span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@loader_path</span><span class="o">/../</span><span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> \
-    <span class="o">../</span><span class="n">libs</span><span class="o">/</span><span class="n">libb</span><span class="o">.</span><span class="n">dylib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>install_name_tool -change a/liba.dylib @loader_path/../a/liba.dylib <span class="se">\</span>
+    ../libs/libc.dylib
+install_name_tool -change a/liba.dylib @loader_path/../a/liba.dylib <span class="se">\</span>
+    ../libs/libb.dylib
 </pre></div>
 </div>
 </div>
 <div class="section" id="rpath">
 <h2>&#64;rpath<a class="headerlink" href="#rpath" title="Permalink to this headline">¶</a></h2>
 <p>Another option is to use <code class="docutils literal"><span class="pre">&#64;rpath</span></code> &#8211; see <a class="reference external" href="https://wincent.com/wiki/&#64;executable_path,_&#64;load_path_and_&#64;rpath">rpath etc</a>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="nd">@loader_path</span><span class="o">/../</span><span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@rpath</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> \
-    <span class="o">../</span><span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
-<span class="n">install_name_tool</span> <span class="o">-</span><span class="n">change</span> <span class="nd">@loader_path</span><span class="o">/../</span><span class="n">a</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> <span class="nd">@rpath</span><span class="o">/</span><span class="n">liba</span><span class="o">.</span><span class="n">dylib</span> \
-    <span class="o">../</span><span class="n">libs</span><span class="o">/</span><span class="n">libb</span><span class="o">.</span><span class="n">dylib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>install_name_tool -change @loader_path/../a/liba.dylib @rpath/liba.dylib <span class="se">\</span>
+    ../libs/libc.dylib
+install_name_tool -change @loader_path/../a/liba.dylib @rpath/liba.dylib <span class="se">\</span>
+    ../libs/libb.dylib
 </pre></div>
 </div>
 <p>This won&#8217;t work yet because we haven&#8217;t told anything what <code class="docutils literal"><span class="pre">&#64;rpath</span></code> is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>\$ ../test-lib
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\$</span> ../test-lib
 dyld: Library not loaded: @rpath/liba.dylib
 Referenced from: /Users/mb312/dyldtest/libs/libc.dylib
 Reason: image not found
@@ -273,14 +273,14 @@ Trace/BPT trap: 5
 </pre></div>
 </div>
 <p>We can set <code class="docutils literal"><span class="pre">&#64;rpath</span></code> in our executable:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">install_name_tool</span> <span class="o">-</span><span class="n">add_rpath</span> <span class="nd">@loader_path</span><span class="o">/</span><span class="n">a</span> <span class="o">../</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>install_name_tool -add_rpath @loader_path/a ../test-lib
 </pre></div>
 </div>
 <p>That works.  Or in the libraries doing the loading:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># delete rpath we just set in executable</span>
-<span class="n">install_name_tool</span> <span class="o">-</span><span class="n">delete_rpath</span> <span class="nd">@loader_path</span><span class="o">/</span><span class="n">a</span> <span class="o">../</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># delete rpath we just set in executable</span>
+install_name_tool -delete_rpath @loader_path/a ../test-lib
 <span class="c1"># put into the library instead</span>
-<span class="n">install_name_tool</span> <span class="o">-</span><span class="n">add_rpath</span> <span class="nd">@loader_path</span><span class="o">/../</span><span class="n">a</span> <span class="o">../</span><span class="n">libs</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">dylib</span>
+install_name_tool -add_rpath @loader_path/../a ../libs/libc.dylib
 </pre></div>
 </div>
 <p>All good again.</p>
@@ -293,9 +293,9 @@ relative path and also an absolute system path.</p>
 <h2>&#64;loader_path and &#64;rpath make code relocatable<a class="headerlink" href="#loader-path-and-rpath-make-code-relocatable" title="Permalink to this headline">¶</a></h2>
 <p>Now notice this entire stack is relocatable (and has been since we started using
 <code class="docutils literal"><span class="pre">&#64;loader_path</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span>
-<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">dyldtest</span> <span class="n">dyldtest2</span>
-<span class="o">./</span><span class="n">dyldtest2</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">lib</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span>
+cp -r dyldtest dyldtest2
+./dyldtest2/test-lib
 </pre></div>
 </div>
 <p>All is still good.  You are ready for great things related to OSX run-time

@@ -81,19 +81,19 @@ directory with <code class="docutils literal"><span class="pre">/bin</span></cod
 </li>
 <li><p class="first">Install personal setup.  This is what that looks like for me (I store my set
 up on github to make it easier to move between computers):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">matthew</span><span class="o">-</span><span class="n">brett</span><span class="o">/</span><span class="n">myconfig</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">myconfig</span>
-<span class="n">make</span> <span class="n">dotfiles</span>
-<span class="n">cd</span> <span class="o">..</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/matthew-brett/myconfig.git
+<span class="nb">cd</span> myconfig
+make dotfiles
+<span class="nb">cd</span> ..
 </pre></div>
 </div>
 <p>I then edit <code class="docutils literal"><span class="pre">~/.bash_profile</span></code> to add the commented lines at the top of
 your new <code class="docutils literal"><span class="pre">~/.bash_personal</span></code> file.  Finally I set up my configuration of
 <code class="docutils literal"><span class="pre">vim</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">matthew</span><span class="o">-</span><span class="n">brett</span><span class="o">/</span><span class="n">myvim</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">myvim</span>
-<span class="n">make</span>
-<span class="n">make</span> <span class="n">links</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/matthew-brett/myvim.git
+<span class="nb">cd</span> myvim
+make
+make links
 </pre></div>
 </div>
 </li>
@@ -102,24 +102,24 @@ your new <code class="docutils literal"><span class="pre">~/.bash_personal</span
 </li>
 <li><p class="first">If you are using my config (above), you probably want my default environment
 cleanup for virtualenvs:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">myconfig</span>
-<span class="n">make</span> <span class="n">virtualenvs</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> myconfig
+make virtualenvs
 </pre></div>
 </div>
 </li>
 <li><p class="first">Make some good virtualenvs, with commands like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkvirtualenv</span> <span class="o">--</span><span class="n">python</span><span class="o">=/</span><span class="n">Library</span><span class="o">/</span><span class="n">Frameworks</span><span class="o">/</span><span class="n">Python</span><span class="o">.</span><span class="n">framework</span><span class="o">/</span><span class="n">Versions</span><span class="o">/</span><span class="mf">2.7</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span> <span class="n">python27</span>
-<span class="n">mkvirtualenv</span> <span class="o">--</span><span class="n">python</span><span class="o">=/</span><span class="n">Library</span><span class="o">/</span><span class="n">Frameworks</span><span class="o">/</span><span class="n">Python</span><span class="o">.</span><span class="n">framework</span><span class="o">/</span><span class="n">Versions</span><span class="o">/</span><span class="mf">3.6</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="n">python36</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkvirtualenv --python<span class="o">=</span>/Library/Frameworks/Python.framework/Versions/2.7/bin/python python27
+mkvirtualenv --python<span class="o">=</span>/Library/Frameworks/Python.framework/Versions/3.6/bin/python3 python36
 </pre></div>
 </div>
 </li>
 <li><p class="first">For each virtualenv you&#8217;re going to use (to taste):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workon</span> <span class="n">python36</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">ipython</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>workon python36
+pip install ipython
 </pre></div>
 </div>
 <p>Maybe also install useful development tools:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">cython</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>pip install cython
 </pre></div>
 </div>
 </li>

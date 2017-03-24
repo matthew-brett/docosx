@@ -198,10 +198,10 @@ online</a>).</p>
 <h3>The EFI system partition on Mac<a class="headerlink" href="#the-efi-system-partition-on-mac" title="Permalink to this headline">¶</a></h3>
 <p>The Mac does indeed have an EFI partition, but it doesn&#8217;t use it for booting. On
 my laptop:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>\$ diskutil list
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\$</span> diskutil list
 
 /dev/disk0
-#:                       TYPE NAME                    SIZE       IDENTIFIER
+<span class="c1">#:                       TYPE NAME                    SIZE       IDENTIFIER</span>
 0:      GUID_partition_scheme                        *121.3 GB   disk0
 1:                        EFI EFI                     209.7 MB   disk0s1
 2:                  Apple_HFS Macintosh HD            120.5 GB   disk0s2
@@ -211,17 +211,17 @@ my laptop:</p>
 <p>We can mount the EFI partition, but it hasn&#8217;t got any defined BOOTable EFI
 programs.  (Please be careful, you can mess up your system by writing into the
 EFI partition):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>\$ diskutil mount /dev/disk0s1
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\$</span> diskutil mount /dev/disk0s1
 
 Volume EFI on /dev/disk0s1 mounted
 
-\$ ls /Volumes/EFI/EFI/
+<span class="se">\$</span> ls /Volumes/EFI/EFI/
 
 APPLE
 </pre></div>
 </div>
 <p>Unmount the file system to avoid accidental damage:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>\$ diskutil unmount /Volumes/EFI
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\$</span> diskutil unmount /Volumes/EFI
 
 Volume EFI on disk0s1 unmounted
 </pre></div>
