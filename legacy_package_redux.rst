@@ -2,7 +2,7 @@
 OSX legacy packaging redux
 ##########################
 
-This is a summary of the information on older (buundle-type) OSX installers in
+This is a summary of the information on older (bundle-type) OSX installers in
 the `software delivery legacy guide`_.
 
 This redux might help reading the original document, because I found the
@@ -34,7 +34,7 @@ archives.  There are two types of packages in this new world of flat:
 * flat *product archives* (built by the ``productbuild`` utility).  These
   contain component packages, but can customize the install experience with a
   XML  `Distribution definition file`_ called ``Distribution``. The
-  ``Distribution`` file may contain javascript code for checking installation
+  ``Distribution`` file may contain Javascript code for checking installation
   requirements and customizing install options.
 
 See :doc:`flat_packages` for details.
@@ -104,7 +104,7 @@ component. A component package:
   ``Archive.pax.gz``, ``Info.plist``, ``PkgInfo``, and directory
   ``Resources``.
 
-This is one ``.pkg`` compoenent bundle from the Python.org installer:
+This is one ``.pkg`` component bundle from the Python.org installer:
 
 .. _python-unix-tools-image:
 
@@ -143,7 +143,7 @@ A distribution package:
 
 * has a ``.mpkg`` directory extension for the package bundle;
 * installs on OSX 10.4 or later;
-* can customize install messages and options using XML elements and javascript
+* can customize install messages and options using XML elements and Javascript
   code in the ``distribution.dist`` file.
 * has a bundle structure where the ``.mpkg`` directory contains a top-level
   ``Contents`` directory, which in turn contains file ``description.dist``,
@@ -240,7 +240,7 @@ How the package types implement the install
 *******************************************
 
 Component packages, metapackages and distribution packages differ in their
-behaior when isntalling. They differ in the way they implement requirement
+behavior when installing. They differ in the way they implement requirement
 checks and which operation executables they run.
 
 Component package
@@ -319,15 +319,15 @@ other distribution packages.
 Requirements check
 ------------------
 
-Distribution packages implement their requirement checks with javascript code
+Distribution packages implement their requirement checks with Javascript code
 embedded in an XML file called ``distribution.dist``.  This file can contain
-javascript code for checking whether the system is suitable for the install
+Javascript code for checking whether the system is suitable for the install
 (the *Installation Check script*) and code for checking whether a volume is
 suitable for install (the *Volume Check script*).  The requirements check
 process is therefore:
 
-* Run Installation Check javascript.
-* Run Volume Check javascript on every volume.
+* Run Installation Check Javascript.
+* Run Volume Check Javascript on every volume.
 
 Pre-post operations
 -------------------
