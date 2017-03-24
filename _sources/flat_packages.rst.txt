@@ -388,9 +388,9 @@ install configuration that includes:
 
 * custom welcome, readme, license and conclusion screens;
 * custom system requirement and volume requirement checks with informative
-  error messages using javascript code;
+  error messages using Javascript code;
 * ability to customize choices of component packages to install using
-  javascript code.
+  Javascript code.
 
 An XML file named ``Distribution`` specifies these options (see `distribution
 definition file`_).
@@ -487,7 +487,7 @@ give paths to find ``.pkg`` files with the ``--package-path`` flag.
 Customizing the ``Distribution`` file
 *************************************
 
-See: `distribution definition file`_ and `installer javascript reference`_.
+See: `distribution definition file`_ and `installer Javascript reference`_.
 
 Adding system and volume checks
 ===============================
@@ -564,10 +564,10 @@ Now make the volume check fail:
 The volume check gets run on every candidate volume; each volume that passes
 the check is eligible for the install.
 
-Debugging ``Distribution`` javascript with ``system.log``
+Debugging ``Distribution`` Javascript with ``system.log``
 =========================================================
 
-Getting the javascript right can be tricky because it is running in a highly
+Getting the Javascript right can be tricky because it is running in a highly
 specific environment.  ``system.log()`` can help.
 
 .. pkgwrite::
@@ -621,7 +621,7 @@ Use the ``-dumplog`` flag to the installer to see the log.
 Adding custom script checks
 ===========================
 
-You can add custom executable scripts or binaries to run via the javascript
+You can add custom executable scripts or binaries to run via the Javascript
 functions such as the volume check and the system check.
 
 You first have to enable the ``allow-external-scripts`` option in the
@@ -632,7 +632,7 @@ Distribution file XML::
 This will cause the installer GUI to ask if you want to allow an external
 script to check if the software can be installed.
 
-You can then call external programs via the javascript ``system.run()``
+You can then call external programs via the Javascript ``system.run()``
 function.  The programs you call with ``system.run`` either need to be on the
 system PATH that the installer uses, or provided in the installer, usually via
 the ``--scripts`` flag to ``productbuild``.  Here's an example of a command

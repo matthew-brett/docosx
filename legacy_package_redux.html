@@ -54,7 +54,7 @@
             
   <div class="section" id="osx-legacy-packaging-redux">
 <h1>OSX legacy packaging redux<a class="headerlink" href="#osx-legacy-packaging-redux" title="Permalink to this headline">¶</a></h1>
-<p>This is a summary of the information on older (buundle-type) OSX installers in
+<p>This is a summary of the information on older (bundle-type) OSX installers in
 the <a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy guide</a>.</p>
 <p>This redux might help reading the original document, because I found the
 original hard to digest.</p>
@@ -82,7 +82,7 @@ archives.  There are two types of packages in this new world of flat:</p>
 <li>flat <em>product archives</em> (built by the <code class="docutils literal"><span class="pre">productbuild</span></code> utility).  These
 contain component packages, but can customize the install experience with a
 XML  <a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1">Distribution definition file</a> called <code class="docutils literal"><span class="pre">Distribution</span></code>. The
-<code class="docutils literal"><span class="pre">Distribution</span></code> file may contain javascript code for checking installation
+<code class="docutils literal"><span class="pre">Distribution</span></code> file may contain Javascript code for checking installation
 requirements and customizing install options.</li>
 </ul>
 <p>See <a class="reference internal" href="flat_packages.html"><span class="doc">OSX flat packages</span></a> for details.</p>
@@ -140,7 +140,7 @@ particular location on disk;</li>
 <code class="docutils literal"><span class="pre">Archive.pax.gz</span></code>, <code class="docutils literal"><span class="pre">Info.plist</span></code>, <code class="docutils literal"><span class="pre">PkgInfo</span></code>, and directory
 <code class="docutils literal"><span class="pre">Resources</span></code>.</li>
 </ul>
-<p>This is one <code class="docutils literal"><span class="pre">.pkg</span></code> compoenent bundle from the Python.org installer:</p>
+<p>This is one <code class="docutils literal"><span class="pre">.pkg</span></code> component bundle from the Python.org installer:</p>
 <img alt="_images/python_unix_tools.png" id="python-unix-tools-image" src="_images/python_unix_tools.png" />
 </div>
 <div class="section" id="multi-component-packages">
@@ -170,7 +170,7 @@ here.</p>
 <ul class="simple">
 <li>has a <code class="docutils literal"><span class="pre">.mpkg</span></code> directory extension for the package bundle;</li>
 <li>installs on OSX 10.4 or later;</li>
-<li>can customize install messages and options using XML elements and javascript
+<li>can customize install messages and options using XML elements and Javascript
 code in the <code class="docutils literal"><span class="pre">distribution.dist</span></code> file.</li>
 <li>has a bundle structure where the <code class="docutils literal"><span class="pre">.mpkg</span></code> directory contains a top-level
 <code class="docutils literal"><span class="pre">Contents</span></code> directory, which in turn contains file <code class="docutils literal"><span class="pre">description.dist</span></code>,
@@ -252,7 +252,7 @@ set.</p>
 <div class="section" id="how-the-package-types-implement-the-install">
 <h2>How the package types implement the install<a class="headerlink" href="#how-the-package-types-implement-the-install" title="Permalink to this headline">¶</a></h2>
 <p>Component packages, metapackages and distribution packages differ in their
-behaior when isntalling. They differ in the way they implement requirement
+behavior when installing. They differ in the way they implement requirement
 checks and which operation executables they run.</p>
 <div class="section" id="id3">
 <h3>Component package<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
@@ -324,15 +324,15 @@ executables:</p>
 other distribution packages.</p>
 <div class="section" id="id8">
 <h4>Requirements check<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
-<p>Distribution packages implement their requirement checks with javascript code
+<p>Distribution packages implement their requirement checks with Javascript code
 embedded in an XML file called <code class="docutils literal"><span class="pre">distribution.dist</span></code>.  This file can contain
-javascript code for checking whether the system is suitable for the install
+Javascript code for checking whether the system is suitable for the install
 (the <em>Installation Check script</em>) and code for checking whether a volume is
 suitable for install (the <em>Volume Check script</em>).  The requirements check
 process is therefore:</p>
 <ul class="simple">
-<li>Run Installation Check javascript.</li>
-<li>Run Volume Check javascript on every volume.</li>
+<li>Run Installation Check Javascript.</li>
+<li>Run Volume Check Javascript on every volume.</li>
 </ul>
 </div>
 <div class="section" id="id9">
