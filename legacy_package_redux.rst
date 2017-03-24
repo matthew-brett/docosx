@@ -30,13 +30,12 @@ In the new world (OSX 10.5 and above), the standard package formats are
 *flat*, meaning that the packages are archived up into single file ``xar``
 archives.  There are two types of packages in this new world of flat:
 
-* flat *component packages* (built by ``pkgbuild`` utility) (see `flat package
-  format`_, `unpacking flat packages`_ and the ``pkgbuild`` man page).
-* flat *product archives* (built by the ``productbuild`` utility) (see the
-  ``productbuild`` man page).  These contain component packages, but can
-  customize the install experience with a XML  `Distribution definition file`_
-  called ``Distribution``. The ``Distribution`` file may contain javascript
-  code for checking installation requirements and customizing install options.
+* flat *component packages* (built by ``pkgbuild`` utility);
+* flat *product archives* (built by the ``productbuild`` utility).  These
+  contain component packages, but can customize the install experience with a
+  XML  `Distribution definition file`_ called ``Distribution``. The
+  ``Distribution`` file may contain javascript code for checking installation
+  requirements and customizing install options.
 
 See :doc:`flat_packages` for details.
 
@@ -190,7 +189,8 @@ Steps in an install
 * Requirements check : the installer checks if the system and target
   installation volumes meet any requirements for the install
 * Preinstall : installer runs pre-flight and pre-install / pre-upgrade
-  operations; these may cancel the install.
+  operations; these may cancel the install by returning an exit code other
+  than 0;
 * Install / payload drop: installer copies payload(s) to target volume
 * Save receipt : "Installer copies the component package file (with its
   payload stripped) to the ``/Library/Receipts`` directory in the installation
@@ -292,11 +292,11 @@ I will call the containing metapackage the "top metapackage".
 Requirements check
 ------------------
 
-* ``InstallationCheck`` for each component package.
+* ``InstallationCheck`` for each component package;
 * ``VolumeCheck`` for each component package and each available volume.
 
-The metapackage cannot implement its own installation or volume requirement
-checking, and only uses the checks of the component packages.
+The top metapackage cannot specify its own ``InstallationCheck`` or
+``VolumeCheck``.
 
 Pre-post operations
 -------------------
