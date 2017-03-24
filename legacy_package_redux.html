@@ -78,13 +78,12 @@ guide, and this document.  Newer OSX will still install from these packages.</p>
 <em>flat</em>, meaning that the packages are archived up into single file <code class="docutils literal"><span class="pre">xar</span></code>
 archives.  There are two types of packages in this new world of flat:</p>
 <ul class="simple">
-<li>flat <em>component packages</em> (built by <code class="docutils literal"><span class="pre">pkgbuild</span></code> utility) (see <a class="reference external" href="http://s.sudre.free.fr/Stuff/Ivanhoe/FLAT.html">flat package
-format</a>, <a class="reference external" href="http://ilostmynotes.blogspot.com/2012/06/mac-os-x-pkg-bom-files-package.html">unpacking flat packages</a> and the <code class="docutils literal"><span class="pre">pkgbuild</span></code> man page).</li>
-<li>flat <em>product archives</em> (built by the <code class="docutils literal"><span class="pre">productbuild</span></code> utility) (see the
-<code class="docutils literal"><span class="pre">productbuild</span></code> man page).  These contain component packages, but can
-customize the install experience with a XML  <a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1">Distribution definition file</a>
-called <code class="docutils literal"><span class="pre">Distribution</span></code>. The <code class="docutils literal"><span class="pre">Distribution</span></code> file may contain javascript
-code for checking installation requirements and customizing install options.</li>
+<li>flat <em>component packages</em> (built by <code class="docutils literal"><span class="pre">pkgbuild</span></code> utility);</li>
+<li>flat <em>product archives</em> (built by the <code class="docutils literal"><span class="pre">productbuild</span></code> utility).  These
+contain component packages, but can customize the install experience with a
+XML  <a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1">Distribution definition file</a> called <code class="docutils literal"><span class="pre">Distribution</span></code>. The
+<code class="docutils literal"><span class="pre">Distribution</span></code> file may contain javascript code for checking installation
+requirements and customizing install options.</li>
 </ul>
 <p>See <a class="reference internal" href="flat_packages.html"><span class="doc">OSX flat packages</span></a> for details.</p>
 <p>Now we forget about flat packages and go back to the world where all installer
@@ -211,7 +210,8 @@ post-install, post-upgrade, post-flight (see <a class="reference internal" href=
 <li>Requirements check : the installer checks if the system and target
 installation volumes meet any requirements for the install</li>
 <li>Preinstall : installer runs pre-flight and pre-install / pre-upgrade
-operations; these may cancel the install.</li>
+operations; these may cancel the install by returning an exit code other
+than 0;</li>
 <li>Install / payload drop: installer copies payload(s) to target volume</li>
 <li>Save receipt : &#8220;Installer copies the component package file (with its
 payload stripped) to the <code class="docutils literal"><span class="pre">/Library/Receipts</span></code> directory in the installation
@@ -298,11 +298,11 @@ executables:</p>
 <div class="section" id="id5">
 <h4>Requirements check<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">InstallationCheck</span></code> for each component package.</li>
+<li><code class="docutils literal"><span class="pre">InstallationCheck</span></code> for each component package;</li>
 <li><code class="docutils literal"><span class="pre">VolumeCheck</span></code> for each component package and each available volume.</li>
 </ul>
-<p>The metapackage cannot implement its own installation or volume requirement
-checking, and only uses the checks of the component packages.</p>
+<p>The top metapackage cannot specify its own <code class="docutils literal"><span class="pre">InstallationCheck</span></code> or
+<code class="docutils literal"><span class="pre">VolumeCheck</span></code>.</p>
 </div>
 <div class="section" id="id6">
 <h4>Pre-post operations<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
