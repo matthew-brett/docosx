@@ -755,7 +755,7 @@ the custom script:
     # file: archive_scripts/my_test_cmd.sh
     #!/bin/sh
     env > /tmp/my_custom_envs.log
-    echo "Positional arguments" \$@ >> /tmp/my_custom_envs.log
+    echo "Positional arguments" $@ >> /tmp/my_custom_envs.log
     exit 2
 
 The script must be executable:
