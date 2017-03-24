@@ -26,22 +26,57 @@ You may find these other pages useful as background:
 * A guide on `unpacking flat packages`_ manually;
 * A comprehensive `stackoverflow package building answer`_.
 
+*******************************
+About the examples on this page
+*******************************
+
+I wrote this page in reStructuredText (reST_) for Sphinx_, with some custom
+Sphinx extensions. The extensions pick up the code fragments in this page and
+run them on my laptop as part of the build process for the web pages.  They
+also write out the example files listed on this page.  The combination means
+that, at the time I last built the website, I confirmed that the code ran on
+my laptop, and gave the output you see here.
+
 ************************
 Flat packages in general
 ************************
 
+.. runblock::
+    :hide:
+
+    rm -rf pkg_examples
+    mkdir pkg_examples
+    sudo pkgutil --forget my.fake.pkg
+    sudo pkgutil --forget com.apple.xcode.dsym.aprogram
+    sudo pkgutil --forget com.apple.xcode.dsym.aprogram2
+    sudo rm -rf /tmp/my_*.log /tmp/dir1 /tmp/dir2 /tmp/aprogram*.dSYM
+
 Flat packages are ``xar`` archives (see the ``xar`` man page).
 
+.. pkgrun::
+    :hide:
+
+    pkgbuild --nopayload --identifier my.pkg my.pkg
+
 To see the contents of a flat package, the most convenient command is
-``pkgutil --expand``, as in::
+``pkgutil --expand``, as in:
+
+.. pkgrun::
 
     pkgutil --expand my.pkg an_output_dir
 
 This will unpack product archive (meta-packages) and their component packages,
 and allows you to futz with the directory contents in ``an_output_dir`` before
-reconstituting the package with::
+reconstituting the package with:
+
+.. pkgrun::
 
     pkgutil --flatten an_output_dir my.pkg
+
+.. runblock::
+    :hide:
+
+    rm -rf pkg_examples
 
 On OSX, ``tar`` will unpack xar archives, and will automatically detect that
 the archive is in xar format with ``tar xf my.pkg``, if you really want to do
@@ -80,15 +115,6 @@ to show how they work.
 
 Component installer scripts
 ===========================
-
-.. runblock::
-    :hide:
-
-    rm -rf pkg_examples
-    sudo pkgutil --forget my.fake.pkg
-    sudo pkgutil --forget com.apple.xcode.dsym.aprogram
-    sudo pkgutil --forget com.apple.xcode.dsym.aprogram2
-    sudo rm -rf /tmp/my_*.log /tmp/dir1 /tmp/dir2 /tmp/aprogram*.dSYM
 
 .. runblock::
 
@@ -142,6 +168,9 @@ Check the scripts ran by looking for output:
 .. pkgrun::
 
     cat /tmp/my_preinstall.log
+
+.. pkgrun::
+
     cat /tmp/my_postinstall.log
 
 Exit code other than zero causes the installer to give an error message:
@@ -154,9 +183,12 @@ Exit code other than zero causes the installer to give an error message:
     exit 1 # not so good
 
 .. pkgrun::
-    :allow-fail:
 
     pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
+
+.. pkgrun::
+    :allow-fail:
+
     sudo installer -pkg my_package.pkg -target /
 
 Fixed if the script is not run:
@@ -165,6 +197,9 @@ Fixed if the script is not run:
 
     rm scripts/postinstall
     pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
+
+.. pkgrun::
+
     sudo installer -pkg my_package.pkg -target /
 
 There are some useful environment variables available to the
@@ -188,6 +223,9 @@ There are some useful environment variables available to the
 
     chmod u+x scripts/preinstall
     pkgbuild --nopayload --scripts scripts --identifier my.fake.pkg my_package.pkg
+
+.. pkgrun::
+
     sudo installer -pkg my_package.pkg -target /
 
 Here are the new environment variables inserted by the installer:
@@ -258,6 +296,9 @@ Do the install:
 .. pkgrun::
 
     cat /tmp/dir1/file1
+
+.. pkgrun::
+
     cat /tmp/dir2/file2
 
 This install did write a package receipt:
@@ -331,6 +372,9 @@ because ``pkgbuild`` will not know which component to get an identifier from.
 .. pkgrun::
 
     tree /tmp/aprogram.dSYM
+
+.. pkgrun::
+
     tree /tmp/aprogram2.dSYM
 
 ***************
@@ -393,6 +437,9 @@ Make bundles into component packages:
 .. pkgrun::
 
     pkgbuild --component aprogram.dSYM --install-location /tmp aprogram.pkg
+
+.. pkgrun::
+
     pkgbuild --component aprogram2.dSYM --install-location /tmp aprogram2.pkg
 
 Build product archives from the component packages:
@@ -761,8 +808,8 @@ format of the file.  For example::
 
 The file should be in the ``Resources/<language>.lproj`` directory of the
 installer ``.pkg``, where ``<language>`` is a language like "English",
-"French" or "Spanish", or shorthand for these such as "en", "fr", "es".  Can
-you can provide a ``Resources`` directory with the ``--resources`` flag to
+"French" or "Spanish", or shorthand for these such as "en", "fr", "es".  You
+can provide a ``Resources`` directory with the ``--resources`` flag to
 ``productbuild``.
 
 .. pkgrun::

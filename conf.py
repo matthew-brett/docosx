@@ -198,3 +198,6 @@ latex_documents = [
 
 # If false, no module index is generated.
 #latex_use_modindex = True
+
+# Default to syntax highlighting with bash
+highlight_language = 'bash'

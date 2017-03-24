@@ -25,6 +25,9 @@
 .. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
 .. _nose: http://readthedocs.org/docs/nose/en/latest
 .. _nose-ipdb: https://github.com/flavioamieiro/nose-ipdb
+.. _sphinx: http://www.sphinx-doc.org
+.. _rest:
+.. _restructuredtext: http://docutils.sourceforge.net/rst.html
 
 .. Virtualenv and helpers
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv
