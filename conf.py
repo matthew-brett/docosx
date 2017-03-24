@@ -45,7 +45,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'docosx'
-copyright = u'2010-2014: Matthew Brett'
+copyright = u'2010-2017: Matthew Brett'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
